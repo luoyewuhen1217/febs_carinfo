@@ -43,10 +43,15 @@ public class CarInfoController extends BaseController {
     @Log("获取车辆信息")
     @RequestMapping("carInfo/list")
     @ResponseBody
-    public Map<String, Object> userList(QueryRequest request, CarInfo carInfo) {
-        PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<CarInfo> list = this.carInfoService.findAllCarInfos(carInfo);
-        PageInfo<CarInfo> pageInfo = new PageInfo<>(list);
+    public Map<String, Object> carInfoList(QueryRequest request, CarInfo carInfo) {
+        PageInfo<CarInfo> pageInfo = null;
+        try {
+            PageHelper.startPage(request.getPageNum(), request.getPageSize());
+            List<CarInfo> list = this.carInfoService.findAllCarInfos(carInfo);
+            pageInfo = new PageInfo<>(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return getDataTable(pageInfo);
     }
 //    @Log("获取车辆信息")

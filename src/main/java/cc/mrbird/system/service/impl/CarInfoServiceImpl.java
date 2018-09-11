@@ -28,6 +28,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
         try {
             Example example = new Example(CarInfo.class);
             Example.Criteria criteria = example.createCriteria();
+
             if (StringUtils.isNotBlank(carinfo.getVehicleType())) {
                 criteria.andCondition("vehicleType=", carinfo.getVehicleType());
             }
@@ -35,7 +36,20 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
                 criteria.andCondition("chassisTrademark=", Long.valueOf(carinfo.getChassisTrademark()));
             }
             if (StringUtils.isNotBlank(carinfo.getEngineType())) {
-                criteria.andCondition("engineType=", Long.valueOf(carinfo.getEngineType()));
+                criteria.andCondition("engineType like","%" + carinfo.getEngineType() + "%");
+            }
+            // 方量
+            if (carinfo.getSquareQuantity() != null) {
+                if (StringUtils.isNotBlank(carinfo.getSquareQuantity().toString())) {
+                    criteria.andCondition("squareQuantity=", carinfo.getSquareQuantity());
+                }
+            }
+
+            if (StringUtils.isNotBlank(carinfo.getRemark())) {
+                criteria.andCondition("remark like","%" + carinfo.getRemark() + "%");
+            }
+            if (StringUtils.isNotBlank(carinfo.getManufacturer())) {
+                criteria.andCondition("manufacturer like","%" + carinfo.getManufacturer() + "%");
             }
 //            if (StringUtils.isNotBlank(carinfo.getSquareQuantity().toString())) {
 //                criteria.andCondition("squareQuantity=", Long.valueOf(carinfo.getSquareQuantity().toString()));
