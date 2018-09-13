@@ -1,0 +1,113 @@
+<div class="card">
+    <div data-th-include="system/carInfo/carInfoAdd"></div>
+    <div class="card-block">
+        <div class="table-responsive">
+            <div id="data-table_wrapper" class="dataTables_wrapper">
+                <div class="dataTables_buttons hidden-sm-down actions">
+                    <span class="actions__item zmdi zmdi-search" onclick="search()" title="搜索" /> <span class="actions__item zmdi zmdi-refresh-alt" onclick="refresh()" title="刷新" />
+                    <div class="dropdown actions__item">
+                        <i data-toggle="dropdown" class="zmdi zmdi-download"> </i>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="excel" onclick="exportcarInfoExcel()">
+							Excel (.xlsx) </a>
+                            <a href="javascript:void(0)" class="dropdown-item" data-table-action="csv" onclick="exportcarInfoCsv()"> CSV
+							(.csv) </a>
+                        </ul>
+                    </div>
+                    <div class="dropdown actions__item" shiro:hasAnyPermissions="carInfo:add,carInfo:delete,carInfo:update">
+                    </div>
+
+                    <div class="dropdown actions__item" shiro:hasAnyPermissions="carInfo:add,carInfo:delete,carInfo:update">
+                        <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#carInfo-add" shiro:hasPermission="carInfo:add">新增车辆信息</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="updateUser()" shiro:hasPermission="carInfo:update">修改车辆信息</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteUsers()" shiro:hasPermission="carInfo:delete">删除车辆信息</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="data-table_filter" class="dataTables_filter">
+                    <form class="carInfo-table-form">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        车辆类型：
+                                    </span>
+                                    <select class="form-control" name="vehicleType">
+                                        <option value="" selected>所有</option>
+                                        <option value="1">油罐车</option>
+                                        <option value="2">洒水车</option>
+                                        <option value="3">冷藏车</option>
+                                        <option value="4">吸污车</option>
+                                        <option value="5">搅拌车</option>
+                                        <option value="6">吸粪车</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon"> 底盘品牌： </span>
+                                    <select class="form-control" name="chassisTrademark">
+                                        <option value="" selected>所有</option>
+                                        <option value="1">东风牌</option>
+                                        <option value="2">福田牌</option>
+                                        <option value="3">江淮牌</option>
+                                        <option value="4">江铃牌</option>
+                                        <option value="5">解放牌</option>
+                                        <option value="6">陕汽牌</option>
+                                        <option value="7">重汽牌</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon"> 发动机型号： </span>
+                                    <div class="form-group">
+                                        <input type="text" name="engineType" class="form-control"> <i class="form-group__bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        方量：
+                                    </span>
+                                    <div class="form-group">
+                                        <input type="text" name="squareQuantity" class="form-control"> <i class="form-group__bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon"> 备注： </span>
+                                    <div class="form-group">
+                                        <input type="text" name="remark" class="form-control"> <i class="form-group__bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon"> 生产厂家： </span>
+                                    <div class="form-group">
+                                        <input type="text" name="manufacturer" class="form-control"> <i class="form-group__bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <table id="carInfoTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app/system/carInfo/carInfo.js}"></script>
