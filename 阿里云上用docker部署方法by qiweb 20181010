@@ -1,0 +1,94 @@
+项目技术介绍：java springboot maven构建 jdk 1.8， 依赖redis和mysql
+下面是分别安装依赖服务，并部署启动web服务全过程
+
+xshell连接vps远程上服务器。
+安装jdk 配置环境变量省略
+安装上传下载工具
+yum install lrzsz
+安装端口占用查看工具
+netstat -nplt
+安装检查端口
+yum install telnet
+
+安装docker容器
+在线下载docker
+yum install -y epel-release
+
+yum install docker-io   # 安装docker
+
+chkconfig docker on     # 加入开机启动
+
+service docker start     # 启动docker服务
+--------------------- 
+
+
+yum docker
+拉取镜像
+docker pull redis
+docker pull mysql
+
+下载安装包
+redis-4.0.8.tar.gz
+
+执行解压命令：
+
+
+创建 redis容器随docker启动
+docker run --name qiweb-redis -p 6379:6379 -v /qiweb/docker/redis_data:/data -d redis redis-server --appendonly yes
+64fbc995854b3c113bca700f120bfb3aff11fdb556a51b7433525743ce71f00f
+
+创建mysql容器
+sudo docker run --name qiweb_mysql -p 12345:3306 -e MYSQL_ROOT_PASSWORD=12345678 -v /qiweb/docker/mysql_data:/var/lib/mysql -v /qiweb/docker/mysql_config:/etc/mysql/conf.d -d mysql --lower_case_table_names=1 --character-set-server=utf8
+
+停止容器
+docker stop mysql3
+删除容器
+docker rm mysql3 
+
+命令行链接mysql
+docker exec -it qiweb_mysql bash
+mysql -uroot -p
+create database carinfo;
+输入 quit退出命令行
+在执行上传初始化sql文件
+rz 上传carinfo。sql到/qiweb/docker/mysql_config目录实际上到dorcker容器中的/etc/mysql/conf.d/carinfo.sql对应
+导入：
+mysql -h 127.0.0.1 -u root -p carinfo < /etc/mysql/conf.d/carinfo.sql
+
+可以直接运行的的spring boot项目
+上传xx。jar
+
+编写脚本
+nohup语法：
+
+nohup 命令
+用途：不挂断地运行命令。
+语法：nohup Command [ Arg … ][ & ]
+所以只需要在启动命令前加上nohup命令，末尾加上&即可：nohup java -jar XX.jar &。
+
+为了方便，我们可以编写启动脚本start.sh：
+
+nohup java -jar XX.jar &
+关停脚本stop.sh：
+
+PID=`ps -ef | grep sms-2.0.jar | grep -v grep | awk '{print $2}'`
+if [ -z "$PID" ]
+then
+    echo Application is already stopped
+else
+    echo kill $PID
+    kill -9 $PID
+fi
+重启脚本run.sh：
+
+echo stop application
+source stop.sh
+echo start application
+source start.sh
+在编写shell脚本的过程中遇到了两个问题：
+
+执行.sh文件提示权限不足：
+
+解决办法：执行命令chmod u+x XX.sh赋予当前用于可执行的权限即可。
+授权
+chmod u+x *.sh
