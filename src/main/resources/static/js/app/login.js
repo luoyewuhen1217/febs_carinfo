@@ -88,8 +88,8 @@ function regist() {
     if (username === "") {
         $MB.n_warning("用户名不能为空！");
         return;
-    } else if (username.length > 10) {
-        $MB.n_warning("用户名长度不能超过10个字符！");
+    } else if (username.length > 20) {
+        $MB.n_warning("用户名长度不能超过20个字符！");
         return;
     } else if (username.length < 3) {
         $MB.n_warning("用户名长度不能少于3个字符！");
