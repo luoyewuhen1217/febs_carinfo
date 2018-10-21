@@ -17,6 +17,7 @@
                     <div class="dropdown actions__item" shiro:hasAnyPermissions="carInfo:add,carInfo:delete,carInfo:update">
                     </div>
 
+
                     <div class="dropdown actions__item" shiro:hasAnyPermissions="carInfo:add,carInfo:delete,carInfo:update">
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -36,12 +37,45 @@
                                     </span>
                                     <select class="form-control" name="vehicleType">
                                         <option value="" selected>所有</option>
-                                        <option value="1">油罐车</option>
+                                        <option value="0">油罐车</option>
+                                        <option value="1">供液车</option>
                                         <option value="2">洒水车</option>
                                         <option value="3">冷藏车</option>
                                         <option value="4">吸污车</option>
-                                        <option value="5">搅拌车</option>
-                                        <option value="6">吸粪车</option>
+                                        <option value="5">吸粪车</option>
+                                        <option value="6">清洗吸污车</option>
+                                        <option value="7">高空作业车</option>
+                                        <option value="8">垃圾车</option>
+                                        <option value="9">喷雾车-抑尘车</option>
+                                        <option value="10">易燃液体厢式车</option>
+                                        <option value="11">平板车</option>
+                                        <option value="12">随车吊</option>
+                                        <option value="13">搅拌车</option>
+                                        <option value="14">粉罐车</option>
+                                        <option value="15">防爆车</option>
+                                        <option value="16">清障车</option>
+                                        <option value="17">气瓶运输车</option>
+                                        <option value="18">广告宣传车</option>
+                                        <option value="19">售货车</option>
+                                        <option value="20">扫路车</option>
+                                        <option value="21">洗扫车</option>
+                                        <option value="22">吸尘车</option>
+                                        <option value="23">路面养护车</option>
+                                        <option value="24">护栏清洗车</option>
+                                        <option value="25">泵车</option>
+                                        <option value="26">救护车</option>
+                                        <option value="27">污水净化车</option>
+                                        <option value="28">污水处理车</option>
+                                        <option value="29">消防车</option>
+                                        <option value="30">房车</option>
+                                        <option value="31">仓栅车</option>
+                                        <option value="32">载货车</option>
+                                        <option value="33">升降平台车</option>
+                                        <option value="34">自卸车</option>
+                                        <option value="35">饲料车</option>
+                                        <option value="36">校车</option>
+                                        <option value="37">舞台车</option>
+                                        <option value="38">轿运车</option>
                                     </select>
                                 </div>
                             </div>
@@ -49,18 +83,12 @@
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon"> 底盘品牌： </span>
-                                    <select class="form-control" name="chassisTrademark">
-                                        <option value="" selected>所有</option>
-                                        <option value="1">东风牌</option>
-                                        <option value="2">福田牌</option>
-                                        <option value="3">江淮牌</option>
-                                        <option value="4">江铃牌</option>
-                                        <option value="5">解放牌</option>
-                                        <option value="6">陕汽牌</option>
-                                        <option value="7">重汽牌</option>
-                                    </select>
+                                    <div class="form-group">
+                                        <input type="text" name="chassisTrademark" class="form-control"> <i class="form-group__bar"></i>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <span class="input-group-addon"> 发动机型号： </span>

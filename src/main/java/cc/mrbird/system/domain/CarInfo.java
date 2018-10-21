@@ -41,7 +41,7 @@ public class CarInfo implements Serializable {
     private String engineType;
 
     @Column(name = "SQUAREQUANTITY")
-    @ExportConfig(value = "方量")
+    @ExportConfig(value = "方量/箱体长度/臂长")
     private BigDecimal squareQuantity;
 
     @Column(name = "NUMBER")
@@ -64,13 +64,13 @@ public class CarInfo implements Serializable {
     @ExportConfig(value = "备注（轴距，轮胎，等）")
     private String remark;
 
-    @Column(name = "CRATE_TIME")
-    @ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
-    private Date crateTime;
-
-    @Column(name = "MODIFY_TIME")
-    @ExportConfig(value = "修改时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
-    private Date modifyTime;
+//    @Column(name = "CRATE_TIME")
+//    @ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+//    private Date crateTime;
+//
+//    @Column(name = "MODIFY_TIME")
+//    @ExportConfig(value = "修改时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+//    private Date modifyTime;
 
     @Column(name = "MANUFACTURER")
     @ExportConfig(value = "生产厂家")
@@ -90,7 +90,49 @@ public class CarInfo implements Serializable {
 
     @Column(name = "PRICE")
     @ExportConfig(value = "售价")
-    private BigDecimal price;
+    private String price;
+
+    // 清洗吸污车  污水罐体容积（m³）
+    @Column(name = "VOLUME1")
+    @ExportConfig(value = "污水罐体容积（m³）")
+    private String volume1;
+
+    // 清洗吸污车  清水罐体容积（m³）
+    @Column(name = "VOLUME2")
+    @ExportConfig(value = "清水罐体容积（m³）")
+    private String volume2;
+
+    // 易燃液体厢式车 整车尺寸/吨位
+    @Column(name = "VEHICLESIZE")
+    @ExportConfig(value = "整车尺寸/吨位")
+    private String vehicleSize;
+
+
+    //  易燃液体厢式车 箱体尺寸
+    @Column(name = "DIMENSION")
+    @ExportConfig(value = "箱体尺寸（m³）")
+    private String dimension;
+
+    // 扫路车 水方
+    @Column(name = "WATERSIDE")
+    @ExportConfig(value = "水方")
+    private String waterSide;
+
+    // 扫路车 尘方 Dusts
+    @Column(name = "DUSTS")
+    @ExportConfig(value = "尘方")
+    private String dusts;
+
+    // 扫路车 作业宽度
+    @Column(name = "JOBWIDTH")
+    @ExportConfig(value = "作业宽度")
+    private String jobWidth;
+
+    // 泵长
+    @Column(name = "PUMPLENGTH")
+    @ExportConfig(value = "泵长")
+    private String pumpLength;
+
 
     public Long getCarId() {
         return carId;
@@ -156,22 +198,6 @@ public class CarInfo implements Serializable {
         this.remark = remark;
     }
 
-    public Date getCrateTime() {
-        return crateTime;
-    }
-
-    public void setCrateTime(Date crateTime) {
-        this.crateTime = crateTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
     public String getManufacturer() {
         return manufacturer;
     }
@@ -204,32 +230,83 @@ public class CarInfo implements Serializable {
         this.address = address;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getVolume1() {
+        return volume1;
+    }
+
+    public void setVolume1(String volume1) {
+        this.volume1 = volume1;
+    }
+
+    public String getVolume2() {
+        return volume2;
+    }
+
+    public void setVolume2(String volume2) {
+        this.volume2 = volume2;
+    }
+
+    public String getVehicleSize() {
+        return vehicleSize;
+    }
+
+    public void setVehicleSize(String vehicleSize) {
+        this.vehicleSize = vehicleSize;
+    }
+
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
+    }
+
+    public String getWaterSide() {
+        return waterSide;
+    }
+
+    public void setWaterSide(String waterSide) {
+        this.waterSide = waterSide;
+    }
+
+    public String getDusts() {
+        return dusts;
+    }
+
+    public void setDusts(String dusts) {
+        this.dusts = dusts;
+    }
+
+    public String getJobWidth() {
+        return jobWidth;
+    }
+
+    public void setJobWidth(String jobWidth) {
+        this.jobWidth = jobWidth;
+    }
+
+    public String getPumpLength() {
+        return pumpLength;
+    }
+
+    public void setPumpLength(String pumpLength) {
+        this.pumpLength = pumpLength;
     }
 
     @Override
     public String toString() {
-        return "CarInfo{" +
-                "carId=" + carId +
-                ", vehicleType='" + vehicleType + '\'' +
-                ", chassisTrademark='" + chassisTrademark + '\'' +
-                ", engineType='" + engineType + '\'' +
-                ", squareQuantity=" + squareQuantity +
-                ", number=" + number +
-                ", emissionStandard='" + emissionStandard + '\'' +
-                ", remark='" + remark + '\'' +
-                ", crateTime=" + crateTime +
-                ", modifyTime=" + modifyTime +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", contacts='" + contacts + '\'' +
-                ", tel='" + tel + '\'' +
-                ", address='" + address + '\'' +
-                ", price=" + price +
-                '}';
+        return "CarInfo{" + "carId=" + carId + ", vehicleType='" + vehicleType + '\'' + ", chassisTrademark='" + chassisTrademark + '\'' + ", engineType='" + engineType + '\'' + ", squareQuantity=" + squareQuantity + ", number=" + number + ", emissionStandard='" + emissionStandard + '\'' + ", remark='" + remark + '\'' + ", manufacturer='" + manufacturer + '\'' + ", contacts='" + contacts + '\'' + ", tel='" + tel + '\'' + ", address='" + address + '\'' + ", price='" + price + '\'' + ", volume1='" + volume1 + '\'' + ", volume2='" + volume2 + '\'' + ", vehicleSize='" + vehicleSize + '\'' + ", dimension='" + dimension + '\'' + ", waterSide='" + waterSide + '\'' + ", dusts='" + dusts + '\'' + ", jobWidth='" + jobWidth + '\'' + ", pumpLength='" + pumpLength + '\'' + '}';
     }
 }
+
+
+
