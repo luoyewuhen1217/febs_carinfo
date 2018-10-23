@@ -8,7 +8,7 @@ $(function () {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
                 vehicleType: $carInfoTableForm.find("select[name='vehicleType']").val(),
-                chassisTrademark: $carInfoTableForm.find("select[name='chassisTrademark']").val(),
+                chassisTrademark: $carInfoTableForm.find("input[name='chassisTrademark']").val(),
                 engineType: $carInfoTableForm.find("input[name='engineType']").val().trim(),
                 squareQuantity: $carInfoTableForm.find("input[name='squareQuantity']").val(),
                 remark: $carInfoTableForm.find("input[name='remark']").val(),
@@ -73,7 +73,31 @@ $(function () {
             title: '发动机型号'
         }, {
             field: 'squareQuantity',
-            title: '方量'
+            title: '方量/箱体长度（米）/臂长'
+        }, {
+            field: 'volume1',
+            title: '污水罐体容积（m³）'
+        }, {
+            field: 'volume2',
+            title: '清水罐体容积（m³）'
+        }, {
+            field: 'vehiclesize',
+            title: '整车尺寸/吨位'
+        }, {
+            field: 'dimension',
+            title: '箱体尺寸'
+        }, {
+            field: 'waterside',
+            title: '水方'
+        }, {
+            field: 'dusts',
+            title: '尘方'
+        }, {
+            field: 'jobwidth',
+            title: '作业宽度'
+        }, {
+            field: 'pumplength',
+            title: '泵长'
         }, {
             field: 'number',
             title: '数量'
@@ -83,12 +107,6 @@ $(function () {
         }, {
             field: 'remark',
             title: '备注（轴距，轮胎等）'
-        }, {
-            field: 'crateTime',
-            title: '创建时间'
-        }, {
-            field: 'modifyTime',
-            title: '修改时间'
         }, {
             field: 'manufacturer',
             title: '生产厂家'
@@ -103,7 +121,7 @@ $(function () {
             title: '联系地址'
         }, {
             field: 'price',
-            title: '售价'
+            title: '售价/万'
         }
         ]
     };
