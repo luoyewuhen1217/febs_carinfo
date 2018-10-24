@@ -1,4 +1,4 @@
-function updateUser() {
+function updateCarInfo() {
     var selected = $("#carInfoTable").bootstrapTable('getSelections');
     var selected_length = selected.length;
     if (!selected_length) {
@@ -20,10 +20,12 @@ function updateUser() {
             $form.find("input[name='chassisTrademark']").val(carInfo.chassisTrademark);
             $form.find("input[name='engineType']").val(carInfo.engineType);
             $form.find("input[name='squareQuantity']").val(carInfo.squareQuantity);
+            $form.find("input[name='number']").val(carInfo.number);
+            $form.find("input[name='emissionstandard']").val(carInfo.emissionstandard);
             $form.find("input[name='remark']").val(carInfo.remark);
             $form.find("input[name='manufacturer']").val(carInfo.manufacturer);
-            $form.find("input[name='number']").val(carInfo.mobile);
-            $form.find("input[name='number']").val(carInfo.mobile);
+            $form.find("input[name='contacts']").val(carInfo.contacts);
+            $form.find("input[name='tel']").val(carInfo.tel);
             $form.find("input[name='number']").val(carInfo.mobile);
 
             var roleArr = [];
