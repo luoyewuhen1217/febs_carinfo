@@ -10,7 +10,7 @@ spring:
       driverClassName: com.mysql.jdbc.Driver
       url: jdbc:mysql://127.0.0.1:3306/carinfo?useUnicode=true&characterEncoding=utf8
       username: root
-      password: 123456_qA
+      password:123456_qA
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -105,8 +105,8 @@ spring:
 
 info:
   app:
-    name: "febs"
-    description: "spring boot&shiro 权限管理系统"
+    name: "尚亿"
+    description: "spring boot&shiro 随州市尚亿专用现车查询系统"
     version: "2.0"
     spring-boot-version: "2.0.4.RELEASE"
 
