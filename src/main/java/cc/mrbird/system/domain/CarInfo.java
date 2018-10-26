@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "t_carInfo")
@@ -42,7 +41,7 @@ public class CarInfo implements Serializable {
 
     @Column(name = "SQUAREQUANTITY")
     @ExportConfig(value = "方量/箱体长度/臂长")
-    private BigDecimal squareQuantity;
+    private String squareQuantity;
 
     @Column(name = "NUMBER")
     @ExportConfig(value = "数量")
@@ -166,11 +165,11 @@ public class CarInfo implements Serializable {
         this.engineType = engineType;
     }
 
-    public BigDecimal getSquareQuantity() {
+    public String getSquareQuantity() {
         return squareQuantity;
     }
 
-    public void setSquareQuantity(BigDecimal squareQuantity) {
+    public void setSquareQuantity(String squareQuantity) {
         this.squareQuantity = squareQuantity;
     }
 

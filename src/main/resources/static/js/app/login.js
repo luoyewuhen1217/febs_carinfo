@@ -129,6 +129,18 @@ function regist() {
     });
 }
 
+function showRegist() {
+    var $formPanelTwo = $('.form-panel.two');
+    var panelTwo = $formPanelTwo[0].scrollHeight;
+
+    $('.form-toggle').addClass('visible');
+    $('.form-panel.one').addClass('hidden');
+    $('.form-panel.two').addClass('active');
+    $('.form').animate({
+        'height': panelTwo
+    }, 200);
+}
+
 document.onkeyup = function (e) {
     if (window.event)
         e = window.event;

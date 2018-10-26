@@ -13531,4 +13531,26 @@ select {
 .form-control {
 	color: #464a4c;
 }
+
+.not-registered {
+  position:absolute;
+  color:#32c787;
+  font-weight:bold;
+  font-size:13px;
+  top:calc(100% + 5px);
+  background-color:rgb(255,255,255);
+  width:350px;
+  height:46px;
+  margin:0 auto;
+  line-height:46px;
+  text-align: center;
+  <!--box-shadow:0 3px 3px rgba(21,62,78,0.8);-->
+}
+.not-registered a {
+  margin-left:5px;
+  text-decoration: none;
+  color:rgb(52,119,182);
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=app.css.map */
