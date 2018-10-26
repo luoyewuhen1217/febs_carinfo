@@ -33,7 +33,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
                 criteria.andCondition("vehicleType=", carinfo.getVehicleType());
             }
             if (StringUtils.isNotBlank(carinfo.getChassisTrademark())) {
-                criteria.andCondition("chassisTrademark=", Long.valueOf(carinfo.getChassisTrademark()));
+                criteria.andCondition("chassisTrademark like","%" + carinfo.getChassisTrademark() + "%");
             }
             if (StringUtils.isNotBlank(carinfo.getEngineType())) {
                 criteria.andCondition("engineType like","%" + carinfo.getEngineType() + "%");

@@ -85,6 +85,11 @@ function regist() {
     var username = $(".two input[name='username']").val().trim();
     var password = $(".two input[name='password']").val().trim();
     var cpassword = $(".two input[name='cpassword']").val().trim();
+
+    if(!(/^1\d{10}$/.test(username))){
+        $MB.n_warning("用户名必须为手机号！");
+        return ;
+    }
     if (username === "") {
         $MB.n_warning("用户名不能为空！");
         return;
