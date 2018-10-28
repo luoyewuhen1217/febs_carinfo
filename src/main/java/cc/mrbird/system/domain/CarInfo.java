@@ -132,6 +132,10 @@ public class CarInfo implements Serializable {
     @ExportConfig(value = "泵长")
     private String pumpLength;
 
+    // 是否置顶
+    @Column(name = "ISTOP")
+    @ExportConfig(value = "是否置顶")
+    private String isTop;
 
     public Long getCarId() {
         return carId;
@@ -301,11 +305,16 @@ public class CarInfo implements Serializable {
         this.pumpLength = pumpLength;
     }
 
+    public String getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(String isTop) {
+        this.isTop = isTop;
+    }
+
     @Override
     public String toString() {
-        return "CarInfo{" + "carId=" + carId + ", vehicleType='" + vehicleType + '\'' + ", chassisTrademark='" + chassisTrademark + '\'' + ", engineType='" + engineType + '\'' + ", squareQuantity=" + squareQuantity + ", number=" + number + ", emissionStandard='" + emissionStandard + '\'' + ", remark='" + remark + '\'' + ", manufacturer='" + manufacturer + '\'' + ", contacts='" + contacts + '\'' + ", tel='" + tel + '\'' + ", address='" + address + '\'' + ", price='" + price + '\'' + ", volume1='" + volume1 + '\'' + ", volume2='" + volume2 + '\'' + ", vehicleSize='" + vehicleSize + '\'' + ", dimension='" + dimension + '\'' + ", waterSide='" + waterSide + '\'' + ", dusts='" + dusts + '\'' + ", jobWidth='" + jobWidth + '\'' + ", pumpLength='" + pumpLength + '\'' + '}';
+        return "CarInfo{" + "carId=" + carId + ", vehicleType='" + vehicleType + '\'' + ", chassisTrademark='" + chassisTrademark + '\'' + ", engineType='" + engineType + '\'' + ", squareQuantity='" + squareQuantity + '\'' + ", number=" + number + ", emissionStandard='" + emissionStandard + '\'' + ", remark='" + remark + '\'' + ", manufacturer='" + manufacturer + '\'' + ", contacts='" + contacts + '\'' + ", tel='" + tel + '\'' + ", address='" + address + '\'' + ", price='" + price + '\'' + ", volume1='" + volume1 + '\'' + ", volume2='" + volume2 + '\'' + ", vehicleSize='" + vehicleSize + '\'' + ", dimension='" + dimension + '\'' + ", waterSide='" + waterSide + '\'' + ", dusts='" + dusts + '\'' + ", jobWidth='" + jobWidth + '\'' + ", pumpLength='" + pumpLength + '\'' + ", isTop='" + isTop + '\'' + '}';
     }
 }
-
-
-

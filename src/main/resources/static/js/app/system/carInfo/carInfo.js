@@ -75,30 +75,6 @@ $(function () {
             field: 'squareQuantity',
             title: '方量/箱体长度（米）/臂长'
         }, {
-            field: 'volume1',
-            title: '污水罐体容积（m³）'
-        }, {
-            field: 'volume2',
-            title: '清水罐体容积（m³）'
-        }, {
-            field: 'vehiclesize',
-            title: '整车尺寸/吨位'
-        }, {
-            field: 'dimension',
-            title: '箱体尺寸'
-        }, {
-            field: 'waterside',
-            title: '水方'
-        }, {
-            field: 'dusts',
-            title: '尘方'
-        }, {
-            field: 'jobwidth',
-            title: '作业宽度'
-        }, {
-            field: 'pumplength',
-            title: '泵长'
-        }, {
             field: 'number',
             title: '数量'
         }, {
@@ -122,6 +98,37 @@ $(function () {
         }, {
             field: 'price',
             title: '售价/万'
+        }, {
+            field: 'isTop',
+            title: '是否置顶',
+            formatter: function (value) {
+                if (value === '1') return '置顶';
+                else  return '未置顶';
+            }
+        }, {
+            field: 'volume1',
+            title: '污水罐体容积（m³）'
+        }, {
+            field: 'volume2',
+            title: '清水罐体容积（m³）'
+        }, {
+            field: 'vehiclesize',
+            title: '整车尺寸/吨位'
+        }, {
+            field: 'dimension',
+            title: '箱体尺寸'
+        }, {
+            field: 'waterside',
+            title: '水方'
+        }, {
+            field: 'dusts',
+            title: '尘方'
+        }, {
+            field: 'jobwidth',
+            title: '作业宽度'
+        }, {
+            field: 'pumplength',
+            title: '泵长'
         }
         ]
     };
