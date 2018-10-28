@@ -13552,5 +13552,12 @@ select {
   color:rgb(52,119,182);
   cursor: pointer;
 }
-
+.colStyle {
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  -o-text-overflow:ellipsis;
+  -moz-text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis;
+}
 /*# sourceMappingURL=app.css.map */

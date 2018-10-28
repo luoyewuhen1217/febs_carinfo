@@ -25,8 +25,11 @@ $(function () {
             title: '部门'
         }, {
             field: 'email',
-            title: '邮箱'
-        }, {
+            title: '邮箱',
+            width:120,
+            class:'colStyle',
+            formatter:paramsMatter2
+            }, {
             field: 'mobile',
             title: '手机'
         }, {
@@ -116,4 +119,20 @@ function exportUserCsv() {
             $MB.n_warning(r.msg);
         }
     });
+}
+
+function paramsMatter(value, row, index) {
+    var values = row.email;
+    var span=document.createElement('span');
+    span.setAttribute('title',values);
+    span.innerHTML = row.email;
+    return span.outerHTML;
+}
+
+function paramsMatter2(value, row, index) {
+    var values = row.email;//获取当前字段的值
+    //替换空格，因为字符串拼接的时候如果遇到空格，会自动将后面的部分截掉，所有这里用html的转义符
+    //&nbsp;代替
+    values = values.replace(/\s+/g,'&nbsp;')
+    return "<span title="+values+">"+row.email+"</span>"
 }
