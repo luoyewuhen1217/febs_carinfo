@@ -57,7 +57,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
 //            if (StringUtils.isNotBlank(carinfo.getEmissionStandard())) {
 //                criteria.andCondition("emissionStandard=", Long.valueOf(carinfo.getEmissionStandard()));
 //            }
-            example.setOrderByClause("ISTOP desc");
+            example.setOrderByClause("ISTOP desc,CAR_ID desc");
             //example.setOrderByClause("CAR_ID");
             System.out.println("example3:::"+example.getCountColumn());
             return this.selectByExample(example);

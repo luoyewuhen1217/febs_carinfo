@@ -19,10 +19,12 @@ $(function () {
             checkbox: true
         }, {
             field: 'carId',
-            title: '序号'
+            title: '序号',
+            width:50
         }, {
             field: 'vehicleType',
             title: '车辆类型',
+            width:120,
             formatter: function (value, row, index) {
                 if (value === '0') return '油罐车';
                 else if (value === '1') return '供液车';
@@ -33,8 +35,8 @@ $(function () {
                 else if (value === '6') return '清洗吸污车';
                 else if (value === '7') return '高空作业车';
                 else if (value === '8') return '垃圾车';
-                else if (value === '9') return '喷雾车-抑尘车';
-                else if (value === '10') return '易燃液体厢式车';
+                else if (value === '9') return '抑尘车';
+                else if (value === '10') return '厢式车';
                 else if (value === '11') return '平板车';
                 else if (value === '12') return '随车吊';
                 else if (value === '13') return '搅拌车';
@@ -63,72 +65,73 @@ $(function () {
                 else if (value === '36') return '校车';
                 else if (value === '37') return '舞台车';
                 else if (value === '38') return '轿运车';
+                else if (value === '39') return '半挂车';
+                else if (value === '40') return '旅居车';
                 else return '无';
             }
         }, {
             field: 'chassisTrademark',
-            title: '底盘品牌'
+            title: '底盘品牌',
+            width:100
         }, {
             field: 'engineType',
-            title: '发动机型号'
+            title: '发动机型号',
+            width:100
         }, {
             field: 'squareQuantity',
-            title: '方量/箱体长度（米）/臂长'
+            title: '方量/吨位/尺寸',
+            width:120
+
         }, {
             field: 'number',
-            title: '数量'
+            title: '数量',
+            width:50
         }, {
             field: 'emissionStandard',
-            title: '排放标准'
+            title: '排放标准',
+            width:100
         }, {
             field: 'remark',
-            title: '备注（轴距，轮胎等）'
+            title: '备注（轴距，轮胎等）',
+            width:400,
+            class:'colStyle',
+            formatter:paramsMatter
         }, {
             field: 'manufacturer',
-            title: '生产厂家'
+            title: '生产厂家',
+            width:100,
+            class:'colStyle',
+            formatter:paramsMatter1
         }, {
             field: 'contacts',
-            title: '联系人'
+            title: '联系人',
+            width:80
         }, {
             field: 'tel',
-            title: '联系电话'
+            title: '联系电话',
+            width:120
         }, {
             field: 'address',
-            title: '联系地址'
+            title: '联系地址',
+            width:100,
+            class:'colStyle',
+            formatter:paramsMatter2
         }, {
             field: 'price',
-            title: '售价/万'
+            title: '售价/万',
+            width:120,
         }, {
             field: 'isTop',
             title: '是否置顶',
+            width:80,
             formatter: function (value) {
                 if (value === '1') return '置顶';
                 else  return '未置顶';
             }
         }, {
-            field: 'volume1',
-            title: '污水罐体容积（m³）'
-        }, {
-            field: 'volume2',
-            title: '清水罐体容积（m³）'
-        }, {
-            field: 'vehiclesize',
-            title: '整车尺寸/吨位'
-        }, {
             field: 'dimension',
-            title: '箱体尺寸'
-        }, {
-            field: 'waterside',
-            title: '水方'
-        }, {
-            field: 'dusts',
-            title: '尘方'
-        }, {
-            field: 'jobwidth',
-            title: '作业宽度'
-        }, {
-            field: 'pumplength',
-            title: '泵长'
+            title: '箱体尺寸',
+            width:100,
         }
         ]
     };
@@ -163,4 +166,29 @@ function exportcarInfoCsv() {
             $MB.n_warning(r.msg);
         }
     });
+}
+
+// 备注
+function paramsMatter(value, row, index) {
+    var values = row.remark;
+    var span=document.createElement('span');
+    span.setAttribute('title',values);
+    span.innerHTML = row.remark;
+    return span.outerHTML;
+}
+
+function paramsMatter1(value, row, index) {
+    var values = row.manufacturer;
+    var span=document.createElement('span');
+    span.setAttribute('title',values);
+    span.innerHTML = row.manufacturer;
+    return span.outerHTML;
+}
+
+function paramsMatter2(value, row, index) {
+    var values = row.address;
+    var span=document.createElement('span');
+    span.setAttribute('title',values);
+    span.innerHTML = row.address;
+    return span.outerHTML;
 }
