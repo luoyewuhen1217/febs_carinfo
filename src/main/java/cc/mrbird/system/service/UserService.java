@@ -9,27 +9,27 @@ import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
-@CacheConfig(cacheNames = "UserService")
+//@CacheConfig(cacheNames = "UserService")
 public interface UserService extends IService<User> {
 
     UserWithRole findById(Long userId);
 
     User findByName(String userName);
 
-    @Cacheable(key = "#p0")
+//    @Cacheable(key = "#p0")
     List<User> findUserWithDept(User user);
-    @CacheEvict(key = "#p0", allEntries = true)
+//    @CacheEvict(key = "#p0", allEntries = true)
     void registUser(User user);
 
     void updateTheme(String theme, String userName);
 
-    @CacheEvict(allEntries = true)
+//    @CacheEvict(allEntries = true)
     void addUser(User user, Long[] roles);
 
-    @CacheEvict(key = "#p0", allEntries = true)
+//    @CacheEvict(key = "#p0", allEntries = true)
     void updateUser(User user, Long[] roles);
 
-    @CacheEvict(key = "#p0", allEntries = true)
+//    @CacheEvict(key = "#p0", allEntries = true)
     void deleteUsers(String userIds);
 
     void updateLoginTime(String userName);
