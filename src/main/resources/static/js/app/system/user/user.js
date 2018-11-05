@@ -29,9 +29,9 @@ $(function () {
             width:120,
             class:'colStyle',
             formatter:paramsMatter
-        }, {
-            field: 'mobile',
-            title: '手机'
+        // }, {
+        //     field: 'mobile',
+        //     title: '手机'
         }, {
             field: 'ssex',
             title: '性别',
