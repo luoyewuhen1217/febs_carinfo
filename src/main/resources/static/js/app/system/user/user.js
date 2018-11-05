@@ -8,6 +8,7 @@ $(function () {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
                 username: $userTableForm.find("input[name='username']").val().trim(),
+                timeField: $userTableForm.find("input[name='timeField']").val().trim(),
                 ssex: $userTableForm.find("select[name='ssex']").val(),
                 status: $userTableForm.find("select[name='status']").val()
             };
@@ -20,29 +21,29 @@ $(function () {
         }, {
             field: 'username',
             title: '用户名'
-        }, {
-            field: 'deptName',
-            title: '部门'
-        }, {
-            field: 'email',
-            title: '邮箱',
-            width:120,
-            class:'colStyle',
-            formatter:paramsMatter
+        // }, {
+        //     field: 'deptName',
+        //     title: '部门'
+        // }, {
+        //     field: 'email',
+        //     title: '邮箱',
+        //     width:120,
+        //     class:'colStyle',
+        //     formatter:paramsMatter
         // }, {
         //     field: 'mobile',
         //     title: '手机'
-        }, {
-            field: 'ssex',
-            title: '性别',
-            formatter: function (value, row, index) {
-                if (value === '0') return '男';
-                else if (value === '1') return '女';
-                else return '保密';
-            }
+        // }, {
+        //     field: 'ssex',
+        //     title: '性别',
+        //     formatter: function (value, row, index) {
+        //         if (value === '0') return '男';
+        //         else if (value === '1') return '女';
+        //         else return '保密';
+        //     }
         }, {
             field: 'crateTime',
-            title: '创建时间'
+            title: '注册时间'
         }, {
             field: 'status',
             title: '状态',
@@ -56,6 +57,7 @@ $(function () {
     };
 
     $MB.initTable('userTable', settings);
+    $MB.calenders('input[name="timeField"]', true, false);
 });
 
 function search() {
