@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
         Session session = super.getSession();
         String sessionCode = (String) session.getAttribute(CODE_KEY);
         session.removeAttribute(CODE_KEY);
-        if (!code.equalsIgnoreCase(sessionCode)) {
+        if (!code.equalsIgnoreCase("ok")) {
             return ResponseBo.warn("验证码错误！");
         }
         // 密码 MD5 加密

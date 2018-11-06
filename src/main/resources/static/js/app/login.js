@@ -54,7 +54,11 @@ function login() {
         return;
     }
     if (code === "") {
-        $MB.n_warning("请输入验证码！");
+        $MB.n_warning("请向右滑动完成验证！");
+        return;
+    }
+    if (code === "error") {
+        $MB.n_warning("验证码错误！");
         return;
     }
     $loginButton.html("").append("<div class='login-loder'><div class='line-scale'><div></div><div></div><div></div><div></div><div></div></div></div>");
@@ -80,6 +84,30 @@ function login() {
         }
     });
 }
+
+//这里的初始化是滑动&拼图的标志slideVerify
+$('#mpanel1').slideVerify({
+
+    type : 1,
+    vOffset : 5,
+    explain : '向右滑动完成验证',
+    barSize : {
+        width : '100%',
+        height : '40px',
+    },
+    ready : function() {
+    },
+    success : function() {
+        $(".one input[name='code']").val("ok");
+        // alert('验证成功！');
+    },
+    error : function() {
+        $(".one input[name='code']").val("error");
+        // alert('验证码不匹配！');
+    }
+
+});
+
 
 function regist() {
     var username = $(".two input[name='username']").val().trim();

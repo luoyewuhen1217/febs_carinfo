@@ -9,12 +9,16 @@
     <link rel="stylesheet" th:href="@{css/login.css}" type="text/css">
     <link rel="stylesheet" th:href="@{css/iCheck/minimal/green.css}" type="text/css">
     <link rel="stylesheet" th:href="@{css/app.css}" type="text/css">
+    <!-- 验证码 用-->
+    <link rel="stylesheet" th:href="@{css/verify.css}" type="text/css">
     <!-- animate -->
     <link rel="stylesheet" th:href="@{css/animate/animate.min.css}" type="text/css">
     <script th:src="@{js/jquery.min.js}"></script>
     <script th:src="@{js/iCheck/icheck.js}"></script>
     <script th:src="@{js/bootstrap-notify/bootstrap-notify.min.js}"></script>
     <script th:src="@{js/common.js}"></script>
+    <!-- 验证码 用-->
+    <script th:src="@{js/app/verify.min.js}"></script>
 </head>
 <style>
 
@@ -38,8 +42,10 @@
                 </div>
                 <div class="form-group" style="display:inline-block">
                     <label>验证码</label>
-                    <input type="text" name="code" style="width:50%; display:inline-block" />
-                    <img data-th-src="@{gifCode}" id="validateCodeImg" onclick="reloadCode()" style="display:inline-block" />
+                    <input type="hidden" name="code" style="width:50%; display:inline-block" />
+                    <!--<img data-th-src="@{gifCode}" id="validateCodeImg" onclick="reloadCode()" style="display:inline-block" />-->
+                </div>
+                <div class="form-group" id="mpanel1" >
                 </div>
                 <div class="form-group" style="margin: 0px;">
                     <p>
@@ -81,6 +87,7 @@
 </body>
 <script th:inline="javascript">
 	var ctx = [[@{/}]];
+
 </script>
 <script data-th-src="@{js/app/login.js}"></script>
 </html>
