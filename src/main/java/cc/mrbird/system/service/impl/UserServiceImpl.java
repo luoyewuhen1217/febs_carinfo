@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public List<User> findUserWithDept(User user) {
         try {
+            if (StringUtils.isNotBlank(user.getTimeField())) {
+                String[] timeArr = user.getTimeField().split("~");
+                String timeField1 = timeArr[0]+" 00:00:00";
+                String timeField2 = timeArr[1]+" 23:59:59";
+                user.setTimeField1(timeField1);
+                user.setTimeField2(timeField2);
+            }
             return this.userMapper.findUserWithDept(user);
         } catch (Exception e) {
             log.error("error", e);
@@ -170,8 +178,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     public void updateUserProfile(User user) {
         user.setUsername(null);
         user.setPassword(null);
-        if (user.getDeptId() == null)
-            user.setDeptId(0L);
+        if (user.getDeptId() == null) user.setDeptId(0L);
         this.updateNotNull(user);
     }
 

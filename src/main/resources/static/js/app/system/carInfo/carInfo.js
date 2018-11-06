@@ -67,6 +67,7 @@ $(function () {
                 else if (value === '38') return '轿运车';
                 else if (value === '39') return '半挂车';
                 else if (value === '40') return '旅居车';
+                else if (value === '41') return '联合疏通';
                 else return '无';
             }
         }, {

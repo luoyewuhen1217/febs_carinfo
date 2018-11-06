@@ -20,29 +20,32 @@
     <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
   </resultMap>
-  
-  <select id="findUserWithDept" resultType="user" parameterType="user">
-  		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,
-  		u.ssex,d.dept_name deptName from t_user u 
-  		left join t_dept d on(u.dept_id = d.dept_id)
-  		where 1=1
-  		<if test="username != null and username != ''">
-        	AND u.username = #{username}
-	    </if>
-	    <if test="deptId != null and deptId != ''">
-	        AND d.dept_id = #{deptId}
-	    </if>
-  		<if test="ssex != null and ssex != ''">
-	        AND u.ssex = #{ssex}
-	    </if>
-	    <if test="status != null and status != ''">
-	        AND u.status = #{status}
-	    </if>
-  		order by u.user_id
-  </select>
-  
-    
-  <select id="findUserWithRole" resultType="userWithRole">
+
+	<select id="findUserWithDept" resultType="user" parameterType="user">
+		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,
+		u.ssex,d.dept_name deptName from t_user u
+		left join t_dept d on(u.dept_id = d.dept_id)
+		where 1=1
+		<if test="username != null and username != ''">
+			AND u.username = #{username}
+		</if>
+		<if test="deptId != null and deptId != ''">
+			AND d.dept_id = #{deptId}
+		</if>
+		<if test="ssex != null and ssex != ''">
+			AND u.ssex = #{ssex}
+		</if>
+		<if test="status != null and status != ''">
+			AND u.status = #{status}
+		</if>
+		<if test="timeField1 != null or timeField2 != null">
+			AND u.crate_time between #{timeField1} and #{timeField2}
+		</if>
+		order by u.crate_time desc
+	</select>
+
+
+	<select id="findUserWithRole" resultType="userWithRole">
 		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,
 		u.status,u.ssex,ur.role_id roleId from t_user u
 		left join t_user_role ur on (u.user_id = ur.user_id)

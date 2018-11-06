@@ -92,6 +92,16 @@ public class User implements Serializable {
 	@Transient
 	private String roleName;
 
+	// 用于搜索条件中的时间字段
+	@Transient
+	private String timeField;
+
+	@Transient
+	private String timeField1;
+
+	@Transient
+	private String timeField2;
+
 	/**
 	 * @return USER_ID
 	 */
@@ -286,25 +296,32 @@ public class User implements Serializable {
 		this.roleName = roleName;
 	}
 
+	public String getTimeField() {
+		return timeField;
+	}
+
+	public void setTimeField(String timeField) {
+		this.timeField = timeField;
+	}
+
+	public String getTimeField1() {
+		return timeField1;
+	}
+
+	public void setTimeField1(String timeField1) {
+		this.timeField1 = timeField1;
+	}
+
+	public String getTimeField2() {
+		return timeField2;
+	}
+
+	public void setTimeField2(String timeField2) {
+		this.timeField2 = timeField2;
+	}
+
 	@Override
 	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", deptId=" + deptId +
-				", deptName='" + deptName + '\'' +
-				", email='" + email + '\'' +
-				", mobile='" + mobile + '\'' +
-				", status='" + status + '\'' +
-				", crateTime=" + crateTime +
-				", modifyTime=" + modifyTime +
-				", lastLoginTime=" + lastLoginTime +
-				", ssex='" + ssex + '\'' +
-				", theme='" + theme + '\'' +
-				", avatar='" + avatar + '\'' +
-				", description='" + description + '\'' +
-				", roleName='" + roleName + '\'' +
-				'}';
+		return "User{" + "userId=" + userId + ", username='" + username + '\'' + ", password='" + password + '\'' + ", deptId=" + deptId + ", deptName='" + deptName + '\'' + ", email='" + email + '\'' + ", mobile='" + mobile + '\'' + ", status='" + status + '\'' + ", crateTime=" + crateTime + ", modifyTime=" + modifyTime + ", lastLoginTime=" + lastLoginTime + ", ssex='" + ssex + '\'' + ", theme='" + theme + '\'' + ", avatar='" + avatar + '\'' + ", description='" + description + '\'' + ", roleName='" + roleName + '\'' + ", timeField1='" + timeField1 + '\'' + ", timeField2='" + timeField2 + '\'' + '}';
 	}
 }
