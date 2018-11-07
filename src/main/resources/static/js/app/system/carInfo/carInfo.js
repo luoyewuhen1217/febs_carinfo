@@ -126,8 +126,12 @@ $(function () {
             title: '是否置顶',
             width:80,
             formatter: function (value) {
-                if (value === '1') return '置顶';
+                // if (value === '1') return '置顶';
+                // else  return '未置顶';
+                // else return '<span class="badge badge-warning">未置顶</span>';
+                if (value === '1') return '<span class="badge badge-success">置顶</span>';
                 else  return '未置顶';
+
             }
         }, {
             field: 'dimension',
