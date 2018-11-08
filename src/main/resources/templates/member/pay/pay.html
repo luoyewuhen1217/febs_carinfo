@@ -1,0 +1,101 @@
+<link rel="stylesheet" data-th-href="@{css/pay/pay.css}">
+<div class="container">
+    <div class="subsidiary box">
+    </div>
+    <div id="sidebar">
+        <div id="sidebar-follow" style="top: 15px; position: static;">
+        </div>
+    </div>
+    <div class="mainleft" id="content">
+        <div class="article_container row  box">
+            <h1 class="page_title"></h1>
+            <div class="context">
+                <div id="post_content">
+                    <div class="xh-buy-vip">
+                        <div class="topbar">
+                            <b>会员充值续费</b>
+                            <span class="xh-pull-right">你还没有登录，请先<a href="http://www.bbsnet.com/wp-login.php?redirect_to=http%3A%2F%2Fwww.bbsnet.com%2Fvip">登录</a> 或 <a href="http://www.bbsnet.com/wp-login.php?action=register">注册</a></span>
+                        </div>
+                        <div class="xh-form clearfix">
+                            <label>请选择充值周期</label>
+                            <ul class="xh-vip clearfix">
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580 active" data-id="1428"> <span class="price">&yen;8.00</span> <span class="title">1天</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="2042"> <span class="price">&yen;55.00</span> <span class="title">1个月</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="1442"> <span class="price">&yen;88.00</span> <span class="title">3个月</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="2042"> <span class="price">&yen;128.00</span> <span class="title">半年</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="2042"> <span class="price">&yen;200.00</span> <span class="title">1年</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="1442"> <span class="price">&yen;588.00</span> <span class="title">3年</span> </a> </li>
+                                <li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580" data-id="1442"> <span class="price">&yen;888.00</span> <span class="title">5年</span> </a> </li>
+                            </ul>
+                            <!--<script type="text/javascript">
+                                (function($){
+                                    $('.wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580').click(function(){
+                                        $('.wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580.active').removeClass('active');
+                                        $(this).addClass('active');
+
+                                        $(document).trigger('wshop_63cc6c9f10d6d97511b9768b1c3ca2580_on_amount_change');
+                                    });
+
+                                    $(document).bind('wshop_form_63cc6c9f10d6d97511b9768b1c3ca2580_submit',function(e,data){
+                                        data.post_id = $('.wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580.active').attr('data-id');
+                                    });
+                                })(jQuery);
+                            </script>-->
+                            <div class="block20"></div>
+                            <div class="paymentbar clearfix">
+                                <a href=" " class="wshop-sections-63cc6c9f10d6d97511b9768b1c3ca2580 active" data-id="pay">在线支付</a>
+                                <div id="request-process-patent" style="color:red"></div>
+                            </div>
+                            <div class="box" id="section-payment-63cc6c9f10d6d97511b9768b1c3ca2580" style="display: block;">
+                                <p class="clearfix paylist">
+                                    <label>
+                                        <input type="radio" checked="" name="payment_method-63cc6c9f10d6d97511b9768b1c3ca2580" value="alipay" class="payment-method-63cc6c9f10d6d97511b9768b1c3ca2580" />
+                                        <img src="/img/pay/alipay-l.png" alt="支付宝" />
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="payment_method-63cc6c9f10d6d97511b9768b1c3ca2580" value="wechat" class="payment-method-63cc6c9f10d6d97511b9768b1c3ca2580" />
+                                        <img src="/img/pay/wechat-l.png" alt="微信支付" />
+                                    </label>
+                                <script type="text/javascript">
+                                    (function($){
+                                        $(document).bind('wshop_form_63cc6c9f10d6d97511b9768b1c3ca2580_submit',function(e,data){
+                                            data.payment_method = $('.payment-method-63cc6c9f10d6d97511b9768b1c3ca2580:checked').val();
+                                        });
+                                    })(jQuery);
+                                </script> </p>
+                            </div>
+                            <script type="text/javascript">
+                                (function($){
+                                    $('.wshop-sections-63cc6c9f10d6d97511b9768b1c3ca2580').click(function(event){
+                                        $($('.wshop-sections-63cc6c9f10d6d97511b9768b1c3ca2580.active').removeClass('active').attr('href')).hide();;
+                                        $($(this).addClass('active').attr('href')).show();
+                                        event.preventDefault();
+                                        return false;
+                                    });
+
+                                    $(document).bind('wshop_form_63cc6c9f10d6d97511b9768b1c3ca2580_submit',function(e,data){
+                                        data.scope = $('.wshop-sections-63cc6c9f10d6d97511b9768b1c3ca2580.active').attr('data-id');
+                                    });
+                                })(jQuery);
+                            </script>
+                            <div class="block20"></div>
+                            <div class="xh-form-group">
+                                <script type="text/javascript">
+                                    (function($){
+                                        $(document).bind('wshop_form_63cc6c9f10d6d97511b9768b1c3ca2580_submit',function(e,settings){
+                                            settings.ajax.url = "";//'http://www.bbsnet.com/wp-admin/admin-ajax.php?action=wshop_checkout_v2&tab=membership&section=membership&wshop_checkout_v2=242d1330f0&notice_str=1984411571&hash=597afbf1919094ebd7068733de2ea8ef';
+                                            settings.location="";//'http://www.bbsnet.com/vip';
+                                        });
+                                    })(jQuery);
+                                </script>
+                                <a id="btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580" href="javascript:void(0);" class="xh-btn xh-btn-danger xh-btn-block xh-btn-membership" style="">立即支付</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script data-th-src="@{js/app/pay/pay.js}"></script>

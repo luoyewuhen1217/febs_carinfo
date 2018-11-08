@@ -1,0 +1,30 @@
+[
+  {
+    "PRICE": 8.00,
+    "RECHARGE_CYCLE": "1天"
+  },
+  {
+    "PRICE": 38.00,
+    "RECHARGE_CYCLE": "1个月"
+  },
+  {
+    "PRICE": 68.00,
+    "RECHARGE_CYCLE": "3个月"
+  },
+  {
+    "PRICE": 128.00,
+    "RECHARGE_CYCLE": "6个月"
+  },
+  {
+    "PRICE": 168.00,
+    "RECHARGE_CYCLE": "1年"
+  },
+  {
+    "PRICE": 288.00,
+    "RECHARGE_CYCLE": "3年"
+  },
+  {
+    "PRICE": 398.00,
+    "RECHARGE_CYCLE": "5年"
+  }
+]
