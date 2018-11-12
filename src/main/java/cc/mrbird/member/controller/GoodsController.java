@@ -122,7 +122,7 @@ public class GoodsController extends BaseController {
     @ResponseBody
     public ResponseBo regist(Goods goods) {
         try {
-            Goods result = this.goodsService.findByName(goods.getGoodscycle());
+            Goods result = this.goodsService.findByName(goods.getGoodsCycle());
             if (result != null) {
                 return ResponseBo.warn("该商品名已被使用！");
             }

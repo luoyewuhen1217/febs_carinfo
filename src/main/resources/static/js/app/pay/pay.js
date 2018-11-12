@@ -10,8 +10,8 @@ $(function() {
                     css=numb==0?' active':'';//第一个默认勾选
                     tt += '<li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580'+css
                     +'" data-id="'+v['goodsid']
-                    +'"> <span class="price">&yen;'+v['goodsmoney']
-                    +'</span> <span class="title">'+v['goodscycle']
+                    +'"> <span class="price">&yen;'+v['goodsMoney']
+                    +'</span> <span class="title">'+v['goodsCycle']
                     +'</span> </a> </li>';
 
                     numb=2;

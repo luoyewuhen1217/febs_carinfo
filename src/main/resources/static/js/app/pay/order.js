@@ -7,62 +7,60 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                vehicleType: $orderTableForm.find("select[name='vehicleType']").val(),
-                chassisTrademark: $orderTableForm.find("input[name='chassisTrademark']").val(),
-                engineType: $orderTableForm.find("input[name='engineType']").val().trim(),
-                squareQuantity: $orderTableForm.find("input[name='squareQuantity']").val(),
-                remark: $orderTableForm.find("input[name='remark']").val(),
-                manufacturer: $orderTableForm.find("input[name='manufacturer']").val()
+                orderCode: $orderTableForm.find("select[name='orderCode']").val(),
+                userName: $orderTableForm.find("input[name='userName']").val(),
+                payMent: $orderTableForm.find("select[name='payMent']").val(),
+                payStatus: $orderTableForm.find("select[name='payStatus']").val(),
+                rechargeMoney: $orderTableForm.find("input[name='rechargeMoney']").val(),
+                rechargeCycle: $orderTableForm.find("input[name='rechargeCycle']").val()
             };
         },
         columns: [{
             checkbox: true
         }, {
-            field: 'orderid',
+            field: 'orderId',
             title: '序号',
-            width:50
-        },{
-            field: 'ordercode',
+            width: 50
+        }, {
+            field: 'orderCode',
             title: '订单号',
-            width:100
+            width: 100
         }, {
-            field: 'username',
+            field: 'userName',
             title: '用户名',
-            width:60
-        }
-
-        , {
-            field: 'payment',
+            width: 60
+        }, {
+            field: 'payMent',
             title: '支付方式',
-            width:60
+            width: 60
 
         }, {
-                field: 'paystatus',
-                title: '支付状态',
-                width:60
+            field: 'payStatus',
+            title: '支付状态',
+            width: 60
 
-            }, {
-            field: 'rechargemoney',
+        }, {
+            field: 'rechargeMoney',
             title: '商品价格',
-            width:35
+            width: 35
 
         }, {
-            field: 'rechargecycle',
+            field: 'rechargeCycle',
             title: '充值周期',
-            width:50
+            width: 50
 
         }, {
             field: 'createTime',
             title: '创建时间',
-            width:80
+            width: 80
         }, {
-            field: 'paytime',
+            field: 'payTime',
             title: '支付时间',
-            width:80
+            width: 80
         }, {
-            field: 'expirytime',
+            field: 'expiryTime',
             title: '到期时间',
-            width:80
+            width: 80
         }
         ]
     };
@@ -102,24 +100,24 @@ function exportorderCsv() {
 // 备注
 function paramsMatter(value, row, index) {
     var values = row.remark;
-    var span=document.createElement('span');
-    span.setAttribute('title',values);
+    var span = document.createElement('span');
+    span.setAttribute('title', values);
     span.innerHTML = row.remark;
     return span.outerHTML;
 }
 
 function paramsMatter1(value, row, index) {
     var values = row.manufacturer;
-    var span=document.createElement('span');
-    span.setAttribute('title',values);
+    var span = document.createElement('span');
+    span.setAttribute('title', values);
     span.innerHTML = row.manufacturer;
     return span.outerHTML;
 }
 
 function paramsMatter2(value, row, index) {
     var values = row.address;
-    var span=document.createElement('span');
-    span.setAttribute('title',values);
+    var span = document.createElement('span');
+    span.setAttribute('title', values);
     span.innerHTML = row.address;
     return span.outerHTML;
 }

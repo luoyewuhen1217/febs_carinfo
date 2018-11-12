@@ -9,191 +9,183 @@ import java.util.Date;
 @Table(name = "t_order")
 public class Order implements Serializable {
 
-	private static final long serialVersionUID = -4852732617765810959L;
+    private static final long serialVersionUID = -4852732617765810959L;
 
-	@Id
-	@GeneratedValue(generator = "JDBC")
-	@Column(name = "ORDER_ID")
-	private Long orderid;
+    @Id
+    @GeneratedValue(generator = "JDBC")
+    @Column(name = "ORDER_ID")
+    private Long orderId;
 
-	@Column(name = "ORDER_CODE")
-	@ExportConfig(value = "订单号")
-	private String ordercode;
+    @Column(name = "ORDER_CODE")
+    @ExportConfig(value = "订单号")
+    private String orderCode;
 
-	@Column(name = "USER_ID")
-	private Long userid;
+    @Column(name = "USER_ID")
+    private Long userId;
 
-	@ExportConfig(value = "支付状态（1已支付/2未支付/3支付失败）")
-	@Column(name = "PAYSTATUS")
-	private String paystatus;
+    @ExportConfig(value = "支付状态（1已支付/2未支付/3支付失败）")
+    @Column(name = "PAYSTATUS")
+    private String payStatus;
 
-	public String getPaystatus() {
-		return paystatus;
-	}
+    @ExportConfig(value = "用户名")
+    @Column(name = "USERNAME")
+    private String userName;
 
-	public void setPaystatus(String paystatus) {
-		this.paystatus = paystatus;
-	}
+    @ExportConfig(value = "支付方式（1支付宝/2微信）")
+    @Column(name = "PAYMENT")
+    private String payMent;
 
-	@ExportConfig(value = "用户名")
-	@Column(name = "USERNAME")
-	private String username;
+    @Column(name = "GOODS_ID")
+    private Long goodsId;
 
-	@ExportConfig(value = "支付方式（1支付宝/2微信）")
-	@Column(name = "PAYMENT")
-	private String payment;
+    @Column(name = "RECHARGE_MONEY")
+    @ExportConfig(value = "商品价格")
+    private String rechargeMoney;
 
-	@Column(name = "GOODS_ID")
-	private Long goodsid;
-
-	@Column(name = "RECHARGE_MONEY")
-	@ExportConfig(value = "商品价格")
-	private String rechargemoney;
-
-	@Column(name = "RECHARGE_CYCLE")
-	@ExportConfig(value = "充值周期（1天/1个月/3个月/6个月/1年/3年/5年）")
-	private String rechargecycle;
+    @Column(name = "RECHARGE_CYCLE")
+    @ExportConfig(value = "充值周期（1天/1个月/3个月/6个月/1年/3年/5年）")
+    private String rechargeCycle;
 
 
-	@Column(name = "CREATE_TIME")
-	@ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
-	private Date createTime;
+    @Column(name = "CREATE_TIME")
+    @ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+    private Date createTime;
 
-	@Column(name = "PAY_TIME")
-	@ExportConfig(value = "支付时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
-	private Date paytime;
+    @Column(name = "PAY_TIME")
+    @ExportConfig(value = "支付时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+    private Date payTime;
 
-	@Column(name = "EXPIRY_TIME")
-	@ExportConfig(value = "到期时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
-	private Date expirytime;
+    @Column(name = "EXPIRY_TIME")
+    @ExportConfig(value = "到期时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+    private Date expiryTime;
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    // 用于搜索条件中的时间字段
+    @Transient
+    private String timeField;
 
-	public Long getOrderid() {
-		return orderid;
-	}
+    @Transient
+    private String timeField1;
 
-	public void setOrderid(Long orderid) {
-		this.orderid = orderid;
-	}
+    @Transient
+    private String timeField2;
 
-	public String getOrdercode() {
-		return ordercode;
-	}
+    public Long getOrderId() {
+        return orderId;
+    }
 
-	public void setOrdercode(String ordercode) {
-		this.ordercode = ordercode;
-	}
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
-	public Long getUserid() {
-		return userid;
-	}
+    public String getOrderCode() {
+        return orderCode;
+    }
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
-	}
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public String getPayment() {
-		return payment;
-	}
+    public String getPayStatus() {
+        return payStatus;
+    }
 
-	public void setPayment(String payment) {
-		this.payment = payment;
-	}
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
+    }
 
-	public Long getGoodsid() {
-		return goodsid;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setGoodsid(Long goodsid) {
-		this.goodsid = goodsid;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public String getRechargemoney() {
-		return rechargemoney;
-	}
+    public String getPayMent() {
+        return payMent;
+    }
 
-	public void setRechargemoney(String rechargemoney) {
-		this.rechargemoney = rechargemoney;
-	}
+    public void setPayMent(String payMent) {
+        this.payMent = payMent;
+    }
 
-	public String getRechargecycle() {
-		return rechargecycle;
-	}
+    public Long getGoodsId() {
+        return goodsId;
+    }
 
-	public void setRechargecycle(String rechargecycle) {
-		this.rechargecycle = rechargecycle;
-	}
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getRechargeMoney() {
+        return rechargeMoney;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setRechargeMoney(String rechargeMoney) {
+        this.rechargeMoney = rechargeMoney;
+    }
 
-	public Date getPaytime() {
-		return paytime;
-	}
+    public String getRechargeCycle() {
+        return rechargeCycle;
+    }
 
-	public void setPaytime(Date paytime) {
-		this.paytime = paytime;
-	}
+    public void setRechargeCycle(String rechargeCycle) {
+        this.rechargeCycle = rechargeCycle;
+    }
 
-	public Date getExpirytime() {
-		return expirytime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setExpirytime(Date expirytime) {
-		this.expirytime = expirytime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public String getTimeField() {
-		return timeField;
-	}
+    public Date getPayTime() {
+        return payTime;
+    }
 
-	public void setTimeField(String timeField) {
-		this.timeField = timeField;
-	}
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
 
-	public String getTimeField1() {
-		return timeField1;
-	}
+    public Date getExpiryTime() {
+        return expiryTime;
+    }
 
-	public void setTimeField1(String timeField1) {
-		this.timeField1 = timeField1;
-	}
+    public void setExpiryTime(Date expiryTime) {
+        this.expiryTime = expiryTime;
+    }
 
-	public String getTimeField2() {
-		return timeField2;
-	}
+    public String getTimeField() {
+        return timeField;
+    }
 
-	public void setTimeField2(String timeField2) {
-		this.timeField2 = timeField2;
-	}
+    public void setTimeField(String timeField) {
+        this.timeField = timeField;
+    }
 
-	// 用于搜索条件中的时间字段
-	@Transient
-	private String timeField;
+    public String getTimeField1() {
+        return timeField1;
+    }
 
-	@Transient
-	private String timeField1;
+    public void setTimeField1(String timeField1) {
+        this.timeField1 = timeField1;
+    }
 
-	@Transient
-	private String timeField2;
+    public String getTimeField2() {
+        return timeField2;
+    }
 
-
-
-
+    public void setTimeField2(String timeField2) {
+        this.timeField2 = timeField2;
+    }
 }

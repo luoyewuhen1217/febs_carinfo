@@ -6,7 +6,7 @@ import cc.mrbird.member.domain.Goods;
 import java.util.List;
 
 public interface GoodsMapper extends MyMapper<Goods> {
-
+    List<Goods> findAllGoods(Goods goods);
 	List<Goods> findGoodsWithDept(Goods goods);
 	
 	//List<GoodsWithRole> findGoodsWithRole(Long goodsId);

@@ -61,10 +61,10 @@ public class OrderController extends BaseController {
         User user = super.getCurrentUser();
         try{
             Order order=new Order();
-            order.setUserid(user.getUserId());
-            order.setUsername(user.getUsername());
-            order.setGoodsid(Long.parseLong((String)params.get("data_id")));
-            order.setPayment("wechat".equals(params.get("payment_method"))?"微信支付":"支付宝");
+            order.setUserId(user.getUserId());
+            order.setUserName(user.getUsername());
+            order.setGoodsId(Long.parseLong((String)params.get("data_id")));
+            order.setPayMent("wechat".equals(params.get("payment_method"))?"微信支付":"支付宝");
             this.orderService.addOrder(order);
             return ResponseBo.ok("新增订单成功！");
         } catch (Exception e) {

@@ -14,14 +14,14 @@ public class Goods implements Serializable {
 	@Id
 	@GeneratedValue(generator = "JDBC")
 	@Column(name = "GOODS_ID")
-	private Long goodsid;
+	private Long goodsId;
 
 	@Column(name = "GOODS_MONEY")
 	@ExportConfig(value = "商品价格")
-	private String goodsmoney;
+	private String goodsMoney;
 
 	@Column(name = "GOODS_CYCLE")
-	private String goodscycle;
+	private String goodsCycle;
 
 	@Column(name = "REMARK")
 	private String remark;
@@ -37,28 +37,28 @@ public class Goods implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Long getGoodsid() {
-		return goodsid;
+	public Long getGoodsId() {
+		return goodsId;
 	}
 
-	public void setGoodsid(Long goodsid) {
-		this.goodsid = goodsid;
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
 	}
 
-	public String getGoodsmoney() {
-		return goodsmoney;
+	public String getGoodsMoney() {
+		return goodsMoney;
 	}
 
-	public void setGoodsmoney(String goodsmoney) {
-		this.goodsmoney = goodsmoney;
+	public void setGoodsMoney(String goodsMoney) {
+		this.goodsMoney = goodsMoney;
 	}
 
-	public String getGoodscycle() {
-		return goodscycle;
+	public String getGoodsCycle() {
+		return goodsCycle;
 	}
 
-	public void setGoodscycle(String goodscycle) {
-		this.goodscycle = goodscycle;
+	public void setGoodsCycle(String goodsCycle) {
+		this.goodsCycle = goodsCycle;
 	}
 
 	public String getRemark() {

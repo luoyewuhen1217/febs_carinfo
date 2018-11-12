@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cc.mrbird.member.dao.GoodsMapper">
-  
+    <resultMap id="BaseResultMap" type="cc.mrbird.member.domain.Goods">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+        <result column="GOODS_CYCLE" jdbcType="VARCHAR" property="goodsCycle" />
+        <result column="GOODS_MONEY" jdbcType="VARCHAR" property="goodsMoney" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+
+    <select id="findAllGoods" resultType="cc.mrbird.member.domain.Goods" parameterType="cc.mrbird.member.domain.Goods">
+        SELECT
+        g.goods_id goodsId,
+        g.goods_money goodsMoney,
+        g.goods_cycle goodsCycle,
+        g.remark remark,
+        g.create_time createTime
+        FROM
+        t_goods g
+        where 1=1
+        <if test="goodsCycle != null and goodsCycle != ''">
+            AND g.GOODS_CYCLE = #{goodsCycle}
+        </if>
+        <if test="goodsMoney != null and goodsMoney != ''">
+            AND g.GOODS_MONEY  = #{goodsMoney}
+        </if>
+        <if test="remark != null and remark != ''">
+            AND g.REMARK  = #{remark}
+        </if>
+        order by g.create_time desc
+    </select>
 </mapper>
