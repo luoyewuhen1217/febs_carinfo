@@ -7,28 +7,36 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                vehicleType: $goodsTableForm.find("select[name='vehicleType']").val(),
-                chassisTrademark: $goodsTableForm.find("input[name='chassisTrademark']").val(),
-                engineType: $goodsTableForm.find("input[name='engineType']").val().trim(),
-                squareQuantity: $goodsTableForm.find("input[name='squareQuantity']").val(),
-                remark: $goodsTableForm.find("input[name='remark']").val(),
-                manufacturer: $goodsTableForm.find("input[name='manufacturer']").val()
+                goodsCycle: $goodsTableForm.find("select[name='goodsCycle']").val(),
+                goodsMoney: $goodsTableForm.find("input[name='goodsMoney']").val().trim(),
+                remark: $goodsTableForm.find("input[name='remark']").val()
             };
         },
         columns: [{
             checkbox: true
         }, {
-            field: 'goodsid',
+            field: 'goodsId',
             title: '序号',
-            width:30
+            width:80
         },{
-            field: 'goodscycle',
+            field: 'goodsCycle',
             title: '套餐周期',
-            width:50
+            width:100,
+            formatter: function (value, row, index) {
+                if (value === '0') return '1天';
+                else if (value === '1') return '1个月';
+                else if (value === '2') return '3个月';
+                else if (value === '3') return '6个月';
+                else if (value === '4') return '1年';
+                else if (value === '5') return '3年';
+                else if (value === '6') return '5年';
+                else return '无';
+            }
+
         }, {
-            field: 'goodsmoney',
+            field: 'goodsMoney',
             title: '价格',
-            width:60
+            width:80
         }, {
             field: 'remark',
             title: '备注说明',
@@ -37,7 +45,7 @@ $(function () {
         }, {
             field: 'createTime',
             title: '创建时间',
-            width:80
+            width:200
         }
         ]
     };

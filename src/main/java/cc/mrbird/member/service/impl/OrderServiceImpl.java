@@ -80,18 +80,18 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
         //创建日期
         order.setCreateTime(new Date());
         //订单号
-        order.setOrdercode(getOrderIdByTime());
+        order.setOrderCode(getOrderIdByTime());
         //查询商品
 //        Goods queryGoods=new Goods();
 //        queryGoods.setGoodsid(order.getGoodsid());
 //        Goods goods=goodsmapper.findGoodsProfile(queryGoods);
-        Goods goods=goodsservice.findById(order.getGoodsid());
+        Goods goods=goodsservice.findById(order.getGoodsId());
         //套餐
-        order.setRechargecycle(goods.getGoodscycle());
+        order.setRechargeCycle(goods.getGoodsCycle());
         //金额
-        order.setRechargemoney(goods.getGoodsmoney());
+        order.setRechargeMoney(goods.getGoodsMoney());
         //支付状态
-        order.setPaystatus("为支付");
+        order.setPayStatus("为支付");
 //        order.setTheme(Order.DEFAULT_THEME);
 //        order.setAvatar(Order.DEFAULT_AVATAR);
 //        order.setPassword(MD5Utils.encrypt(order.getOrdername(), order.getPassword()));
@@ -177,7 +177,7 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 //        order.setModifyTime(new Date());
         this.updateNotNull(order);
         Example example = new Example(Order.class);
-        example.createCriteria().andCondition("order_id=", order.getOrderid());
+        example.createCriteria().andCondition("order_id=", order.getOrderId());
         this.orderMapper.deleteByExample(example);
         setOrderRoles(order, roles);
     }

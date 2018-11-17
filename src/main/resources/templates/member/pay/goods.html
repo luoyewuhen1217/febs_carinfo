@@ -15,10 +15,6 @@
                         </ul>
                     </div>
                     <div class="dropdown actions__item" shiro:hasAnyPermissions="goods:add,goods:delete,goods:update">
-                    </div>
-
-
-                    <div class="dropdown actions__item" shiro:hasAnyPermissions="goods:add,goods:delete,goods:update">
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#goods-add" shiro:hasPermission="goods:add">新增商品信息</a>
@@ -35,7 +31,7 @@
                                     <span class="input-group-addon">
                                         商品类型：
                                     </span>
-                                    <select class="form-control" name="vehicleType">
+                                    <select class="form-control" name="goodsCycle">
                                         <option value="" selected>所有</option>
                                         <option value="0">1天</option>
                                         <option value="1">1个月</option>
@@ -54,7 +50,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"> 备注： </span>
                                     <div class="form-group">
-                                        <input type="text" name="chassisTrademark" class="form-control"> <i class="form-group__bar"></i>
+                                        <input type="text" name="remark" class="form-control"> <i class="form-group__bar"></i>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +59,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"> 价格： </span>
                                     <div class="form-group">
-                                        <input type="text" name="engineType" class="form-control"> <i class="form-group__bar"></i>
+                                        <input type="text" name="goodsMoney" class="form-control"> <i class="form-group__bar"></i>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +68,7 @@
 
                     </form>
                 </div>
-                <table id="goodsTable" style='table-layout:fixed; width: 1800px' data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                <table id="goodsTable" style='table-layout:fixed; width: 700px' data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
             </div>
         </div>
     </div>

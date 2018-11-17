@@ -40,12 +40,13 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
     public List<Goods> findAllGoods(Goods goods) {
 
         try {
-            Example example = new Example(Goods.class);
-//            if (StringUtils.isNotBlank(role.getRoleName())) {
-//                example.createCriteria().andCondition("role_name=", role.getRoleName());
-//            }
-            example.setOrderByClause("create_time");
-            return this.selectByExample(example);
+//            Example example = new Example(Goods.class);
+////            if (StringUtils.isNotBlank(role.getRoleName())) {
+////                example.createCriteria().andCondition("role_name=", role.getRoleName());
+////            }
+//            example.setOrderByClause("create_time");
+//            return this.selectByExample(example);
+            return this.goodsMapper.findAllGoods(goods);
         } catch (Exception e) {
             log.error("获取角色信息失败", e);
             return new ArrayList<>();
@@ -130,7 +131,7 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
 //        goods.setModifyTime(new Date());
         this.updateNotNull(goods);
         Example example = new Example(Goods.class);
-        example.createCriteria().andCondition("goods_id=", goods.getGoodsid());
+        example.createCriteria().andCondition("goods_id=", goods.getGoodsId());
         this.goodsMapper.deleteByExample(example);
         setGoodsRoles(goods, roles);
     }
