@@ -123,7 +123,7 @@ public class LogServiceImpl extends BaseService<SysLog> implements LogService {
                 if (args[i] instanceof Serializable) {
                     Class<?> aClass = args[i].getClass();
                     try {
-                        aClass.getDeclaredMethod("toString", null);
+                        aClass.getDeclaredMethod("toString", aClass);
                         // 如果不抛出NoSuchMethodException 异常则存在 toString 方法 ，安全的writeValueAsString ，否则 走 Object的 toString方法
                         params.append("  ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i]));
                     } catch (NoSuchMethodException e) {

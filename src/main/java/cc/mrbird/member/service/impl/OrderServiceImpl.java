@@ -79,19 +79,18 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     public void addOrder(Order order) {
         //创建日期
         order.setCreateTime(new Date());
-        //订单号
-        order.setOrderCode(getOrderIdByTime());
+
         //查询商品
 //        Goods queryGoods=new Goods();
 //        queryGoods.setGoodsid(order.getGoodsid());
 //        Goods goods=goodsmapper.findGoodsProfile(queryGoods);
-        Goods goods=goodsservice.findById(order.getGoodsId());
-        //套餐
-        order.setRechargeCycle(goods.getGoodsCycle());
-        //金额
-        order.setRechargeMoney(goods.getGoodsMoney());
+//        Goods goods=goodsservice.findById(order.getGoodsId());
+//        //套餐
+//        order.setRechargeCycle(goods.getGoodsCycle());
+//        //金额
+//        order.setRechargeMoney(goods.getGoodsMoney());
         //支付状态
-        order.setPayStatus("为支付");
+        order.setPayStatus("未支付");
 //        order.setTheme(Order.DEFAULT_THEME);
 //        order.setAvatar(Order.DEFAULT_AVATAR);
 //        order.setPassword(MD5Utils.encrypt(order.getOrdername(), order.getPassword()));

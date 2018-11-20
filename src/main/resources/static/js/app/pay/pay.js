@@ -9,7 +9,7 @@ $(function() {
             $.each(data, function (k, v) {
                     css=numb==0?' active':'';//第一个默认勾选
                     tt += '<li> <a href="javascript:void(0);" class="wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580'+css
-                    +'" data-id="'+v['goodsid']
+                    +'" data-id="'+v['goodsId']
                     +'"> <span class="price">&yen;'+v['goodsMoney']
                     +'</span> <span class="title">'+v['goodsCycle']
                     +'</span> </a> </li>';
@@ -46,11 +46,13 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
         contentType : 'application/json;charset=utf-8',   //中文需要加上charset=utf-8才正确
         dataType: "json",
         success: function (message) {
+            alert("aaaa");
             console.debug(message);
             $("#request-process-patent").html(message.msg);
             if (message > 0) {
                 alert("请求已提交！我们会尽快与您取得联系");
             }
+            window.open("http://localhost:8000/order/alipay/"+message.msg);
         },
         error: function (message) {
             $("#request-process-patent").html("提交数据失败！");

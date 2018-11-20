@@ -5,9 +5,18 @@ import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.FileUtils;
+import cc.mrbird.common.util.pay.JsonUtils;
+import cc.mrbird.common.util.redis.RedisHelper;
+import cc.mrbird.member.config.AlipayConfig;
+import cc.mrbird.member.domain.Goods;
 import cc.mrbird.member.domain.Order;
+import cc.mrbird.member.service.GoodsService;
 import cc.mrbird.member.service.OrderService;
 import cc.mrbird.system.domain.User;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -17,13 +26,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class OrderController extends BaseController {
@@ -31,14 +41,22 @@ public class OrderController extends BaseController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
+    private AlipayConfig aliPayConfig;
+    @Autowired
+    private AlipayClient alipayClient;
+
+    @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private GoodsService goodsservice;
 
     private static final String ON = "on";
 
     @RequestMapping("order")
     @RequiresPermissions("order:list")
     public String index(Model model) {
-       // Order order = orderService.findAllOrder(new Order());//super.get();
+        // Order order = orderService.findAllOrder(new Order());//super.get();
         //model.addAttribute("order", order);
         return "member/pay/order";
     }
@@ -53,27 +71,108 @@ public class OrderController extends BaseController {
         return getDataTable(pageInfo);
     }
 
+
+    //产生订单号 时间+随机数
+    public static String getOrderIdByTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newDate = sdf.format(new Date());
+        String result = "";
+        Random random = new Random();
+        for (int i = 0; i < 3; i++) {
+            result += random.nextInt(10);
+        }
+        return newDate + result;
+    }
+
+    @Log("打开阿里支付界面")
+    @RequestMapping(value = "order/alipay/{jsoonPay}", method = RequestMethod.GET, produces = "application/json;charset=utf-8;")
+    public void jsoonPay(@PathVariable("jsoonPay") String jsonPay, HttpServletResponse response) {
+        try {
+            String result = "<form name=\"punchout_form\" method=\"post\" action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=mxuC%2F8cmX1qJIUacJfBw3z%2BhXGkUL1a0F6I2uHsTtGPsGnStaNkHM0xpDeFOVuQQDcnx%2FMzx%2BYFsGZdksR664Ur8S9X49K1fPkTJWUr%2B%2FLojLNKBB9YGk%2Fj%2FLNCjNE8QxdR0JgWYKQ684UARPL%2F9TT1SSKLHZSUmVlxaEwGAmpiGNcFETrHposbG%2BjtfUvLIQHH6JaYfGVEnrpN2I36PueqjWr7dSdnlxWeM0VBsrvfd7u5pa8hsBaBihVxdhpmL5NwgxWIApya0UsUmlm3ztFZk4LDCvWMm8Q1QItONLCYMWRf5Mh1YHe79Ab54zlMxuVz2OzYnFrZwlKGL2NaxOg%3D%3D&return_url=http%3A%2F%2Fqiweb.shangyixx.com%2Falipay%2Freturn_url.jsp&notify_url=http%3A%2F%2Fqiweb.shangyixx.com%2F%2Falipay%2Fnotify_url.jsp&version=1.0&app_id=2016092000553510&sign_type=RSA2&timestamp=2018-11-17+14%3A23%3A52&alipay_sdk=alipay-sdk-java-3.4.27.ALL&format=json\">\n" + "<input type=\"hidden\" name=\"biz_content\" value=\"{&quot;out_trade_no&quot;:&quot;20181117142322735&quot;,&quot;total_amount&quot;:&quot;55&quot;,&quot;subject&quot;:&quot;1&quot;,&quot;body&quot;:&quot;1&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}\">\n" + "<input type=\"submit\" value=\"立即支付\" style=\"display:none\" >\n" + "</form>\n" + "<script>document.forms[0].submit();</script>";
+            result = RedisHelper.get(jsonPay);
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Log("创建订单信息x")
 //    @RequestMapping("order/addnew")
     @ResponseBody
-    @RequestMapping(value="order/addnew", method= RequestMethod.POST, produces="application/json;charset=utf-8;")
-    public  ResponseBo regist(@RequestBody Map<String, Object> params,Model model) {
+    @RequestMapping(value = "order/addnew", method = RequestMethod.POST, produces = "application/json;charset=utf-8;")
+    public ResponseBo createOrder(@RequestBody Map<String, Object> params, Model model, HttpServletResponse response) {
         User user = super.getCurrentUser();
-        try{
-            Order order=new Order();
+        try {
+            Order order = new Order();
             order.setUserId(user.getUserId());
             order.setUserName(user.getUsername());
-            order.setGoodsId(Long.parseLong((String)params.get("data_id")));
-            order.setPayMent("wechat".equals(params.get("payment_method"))?"微信支付":"支付宝");
+            order.setGoodsId(Long.parseLong((String) params.get("data_id")));
+            order.setPayMent("wechat".equals(params.get("payment_method")) ? "微信支付" : "支付宝");
+            Goods goods = goodsservice.findById(order.getGoodsId());
+            //套餐
+            order.setRechargeCycle(goods.getGoodsCycle());
+            //金额
+            order.setRechargeMoney(goods.getGoodsMoney());
+
+            //订单号
+            order.setOrderCode(getOrderIdByTime());
             this.orderService.addOrder(order);
-            return ResponseBo.ok("新增订单成功！");
+
+
+            //////
+            // 金额保留两位
+//            money = (float) (Math.round(money * 100)) / 100;
+//
+//            // 生成订单
+//            OrderInfo orderInfo = orderInfoService.createOrder(subject, body, money, aliPayConfig.getSellerId());
+
+            // 1、设置请求参数
+            AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+            // 页面跳转同步通知页面路径
+            alipayRequest.setReturnUrl(aliPayConfig.return_url);
+            // 服务器异步通知页面路径
+            alipayRequest.setNotifyUrl(aliPayConfig.notify_url);
+
+            // 2、SDK已经封装掉了公共参数，这里只需要传入业务参数，请求参数查阅开头Wiki
+            Map<String, String> map = new HashMap<>(16);
+            map.put("out_trade_no", order.getOrderCode());
+            map.put("total_amount", goods.getGoodsMoney());
+            map.put("subject", goods.getGoodsCycle());
+            map.put("body", goods.getRemark());
+            // 销售产品码
+            map.put("product_code", "FAST_INSTANT_TRADE_PAY");
+
+            alipayRequest.setBizContent(JsonUtils.objectToJson(map));
+
+            response.setContentType("text/html;charset=utf-8");
+            try {
+                // 3、生成支付表单
+                AlipayTradePagePayResponse alipayResponse = alipayClient.pageExecute(alipayRequest);
+                if (alipayResponse.isSuccess()) {
+                    String result = alipayResponse.getBody();
+                    RedisHelper.set(order.getOrderCode(), result, 0);
+                    return ResponseBo.ok(order.getOrderCode());
+//                    response.getWriter().write(result);
+                } else {
+                    log.error("【支付表单生成】失败，错误信息：{}", alipayResponse.getSubMsg());
+//                    response.getWriter().write("error");
+                }
+            } catch (Exception e) {
+                log.error("【支付表单生成】异常，异常信息：{}", e.getMessage());
+                e.printStackTrace();
+            }
+            //////
+//            return ResponseBo.ok("新增订单成功！");
+
         } catch (Exception e) {
             log.error("新增订单失败", e);
             return ResponseBo.error("新增订单失败，请联系网站管理员！");
         }
         //return ResponseBo.ok();
+        return null;
     }
-   // public ResponseBo regist(Order order) {
+    // public ResponseBo regist(Order order) {
 //        try {
 //            Order result = this.orderService.findByName(order.getOrdercycle());
 //            if (result != null) {
@@ -85,8 +184,8 @@ public class OrderController extends BaseController {
 //            log.error("注册失败", e);
 //            return ResponseBo.error("注册失败，请联系网站管理员！");
 //        }
-      //  return null;
-   // }
+    //  return null;
+    // }
 
     @RequestMapping("order/checkOrderName")
     @ResponseBody
@@ -144,7 +243,6 @@ public class OrderController extends BaseController {
             return ResponseBo.error("导出Csv失败，请联系网站管理员！");
         }
     }
-
 
 
     @Log("更换主题")
@@ -287,4 +385,74 @@ public class OrderController extends BaseController {
             return ResponseBo.error("更新头像失败，请联系网站管理员！");
         }
     }
+
+    /**
+     * 同步跳转
+     *
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping("/aliPay/returnUrl")
+    public String returnUrl(HttpServletRequest request) throws Exception {
+        ModelAndView mav = new ModelAndView();
+
+        // 获取支付宝GET过来反馈信息（官方固定代码）
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+            System.out.println("values:::"+values);
+            System.out.println("name:::"+name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+                System.out.println("valueStr--11111111111--------************------------:"+valueStr);
+            }
+            params.put(name, valueStr);
+        }
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, aliPayConfig.alipay_public_key, aliPayConfig.charset, aliPayConfig.sign_type); // 调用SDK验证签名
+
+        // 返回界面
+        if (signVerified) {
+            System.out.println("前往支付成功页面");
+
+
+
+
+            return "member/pay/order";
+        } else {
+            System.out.println("前往支付失败页面");
+            return "member/pay/order";
+        }
+    }
+
+    /**
+     * 支付宝服务器异步通知
+     *
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping("/aliPay/notifyUrl")
+    public void notifyUrl(HttpServletRequest request) throws Exception {
+        // 获取支付宝GET过来反馈信息
+        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            String[] values = (String[]) requestParams.get(name);
+
+            System.out.println("values-------------"+values);
+            System.out.println("name------------------"+name);
+
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+                System.out.println("valueStr--------************------------:"+valueStr);
+            }
+
+
+        }
+    }
+
 }
