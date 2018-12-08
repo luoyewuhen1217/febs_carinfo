@@ -39,7 +39,7 @@ public class Order implements Serializable {
     private Long goodsId;
 
     @Column(name = "RECHARGE_MONEY")
-    @ExportConfig(value = "商品价格")
+    @ExportConfig(value = "普通vip商品价格")
     private String rechargeMoney;
 
     @Column(name = "RECHARGE_CYCLE")

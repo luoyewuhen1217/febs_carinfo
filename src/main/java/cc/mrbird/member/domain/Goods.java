@@ -16,9 +16,14 @@ public class Goods implements Serializable {
 	@Column(name = "GOODS_ID")
 	private Long goodsId;
 
-	@Column(name = "GOODS_MONEY")
-	@ExportConfig(value = "商品价格")
-	private String goodsMoney;
+	@Column(name = "VIP_MONEY")
+	@ExportConfig(value = "普通会员价格")
+	private String vipMoney;
+
+	@Column(name = "BUSINESS_MONEY")
+	@ExportConfig(value = "商户会员价格")
+	private String businessMoney;
+
 
 	@Column(name = "GOODS_CYCLE")
 	private String goodsCycle;
@@ -33,9 +38,16 @@ public class Goods implements Serializable {
 	private Date createTime;
 
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
+	// 用于搜索条件中的时间字段
+	@Transient
+	private String timeField;
+
+	@Transient
+	private String timeField1;
+
+	@Transient
+	private String timeField2;
 
 	public Long getGoodsId() {
 		return goodsId;
@@ -45,12 +57,20 @@ public class Goods implements Serializable {
 		this.goodsId = goodsId;
 	}
 
-	public String getGoodsMoney() {
-		return goodsMoney;
+	public String getVipMoney() {
+		return vipMoney;
 	}
 
-	public void setGoodsMoney(String goodsMoney) {
-		this.goodsMoney = goodsMoney;
+	public void setVipMoney(String vipMoney) {
+		this.vipMoney = vipMoney;
+	}
+
+	public String getBusinessMoney() {
+		return businessMoney;
+	}
+
+	public void setBusinessMoney(String businessMoney) {
+		this.businessMoney = businessMoney;
 	}
 
 	public String getGoodsCycle() {
@@ -101,17 +121,8 @@ public class Goods implements Serializable {
 		this.timeField2 = timeField2;
 	}
 
-	// 用于搜索条件中的时间字段
-	@Transient
-	private String timeField;
-
-	@Transient
-	private String timeField1;
-
-	@Transient
-	private String timeField2;
-
-
-
-
+	@Override
+	public String toString() {
+		return "Goods{" + "goodsId=" + goodsId + ", vipMoney='" + vipMoney + '\'' + ", businessMoney='" + businessMoney + '\'' + ", goodsCycle='" + goodsCycle + '\'' + ", remark='" + remark + '\'' + ", createTime=" + createTime + ", timeField='" + timeField + '\'' + ", timeField1='" + timeField1 + '\'' + ", timeField2='" + timeField2 + '\'' + '}';
+	}
 }

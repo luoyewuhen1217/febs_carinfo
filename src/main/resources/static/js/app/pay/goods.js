@@ -8,7 +8,8 @@ $(function () {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
                 goodsCycle: $goodsTableForm.find("select[name='goodsCycle']").val(),
-                goodsMoney: $goodsTableForm.find("input[name='goodsMoney']").val().trim(),
+                vipMoney: $goodsTableForm.find("input[name='vipMoney']").val().trim(),
+                businessMoney: $goodsTableForm.find("input[name='businessMoney']").val().trim(),
                 remark: $goodsTableForm.find("input[name='remark']").val()
             };
         },
@@ -34,9 +35,13 @@ $(function () {
             }
 
         }, {
-            field: 'goodsMoney',
-            title: '价格',
-            width:80
+            field: 'vipMoney',
+            title: '普通会员价格',
+            width:100
+        }, {
+            field: 'businessMoney',
+            title: '商户会员价格',
+            width:100
         }, {
             field: 'remark',
             title: '备注说明',

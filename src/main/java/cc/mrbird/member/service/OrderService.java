@@ -40,4 +40,8 @@ public interface OrderService extends IService<Order> {
     Order findOrderProfile(Order order);
 
     void updateOrderProfile(Order order);
+
+    void updateOrderByOrderId(Order order);
+
+
 }

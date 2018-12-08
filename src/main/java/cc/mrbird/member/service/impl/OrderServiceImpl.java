@@ -250,4 +250,69 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 //        this.updateNotNull(order);
     }
 
+
+    /**
+     * 通过订单ID设置支付方式、充值金额、充值周期、支付时间、到期时间等信息
+     * @param order
+     */
+    @Override
+    @Transactional
+    public void updateOrderByOrderId(Order order) {
+        order.setPayMent("");
+        order.setPayStatus("");
+        order.setRechargeMoney("");
+        order.setRechargeCycle("");
+        Date date = new Date();
+        this.getExpiryTimeByPayTime(date,order);
+        order.setPayTime(new Date());
+
+
+        order.setExpiryTime(new Date());
+
+
+
+
+    }
+
+    private Date getExpiryTimeByPayTime(Date date,Order order) {
+
+        // Calendar calendar = new GregorianCalendar();
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.DAY_OF_YEAR, 1);//增加一天,负数为减少一天
+        //calendar.add(calendar.DAY_OF_MONTH, 1);//增加一天
+        //calendar.add(calendar.DATE,1);//增加一天
+        //calendar.add(calendar.WEEK_OF_MONTH, 1);//增加一个礼拜
+        //calendar.add(calendar.WEEK_OF_YEAR,1);//增加一个礼拜
+        //calendar.add(calendar.MARCH,1);// 增加一个月
+        //calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
+        if (order.getRechargeCycle().equals("1天")) {
+            calendar.add(calendar.DAY_OF_MONTH, 1);
+        }
+        if (order.getRechargeCycle().equals("1个月")) {
+            calendar.add(calendar.MARCH, 1);
+        }
+        if (order.getRechargeCycle().equals("3个月")) {
+            calendar.add(calendar.MARCH, 3);
+        }
+        if (order.getRechargeCycle().equals("6个月")) {
+            calendar.add(calendar.MARCH, 6);
+        }
+        if (order.getRechargeCycle().equals("1年")) {
+            calendar.add(calendar.YEAR, 1);
+        }
+        if (order.getRechargeCycle().equals("3年")) {
+            calendar.add(calendar.YEAR, 3);
+        }
+        if (order.getRechargeCycle().equals("5年")) {
+            calendar.add(calendar.YEAR, 5);
+        }
+
+        date = calendar.getTime();
+
+
+        return date;
+    }
+
+
 }

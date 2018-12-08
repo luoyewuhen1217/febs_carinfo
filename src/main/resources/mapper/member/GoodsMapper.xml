@@ -7,14 +7,16 @@
         -->
         <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
         <result column="GOODS_CYCLE" jdbcType="VARCHAR" property="goodsCycle" />
-        <result column="GOODS_MONEY" jdbcType="VARCHAR" property="goodsMoney" />
+        <result column="VIP_MONEY" jdbcType="VARCHAR" property="vipMoney" />
+        <result column="BUSINESS_MONEY" jdbcType="VARCHAR" property="businessMoney" />
         <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     </resultMap>
 
     <select id="findAllGoods" resultType="cc.mrbird.member.domain.Goods" parameterType="cc.mrbird.member.domain.Goods">
         SELECT
         g.goods_id goodsId,
-        g.goods_money goodsMoney,
+        g.vip_money vipMoney,
+        g.business_money businessMoney,
         g.goods_cycle goodsCycle,
         g.remark remark,
         g.create_time createTime
@@ -24,9 +26,13 @@
         <if test="goodsCycle != null and goodsCycle != ''">
             AND g.GOODS_CYCLE = #{goodsCycle}
         </if>
-        <if test="goodsMoney != null and goodsMoney != ''">
-            AND g.GOODS_MONEY  = #{goodsMoney}
+        <if test="vipMoney != null and vipMoney != ''">
+            AND g.VIP_MONEY  = #{vipMoney}
         </if>
+        <if test="businessMoney != null and businessMoney != ''">
+            AND g.BUSINESS_MONEY  = #{businessMoney}
+        </if>
+
         <if test="remark != null and remark != ''">
             AND g.REMARK  = #{remark}
         </if>

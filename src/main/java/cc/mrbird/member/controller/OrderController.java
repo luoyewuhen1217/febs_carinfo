@@ -112,8 +112,14 @@ public class OrderController extends BaseController {
             Goods goods = goodsservice.findById(order.getGoodsId());
             //套餐
             order.setRechargeCycle(goods.getGoodsCycle());
-            //金额
-            order.setRechargeMoney(goods.getGoodsMoney());
+            if (goods.getVipMoney() != null && !goods.getVipMoney().equals("")){
+                //普通VIP价格
+                order.setRechargeMoney(goods.getVipMoney());
+            }
+//            if (goods.getBusinessMoney() != null && !goods.getBusinessMoney().equals("")){
+//                //商户VIP价格
+//                order.setRechargeMoney(goods.getBusinessMoney());
+//            }
 
             //订单号
             order.setOrderCode(getOrderIdByTime());
@@ -137,7 +143,16 @@ public class OrderController extends BaseController {
             // 2、SDK已经封装掉了公共参数，这里只需要传入业务参数，请求参数查阅开头Wiki
             Map<String, String> map = new HashMap<>(16);
             map.put("out_trade_no", order.getOrderCode());
-            map.put("total_amount", goods.getGoodsMoney());
+
+            if (goods.getVipMoney() != null && !goods.getVipMoney().equals("")){
+                //普通VIP价格
+                map.put("total_amount", goods.getVipMoney());
+            }
+//            if (goods.getBusinessMoney() != null && !goods.getBusinessMoney().equals("")){
+//                //商户VIP价格
+//                map.put("total_amount", goods.getBusinessMoney());
+//            }
+
             map.put("subject", goods.getGoodsCycle());
             map.put("body", goods.getRemark());
             // 销售产品码
@@ -416,6 +431,10 @@ public class OrderController extends BaseController {
         // 返回界面
         if (signVerified) {
             System.out.println("前往支付成功页面");
+            // 支付成功后操作
+            // 修改
+//            Order order = new Order();
+//            order.setOrderId();
 
 
 
