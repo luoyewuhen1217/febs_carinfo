@@ -35,6 +35,8 @@ $(function() {
 
 $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
     $("#request-process-patent").html("正在提交数据，请勿关闭当前窗口...");
+    $("#request-process-patent").html("<img id=\"imgs\" src=\"http://qiwebdd.shangyixx.com//wxpay/precreate/order\">");
+    return;
     var json_data={
         "payment_method" : $("input[name='payment_method-63cc6c9f10d6d97511b9768b1c3ca2580']:checked").val(),
         "data_id" : $("[class='wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580 active']").attr("data-id")
