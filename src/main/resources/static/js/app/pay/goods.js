@@ -111,3 +111,33 @@ function paramsMatter2(value, row, index) {
     span.innerHTML = row.address;
     return span.outerHTML;
 }
+
+
+function deleteGoods() {
+    var ids = $("#goodsTable").bootstrapTable('getSelections');
+    alert("ids:"+ids);
+    var ids_arr = "";
+    if (!ids.length) {
+        $MB.n_warning("请勾选需要删除的商品！");
+        return;
+    }
+    for (var i = 0; i < ids.length; i++) {
+        ids_arr += ids[i].id;
+        if (i !== (ids.length - 1)) ids_arr += ",";
+    }
+    $MB.confirm({
+        text: "确定删除选中商品？",
+        confirmButtonText: "确定删除"
+    }, function() {
+        $.post(ctx + 'goods/delete', { "ids": ids_arr }, function(r) {
+            if (r.code === 0) {
+                $MB.n_success(r.msg);
+                refresh();
+            } else {
+                $MB.n_danger(r.msg);
+            }
+        });
+    });
+}
+
+

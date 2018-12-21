@@ -18,8 +18,8 @@
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#goods-add" shiro:hasPermission="goods:add">新增商品信息</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="updategoods()" shiro:hasPermission="goods:update">修改商品信息</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="deletegoods()" shiro:hasPermission="goods:delete">删除商品信息</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="updateGoods()" shiro:hasPermission="goods:update">修改商品信息</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteGoods()" shiro:hasPermission="goods:delete">删除商品信息</a>
                         </div>
                     </div>
                 </div>
@@ -85,3 +85,4 @@
     </div>
 </div>
 <script data-th-src="@{js/app/pay/goods.js}"></script>
+<script data-th-src="@{js/app/pay/goodsEdit.js}"></script>

@@ -22,44 +22,42 @@ $(function () {
         var flag = validator.form();
         if (flag) {
             if (name === "save") {
-                $.post(ctx + "user/add", $goodsAddForm.serialize(), function (r) {
+                $.post(ctx + "goods/add", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
                         $MB.n_success(r.msg);
-                        $MB.refreshTable("userTable");
+                        $MB.refreshTable("goodsTable");
                     } else $MB.n_danger(r.msg);
                 });
             }
             if (name === "update") {
-                $.post(ctx + "user/update", $goodsAddForm.serialize(), function (r) {
+                $.post(ctx + "goods/update", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
                         $MB.n_success(r.msg);
-                        $MB.refreshTable("userTable");
+                        $MB.refreshTable("goodsTable");
                     } else $MB.n_danger(r.msg);
                 });
             }
         }
     });
 
-    $("#user-add .btn-close").click(function () {
+    $("#goods-add .btn-close").click(function () {
         closeModal();
     });
 
 });
 
 function closeModal() {
-    $("#user-add-button").attr("name", "save");
+    $("#goods-add-button").attr("name", "save");
     validator.resetForm();
     $rolesSelect.multipleSelect('setSelects', []);
     $rolesSelect.multipleSelect("refresh");
-    $goodsAddForm.find("input[name='username']").removeAttr("readonly");
-    $goodsAddForm.find(".user_password").show();
+    $goodsAddForm.find("input[name='goodsname']").removeAttr("readonly");
+    $goodsAddForm.find(".goods_password").show();
     $goodsAddForm.find("input[name='status']").prop("checked", true);
-    $("#user-add-modal-title").html('新增用户');
-    $("#status").html('可用');
-    $MB.resetJsTree("deptTree");
-    $MB.closeAndRestModal("user-add");
+    $("#goods-add-modal-title").html('新增用户');
+    $MB.closeAndRestModal("goods-add");
 
 }
 
@@ -67,20 +65,20 @@ function closeModal() {
 //     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
 //     validator = $goodsAddForm.validate({
 //         rules: {
-//             username: {
+//             goodsname: {
 //                 required: true,
 //                 minlength: 3,
 //                 maxlength: 10,
 //                 remote: {
-//                     url: "user/checkUserName",
+//                     url: "goods/checkgoodsName",
 //                     type: "get",
 //                     dataType: "json",
 //                     data: {
-//                         username: function () {
-//                             return $("input[name='username']").val().trim();
+//                         goodsname: function () {
+//                             return $("input[name='goodsname']").val().trim();
 //                         },
-//                         oldusername: function () {
-//                             return $("input[name='oldusername']").val().trim();
+//                         oldgoodsname: function () {
+//                             return $("input[name='oldgoodsname']").val().trim();
 //                         }
 //                     }
 //                 }
@@ -106,7 +104,7 @@ function closeModal() {
 //             }
 //         },
 //         messages: {
-//             username: {
+//             goodsname: {
 //                 required: icon + "请输入用户名",
 //                 minlength: icon + "用户名长度3到10个字符",
 //                 remote: icon + "用户名已经存在"
