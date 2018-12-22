@@ -73,6 +73,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         user.setAvatar(User.DEFAULT_AVATAR);
         user.setSsex(User.SEX_UNKNOW);
         user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
+        user.setVipType("0");// 非VIP
         this.save(user);
         UserRole ur = new UserRole();
         ur.setUserId(user.getUserId());
