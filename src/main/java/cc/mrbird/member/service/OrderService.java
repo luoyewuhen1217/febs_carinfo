@@ -2,6 +2,7 @@ package cc.mrbird.member.service;
 
 import cc.mrbird.common.service.IService;
 import cc.mrbird.member.domain.Order;
+import cc.mrbird.system.domain.User;
 
 import java.util.List;
 
@@ -42,6 +43,8 @@ public interface OrderService extends IService<Order> {
     void updateOrderProfile(Order order);
 
     void updateOrderByOrderId(Order order);
-
-
+    //付款成功后更新订单和用户
+    void  updateUserAndOrder(Order order, User user );
+    //通过主键查询订单
+    Order queryOrderById(Order order);
 }

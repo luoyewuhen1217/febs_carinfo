@@ -7,6 +7,8 @@ import cc.mrbird.member.domain.Goods;
 import cc.mrbird.member.domain.Order;
 import cc.mrbird.member.service.GoodsService;
 import cc.mrbird.member.service.OrderService;
+import cc.mrbird.system.domain.User;
+import cc.mrbird.system.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -30,6 +33,12 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 
     @Autowired
     private GoodsService goodsservice;
+
+    @Autowired
+    private UserService userservice;
+
+    @Autowired
+    private OrderService orderservice;
 
     //@Autowired
     //private OrderRoleService orderRoleService;//
@@ -244,10 +253,45 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     @Override
     @Transactional
     public void updateOrderProfile(Order order) {
-//        order.setOrdername(null);
-//        order.setPassword(null);
-//        if (order.getDeptId() == null) order.setDeptId(0L);
-//        this.updateNotNull(order);
+        //order.setOrderId(null);
+        //order.setPassword(null);
+        //if (order.getDeptId() == null) order.setDeptId(0L);
+        this.updateNotNull(order);
+    }
+
+    /***
+     *
+     * @param order 订单
+     * @param user 用户
+     */
+    @Override
+    @Transactional
+    public void  updateUserAndOrder(Order order, User user ){
+        Date date=null;
+        if("1".equals(user.getVipstatus())){//如果用户之前已经到期就从当前日期开始计算到期时间
+            date=user.getViptime();
+        }else{
+            date=new Date();
+            user.setVipstatus("0");//未到期
+        }
+        Date vipdate=getExpiryTimeByPayTime(date,order);
+        //更新订单
+        order.setExpiryTime(vipdate);
+        //更新用户
+        user.setViptime(vipdate);
+        userservice.UpdateUserOfPay(user);
+//        this.save(order);
+        this.updateOrderProfile(order);
+    }
+
+    @Override
+    public Order queryOrderById(Order order) {
+        try {
+            return this.selectByKey(order);
+        } catch (Exception e) {
+            log.error("获取角色信息失败", e);
+            return new Order();
+        }
     }
 
 

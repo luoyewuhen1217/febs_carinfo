@@ -76,12 +76,12 @@ public class MyWXPayConfig implements WXPayConfig{
 
     @Override
     public String getAppID() {
-        return "wxab8acb865bb1637e";
+        return this.appID;//"wxab8acb865bb1637e";
     }
 
     @Override
     public String getMchID() {
-        return "11473623";
+        return this.mchID;//"11473623";
     }
 
     @Override

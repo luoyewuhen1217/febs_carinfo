@@ -89,6 +89,76 @@ public class User implements Serializable {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public static String getStatusValid() {
+		return STATUS_VALID;
+	}
+
+	public static String getStatusLock() {
+		return STATUS_LOCK;
+	}
+
+	public static String getDefaultTheme() {
+		return DEFAULT_THEME;
+	}
+
+	public static String getDefaultAvatar() {
+		return DEFAULT_AVATAR;
+	}
+
+	public static String getSexMale() {
+		return SEX_MALE;
+	}
+
+	public static String getSexFemale() {
+		return SEX_FEMALE;
+	}
+
+	public static String getSexUnknow() {
+		return SEX_UNKNOW;
+	}
+
+	public String getVipstatus() {
+		return vipstatus;
+	}
+
+	public void setVipstatus(String vipstatus) {
+		this.vipstatus = vipstatus;
+	}
+
+	public String getUsertype() {
+		return usertype;
+	}
+
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
+
+
+	//VIP状态 0：未过期 ，1：已过期
+	@Column(name = "VIPSTATUS")
+	private String vipstatus;
+
+	//用户类型：0:普通 ，1:商户
+	@Column(name = "USERTYPE")
+	private String usertype;
+
+	//Vip到期时间
+	@Column(name = "VIPTIME")
+	@ExportConfig(value = "到期时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
+	private Date viptime;
+
+	public Date getViptime() {
+		return viptime;
+	}
+
+	public void setViptime(Date viptime) {
+		this.viptime = viptime;
+	}
+
 	@Transient
 	private String roleName;
 

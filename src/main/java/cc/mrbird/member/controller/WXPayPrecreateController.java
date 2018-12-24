@@ -2,6 +2,8 @@ package cc.mrbird.member.controller;
 
 
 import cc.mrbird.member.config.WXPayClient;
+import cc.mrbird.member.domain.Order;
+import cc.mrbird.member.service.OrderService;
 import cc.mrbird.member.util.PayUtil;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
@@ -15,7 +17,11 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +40,10 @@ public class WXPayPrecreateController {
     @Autowired
     private WXPay wxPay;
 
+
+    @Autowired
+    private OrderService orderService;
+
     @Autowired
     private WXPayClient wxPayClient;
 
@@ -47,27 +57,46 @@ public class WXPayPrecreateController {
     public void precreate(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> reqData = new HashMap<>();
         String xx=String.valueOf(System.nanoTime());
-        System.out.println(xx);
-        reqData.put("out_trade_no", xx);
+
+        String orderNo=request.getParameter("code");
+        System.out.println("时间："+xx+"   订单号："+orderNo);
+
+        // 查询订单
+        Order order = new Order();
+        //order.setOrderCode(params.get("out_trade_no"));
+        List<Order> list = this.orderService.findAllOrder(order);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getOrderCode().equals(orderNo)){
+                order=list.get(i);
+                break;
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String orderTime = sdf.format(order.getCreateTime());
+
+        BigDecimal bdMoney=new BigDecimal(order.getRechargeMoney());
+        //设置小数位数，第一个变量是小数位数，第二个变量是取舍方法(四舍五入)
+        bdMoney=bdMoney.setScale(2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_HALF_UP);
+        reqData.put("out_trade_no", orderNo);
         reqData.put("trade_type", "NATIVE");
         reqData.put("product_id", "1");
-        reqData.put("time_start", "20181216142210");
-        reqData.put("time_expire", "20181216145210");
+        reqData.put("time_start", orderTime);//生成日期
+        //reqData.put("time_expire", "20181216145210"); 失效日期
         //reqData.put("product_id", "1");
         //reqData.put("product_id", "1");
 
-
-        reqData.put("body", "商户下单");
+        reqData.put("nonce_str", "5K8264ILTKCH16CQ2502SI8ZNMTM67VS"); //随机字符串，不长于32位。推荐随机数生成算法
+        reqData.put("body", "购买会员"+order.getRechargeCycle());
         // 订单总金额，单位为分
-        reqData.put("total_fee", "101");
+        reqData.put("total_fee", bdMoney.toString());//101 金额 单位是分 所以要把金额*100
         // APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
-        reqData.put("spbill_create_ip", "14.23.150.211");
+        reqData.put("spbill_create_ip", "223.167.169.162");
         // 异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
         reqData.put("notify_url", "http://qiwebdd.shangyixx.com/wxpay/precreate/notify");
         // 自定义参数, 可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
         reqData.put("device_info", "");
         // 附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用。
-        reqData.put("attach", "");
+        reqData.put("attach", orderNo);
 
         /**
          * {
@@ -79,7 +108,10 @@ public class WXPayPrecreateController {
          * prepay_id=wx18111952823301d9fa53ab8e1414642725
          * }
          */
+        System.out.println("微信下单请求报文参数："+reqData.toString());
         Map<String, String> responseMap = wxPay.unifiedOrder(reqData);
+
+        System.out.println("微信下单返回报文："+responseMap.toString());
         //logo(responseMap.toString());
         String returnCode = responseMap.get("return_code");
         String resultCode = responseMap.get("result_code");
@@ -107,7 +139,7 @@ public class WXPayPrecreateController {
     @RequestMapping("/notify")
     public void precreateNotify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> reqData = wxPayClient.getNotifyParameter(request);
-
+            System.out.println("微信通知支付成功回调了。。。"+reqData.toString());
         /**
          * {
          * transaction_id=4200000138201806180751222945,

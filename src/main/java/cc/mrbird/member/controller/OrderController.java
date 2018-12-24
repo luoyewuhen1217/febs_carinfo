@@ -86,12 +86,205 @@ public class OrderController extends BaseController {
 
     @Log("打开阿里支付界面")
     @RequestMapping(value = "order/alipay/{jsoonPay}", method = RequestMethod.GET, produces = "application/json;charset=utf-8;")
-    public void jsoonPay(@PathVariable("jsoonPay") String jsonPay, HttpServletResponse response) {
+    public void alipayjsoonPay(@PathVariable("jsoonPay") String jsonPay, HttpServletResponse response) {
         try {
             String result = "<form name=\"punchout_form\" method=\"post\" action=\"https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=mxuC%2F8cmX1qJIUacJfBw3z%2BhXGkUL1a0F6I2uHsTtGPsGnStaNkHM0xpDeFOVuQQDcnx%2FMzx%2BYFsGZdksR664Ur8S9X49K1fPkTJWUr%2B%2FLojLNKBB9YGk%2Fj%2FLNCjNE8QxdR0JgWYKQ684UARPL%2F9TT1SSKLHZSUmVlxaEwGAmpiGNcFETrHposbG%2BjtfUvLIQHH6JaYfGVEnrpN2I36PueqjWr7dSdnlxWeM0VBsrvfd7u5pa8hsBaBihVxdhpmL5NwgxWIApya0UsUmlm3ztFZk4LDCvWMm8Q1QItONLCYMWRf5Mh1YHe79Ab54zlMxuVz2OzYnFrZwlKGL2NaxOg%3D%3D&return_url=http%3A%2F%2Fqiweb.shangyixx.com%2Falipay%2Freturn_url.jsp&notify_url=http%3A%2F%2Fqiweb.shangyixx.com%2F%2Falipay%2Fnotify_url.jsp&version=1.0&app_id=2016092000553510&sign_type=RSA2&timestamp=2018-11-17+14%3A23%3A52&alipay_sdk=alipay-sdk-java-3.4.27.ALL&format=json\">\n" + "<input type=\"hidden\" name=\"biz_content\" value=\"{&quot;out_trade_no&quot;:&quot;20181117142322735&quot;,&quot;total_amount&quot;:&quot;55&quot;,&quot;subject&quot;:&quot;1&quot;,&quot;body&quot;:&quot;1&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}\">\n" + "<input type=\"submit\" value=\"立即支付\" style=\"display:none\" >\n" + "</form>\n" + "<script>document.forms[0].submit();</script>";
             result = RedisHelper.get(jsonPay);
             response.setContentType("text/html;charset=utf-8");
             response.getWriter().write(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Log("打开微信支付界面")
+    @RequestMapping(value = "order/wechat/{jsoonPay}", method = RequestMethod.GET, produces = "application/json;charset=utf-8;")
+    public void weixinjsoonPay(@PathVariable("jsoonPay") String jsonPay, HttpServletResponse response) {
+        try {
+            String result = "\n" +
+                    "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "<meta charset=\"utf-8\">\n" +
+                    "<meta name=\"keywords\" content=\"\" />\n" +
+                    "<meta name=\"description\" content=\"\" />\n" +
+                    "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n" +
+                    "<title>微信支付收银台</title>\n" +
+                    "<meta content=\"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no\" name=\"viewport\">\n" +
+                    "<link rel=\"shortcut icon\" href=\"https://wx.gtimg.com/core/favicon.ico\" type=\"image/x-icon\"/>\n" +
+                    "<link href=\"https://wx.gtimg.com\" rel=\"dns-prefetch\" />\n" +
+                    "<link rel=\"stylesheet\" href=\"https://wx.gtimg.com/pay_h5/12306/pindex/css/pindex.css?v=20170921_1\">\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "                                                                                    \n" +
+                    "                                 <body class=\"index  \" onclick=\"pgvWatchClick({coordinateId: 'logo'});\">\n" +
+                    "        <div class=\"wrap order-info  \">\n" +
+                    "        <div id=\"logo\" class=\"logo-wechatpay\"></div>\n" +
+                    "        <div id=\"T_orderDetailContainer\" class=\"payment-qrcode  \">\n" +
+                    "            <div class=\"data-record\">\n" +
+                    "                <div class=\"order-amount\">\n" +
+                    "                    <dl>\n" +
+                    "                        <dt>%s订单</dt>\n" +
+                    "                        <dd><span class=\"wechatrmb\">¥</span><span class=\"wechatnum\">%s</span></dd>\n" +
+                    "                    </dl>\n" +
+                    "                </div>\n" +
+                    "                <div id=\"T_tradeInfo\" class=\"order-detail\">\n" +
+                    "                    <!-- 交互说明\n" +
+                    "                         1. 给order-detail添加show-datum,显示订单详情\n" +
+                    "                    -->\n" +
+                    "                    <!--<a class=\"switch\" id=\"T_showOrderInfoBtn\" href=\"javascript:;\">订单详情<i class=\"arrow arrow-in\"></i><i class=\"arrow arrow-out\"></i></a>-->\n" +
+                    "                    <div class=\"datum\">\n" +
+                    "                        <dl>\n" +
+                    "                            <dt>收款方</dt>\n" +
+                    "                            <dd>%s</dd>\n" +
+                    "                        </dl>\n" +
+                    "                        <dl>\n" +
+                    "                            <dt>下单时间</dt>\n" +
+                    "                            <dd>%s</dd>\n" +
+                    "                        </dl>\n" +
+                    "                        <dl>\n" +
+                    "                            <dt>订单号</dt>\n" +
+                    "                            <dd>%s</dd>\n" +
+                    "                        </dl>\n" +
+                    "                    </div>\n" +
+                    "                                    </div>\n" +
+                    "            </div>\n" +
+                    "            <div id=\"T_qrContainer\" class=\"scan-qrcode\">\n" +
+                    "                <div id=\"T_qrText\" class=\"qrcode-tit\">\n" +
+                    "                                            订单将在30分钟后关闭，请及时付款\n" +
+                    "                                    </div>\n" +
+                    "                <div class=\"qrcode-img\">\n" +
+                    "                    <div id=\"T_qrImg\">\n" +
+                    "                    \t<img src=\"%s\"/>\n" +
+                    "                        <div id=\"T_qrImgLoading\"></div>\n" +
+                    "                    </div>\n" +
+                    "                    <div id=\"T_qrRefreshBtn\" class=\"status hide\">\n" +
+                    "                        <div class=\"icon\"></div>\n" +
+                    "                        <div class=\"mask\"></div>\n" +
+                    "                    </div>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"qrcode-msg\">\n" +
+                    "                    <p id=\"T_qrCodeMsg\">\n" +
+                    "                                            请使用微信扫一扫完成支付\n" +
+                    "                                        </p>\n" +
+                    "                    <p class=\" hide\">若已经安装微信，可以尝试<a id=\"T_padStartApp\" href=\"javascript:;\">拉起微信支付</a></p>\n" +
+                    "                </div>\n" +
+                    "            </div>              \n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <div id=\"T_paySuccContainer\" class=\"page-msg hide\">\n" +
+                    "            <div class=\"icon-area\">\n" +
+                    "                <i class=\"ico ico-succ\"></i>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"text-area\">\n" +
+                    "                <p class=\"major\">支付成功</p>\n" +
+                    "                <p class=\"minor\"><span id=\"T_second\">5</span> 秒后自动返回商户</p>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"oper-area\">\n" +
+                    "                <a id=\"T_jumpBtn\" class=\"btn btn-primary\" href=\"javascript:;\">立即返回</a>\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <div id=\"T_timeoutContainer\" class=\"page-msg  hide\">\n" +
+                    "            <div class=\"icon-area\">\n" +
+                    "                <i class=\"ico ico-fail\"></i>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"text-area\">\n" +
+                    "                <p class=\"major\">交易超时失效</p>\n" +
+                    "                <p class=\"minor  \">订单号：W20181222203652408</p>\n" +
+                    "                <p class=\"minor\">当前订单的最晚付款时间为：<span id=\"T_orderDeadline\">2018-12-22 14:23:48</span>，目前已过期。请重新下单</p>\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "\n" +
+                    "        <div id=\"T_errorContainer\" class=\"page-msg  hide\">\n" +
+                    "            <div class=\"icon-area\">\n" +
+                    "                <i class=\"ico ico-fail\"></i>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"text-area\">\n" +
+                    "                                    <p class=\"major\">订单未支付</p>\n" +
+                    "                    <p class=\"minor  \">订单号：</p>\n" +
+                    "                                <!--<div class=\"oper-area hide\">\n" +
+                    "                    <a class=\"btn btn-primary\" id=\"T_errorOut\" href=\"javascript:;\">关闭</a>\n" +
+                    "                </div>-->\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "\n" +
+                    "        <input name=\"qrStatus\" type=\"hidden\" value=\"SUCCESS\" id=\"T_qrStatus\"/>\n" +
+                    "        <input name=\"qrId\" type=\"hidden\" value=\"W20181222203652408\" id=\"T_qrId\"/>\n" +
+                    "        <input name=\"qrCodeReqUrl\" type=\"hidden\" value=\"https://payapp.weixin.qq.com/t/getqr\" id=\"T_qrCodeReqUrl\"/>\n" +
+                    "        <input name=\"qrCodeUrl\" type=\"hidden\" value=\"https://payapp.weixin.qq.com/t/qr?tp0i4qECT8aKjbEL8\" id=\"T_qrCodeUrl\"/>\n" +
+                    "        <input name=\"qrStatusLoopUrl\" type=\"hidden\" value=\"https://payapp.weixin.qq.com/t/porderquery\" id=\"T_qrStatusLoopUrl\"/>\n" +
+                    "        <input name=\"orderStatus\" type=\"hidden\" value=\"UNPAY\" id=\"T_orderStatus\"/>\n" +
+                    "        <input name=\"orderTimeout\" type=\"hidden\" value=\"1785\" id=\"T_orderTimeout\" />\n" +
+                    "        <input name=\"openLink\" type=\"hidden\" value=\"\" id=\"T_openLink\" />\n" +
+                    "        <input name=\"deviceType\" type=\"hidden\" value=\"PC\" id=\"T_deviceType\" />\n" +
+                    "        <input name=\"qrReturnUrl\" type=\"hidden\" value=\"\" id=\"T_qrReturnUrl\" />\n" +
+                    "        <input name=\"qrCodeStatus\" type=\"hidden\" value=\"NO\" id=\"T_qrCodeStatus\" />\n" +
+                    "        <input type=\"hidden\" name=\"qrCodeExpire\" value=\"300\" id=\"T_qrCodeExpire\" />\n" +
+                    "        \n" +
+                    "    </div>\n" +
+                    "\n" +
+                    "    <div class=\"wrap jumps-info  hide\">\n" +
+                    "        <div class=\"prompt\">\n" +
+                    "            <div class=\"icon-area\">\n" +
+                    "                <div class=\"ico-wechat\"></div>\n" +
+                    "                <div id=\"T_jumpWait\" class=\"ani-loader\"></div>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"text-area\">\n" +
+                    "                <p id=\"T_jumpTips\">正在前往微信支付，请勿关闭</p>\n" +
+                    "                <p id=\"T_jumpAlert\"></p>\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"remark\">切换<a id=\"T_jumpShowQrpay\" href=\"javascript:;\">二维码支付</a></div>\n" +
+                    "    </div>\n" +
+                    "        <script type=\"text/javascript\" src=\"https://wx.gtimg.com/third/jquery/jquery-1.11.2.min.js?v=20170905\"></script>\n" +
+                    "   \n" +
+                    "    <script type=\"text/javascript\">\n" +
+                    "        if(typeof(pgvMain) == 'function') pgvMain();\n" +
+                    "        if (typeof(pgvWatchClick) != 'function') {\n" +
+                    "            pgvWatchClick = function() {}\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        if (typeof(wxgsdk) != 'undefined') {\n" +
+                    "            wxgsdk.setBasicTime({\n" +
+                    "                pid : 260\n" +
+                    "            });\n" +
+                    "            wxgsdk.send();\n" +
+                    "        }\n" +
+                    "    </script>\n" +
+                    "    <noscript><h1 style=\"color:red\">您的浏览器不支持JavaScript，请更换浏览器或开启JavaScript设置!</h1></noscript>\n" +
+                    "</body>\n" +
+                    "</html>";
+            //result = RedisHelper.get(jsonPay);
+
+
+
+            // 查询订单
+            Order order = new Order();
+            //order.setOrderCode(params.get("out_trade_no"));
+            List<Order> list = this.orderService.findAllOrder(order);
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getOrderCode().equals(jsonPay)){
+                    order=list.get(i);
+                    break;
+                }
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String ordertime=sdf.format(order.getCreateTime());
+
+
+            //xx套餐 xx金额 xx收款方 xx下单时间 xx 订单号 xx 二维码地址
+            String output = String.format(result,"会员"+ order.getRechargeCycle()
+                    ,order.getRechargeMoney()
+                    ,"随州市尚亿专用现车公司"
+                    ,ordertime
+                    ,jsonPay
+                    ,"http://qiwebdd.shangyixx.com/wxpay/precreate/order?code="+jsonPay
+                    );
+//            String output = String.format("%s = %d", "joe", 35);
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().write(output);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -426,18 +619,66 @@ public class OrderController extends BaseController {
             }
             params.put(name, valueStr);
         }
+        /**
+         *
+         * values:::[Ljava.lang.String;@298e1901
+         * name:::charset
+         * valueStr--11111111111--------************------------:utf-8
+         * values:::[Ljava.lang.String;@3953bdc4
+         * name:::out_trade_no
+         * valueStr--11111111111--------************------------:20181223114133795
+         * values:::[Ljava.lang.String;@471cdb34
+         * name:::method
+         * valueStr--11111111111--------************------------:alipay.trade.page.pay.return
+         * values:::[Ljava.lang.String;@67eeb42e
+         * name:::total_amount
+         * valueStr--11111111111--------************------------:55.00
+         * values:::[Ljava.lang.String;@3e71ffc3
+         * name:::sign
+         * valueStr--11111111111--------************------------:M9MPnQRtnS36Rj+R/V1lN6xMM2aDxWog/yeRIBx19s5EPvKipasO9Dmz7fsKlOBwJFCTIN4Y6NCF3s5FxA7Ynrg3yfhmX3pYSHSPeoXgAjDqCKFd2NmBYgEtfHQRQhtJ6xyIejae8Q6FKwUIieaOiuSs117Bik/1jYStG2IGJslBMsoP1AMS1ixE4LzN9hQTOGpjbZ9tV2U61jccn0tO0AWiN8RdZwAASrcHVlC7UR9QR8D4SRh9iRQrkb1hfzAgbchdNT8+3twIDXOMyJ8KgiCDrJfKdv4I7hVUG4eNFX4xxhFivj9kElOnXjUFU7gIe0gCgEJPjcKgDWOUpfN5Ww==
+         * values:::[Ljava.lang.String;@1a68d854
+         * name:::trade_no
+         * valueStr--11111111111--------************------------:2018122322001408120500664013
+         * values:::[Ljava.lang.String;@3b0c7556
+         * name:::auth_app_id
+         * valueStr--11111111111--------************------------:2016092000553510
+         * values:::[Ljava.lang.String;@29d1f9dd
+         * name:::version
+         * valueStr--11111111111--------************------------:1.0
+         * values:::[Ljava.lang.String;@18ef84c3
+         * name:::app_id
+         * valueStr--11111111111--------************------------:2016092000553510
+         * values:::[Ljava.lang.String;@449955f2
+         * name:::sign_type
+         * valueStr--11111111111--------************------------:RSA2
+         * values:::[Ljava.lang.String;@1c672ef2
+         * name:::seller_id
+         * valueStr--11111111111--------************------------:2088102176445206
+         * values:::[Ljava.lang.String;@3a5e33b2
+         * name:::timestamp
+         * valueStr--11111111111--------************------------:2018-12-23 11:42:32
+         * 11:46:45.378 sms [QuartzScheduler_MyScheduler-MAX2018121545534983426_ClusterManager] ERROR c.a.druid.filter.stat.StatFilter - slow sql 5038 millis. SELECT * FROM QRTZ_SCHEDULER_STATE WHERE SCHED_NAME = 'MyScheduler'[]
+         * 11:46:45.380 sms [MyScheduler_QuartzSchedulerThread] ERROR c.a.druid.filter.stat.StatFilter - slow sql 5040 millis. SELECT TRIGGER_NAME, TRIGGER_GROUP, NEXT_FIRE_TIME, PRIORITY FROM QRTZ_TRIGGERS WHERE SCHED_NAME = 'MyScheduler' AND TRIGGER_STATE = ? AND NEXT_FIRE_TIME <= ? AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR != -1 AND NEXT_FIRE_TIME >= ?)) ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC["WAITING",1545536828329,1545536788340]
+         */
         boolean signVerified = AlipaySignature.rsaCheckV1(params, aliPayConfig.alipay_public_key, aliPayConfig.charset, aliPayConfig.sign_type); // 调用SDK验证签名
 
         // 返回界面
         if (signVerified) {
             System.out.println("前往支付成功页面");
             // 支付成功后操作
-            // 修改
-//            Order order = new Order();
-//            order.setOrderId();
-
-
-
+            // 查询订单
+            Order order = new Order();
+            //order.setOrderCode(params.get("out_trade_no"));
+            List<Order> list = this.orderService.findAllOrder(order);
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getOrderCode().equals(params.get("out_trade_no"))){
+                    order=list.get(i);
+                    break;
+                }
+            }
+//            order= this.orderService.findOrderProfile(order);
+            //order= orderService.queryOrderById(order);
+            updateUserAndOrder(order,super.getCurrentUser(),true);
 
             return "member/pay/order";
         } else {
@@ -471,6 +712,54 @@ public class OrderController extends BaseController {
             }
 
 
+        }
+    }
+
+    /***
+     * 支付成功后 更新用户和订单信息
+     * 订单
+     * 用户
+     * 支付成功状态
+     */
+    public void updateUserAndOrder(Order order,User user ,boolean payState){
+        //查询订单
+
+
+        //支付成功
+        if(payState){
+            //更新支付日期 到期日期 支付状态
+            order.setPayTime(new Date());
+            order.setPayStatus("1");//已支付
+            //更新用户表 用户到期状态 和到期日期VIP状态 0：未过期 ，1：已过期
+            //user.setVipstatus("0");//未到期
+        }
+
+        orderService.updateUserAndOrder(order,user );
+    }
+
+    /**
+     *  根据订单号查询订单
+     * @param orderCode
+     * @return
+     */
+
+    @RequestMapping("order/getOrderByCode")
+    @ResponseBody
+    public ResponseBo getOrderByCode(String orderCode) {
+        try {
+            Order order = new Order();
+//            order.setOrderCode(orderCode);
+            List<Order> list = this.orderService.findAllOrder(order);
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getOrderCode().equals(orderCode)){
+                    order=list.get(i);
+                    break;
+                }
+            }
+            return ResponseBo.ok(order);
+        } catch (Exception e) {
+            log.error("获取订单信息失败", e);
+            return ResponseBo.error("获取订单信息失败，请联系网站管理员！");
         }
     }
 

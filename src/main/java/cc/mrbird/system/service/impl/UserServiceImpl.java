@@ -182,4 +182,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         this.updateNotNull(user);
     }
 
+    @Override
+    @Transactional
+    public void UpdateUserOfPay(User user ) {
+        user.setUsername(null);
+        user.setPassword(null);
+        this.updateNotNull(user);
+        //this.save(user);
+    }
+
 }

@@ -35,10 +35,12 @@ $(function() {
 
 $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
     $("#request-process-patent").html("正在提交数据，请勿关闭当前窗口...");
-    $("#request-process-patent").html("<img id=\"imgs\" src=\"http://qiwebdd.shangyixx.com//wxpay/precreate/order\">");
-    return;
+    //$("#request-process-patent").html("<img id=\"imgs\" src=\"http://qiwebdd.shangyixx.com//wxpay/precreate/order\">");
+    //return;
+
+    var payment_method = $("input[name='payment_method-63cc6c9f10d6d97511b9768b1c3ca2580']:checked").val()
     var json_data={
-        "payment_method" : $("input[name='payment_method-63cc6c9f10d6d97511b9768b1c3ca2580']:checked").val(),
+        "payment_method" : payment_method,
         "data_id" : $("[class='wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580 active']").attr("data-id")
     };
     $.ajax({
@@ -54,7 +56,7 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
             if (message > 0) {
                 alert("请求已提交！我们会尽快与您取得联系");
             }
-            window.open("http://localhost:8000/order/alipay/"+message.msg);
+            window.open("http://localhost:8000/order/"+payment_method+"/"+message.msg);
         },
         error: function (message) {
             $("#request-process-patent").html("提交数据失败！");

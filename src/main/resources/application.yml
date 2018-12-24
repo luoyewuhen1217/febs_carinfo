@@ -93,13 +93,18 @@ pay:
     returnUrl: http://s9v2cw.natappfree.cc/alipay/return
     notifyUrl: http://s9v2cw.natappfree.cc/alipay/notify
   wxpay:
-    appID: wxab8acb865bb1637e
-    mchID: 11473623
-    key: 2ab9071b06b9f739b950ddb41db2690d
+    #appID: wxab8acb865bb1637e
+    #mchID: 11473623
+    #key: 2ab9071b06b9f739b950ddb41db2690d
+    appID: wx43815ae616d4ad4d
+    mchID: 1518805821
+    key: 3639bc1370e105aa65f10cdweixinkey
     sandboxKey: 3639bc1370e105aa65f10cd4fef2a3ef
-    certPath: /var/local/cert/apiclient_cert.p12
+    certPath: C:/Users/office/Desktop/apiclient_cert/apiclient_cert.p12
+    #/var/local/cert/apiclient_cert.p12
     notifyUrl: http://65ta5j.natappfree.cc/wxpay/refund/notify
-    useSandbox: true
+
+    useSandbox: false
   thymeleaf:
     cache: false
 #    prefix: classpath:/templates/

@@ -39,4 +39,6 @@ public interface UserService extends IService<User> {
     User findUserProfile(User user);
 
     void updateUserProfile(User user);
+
+    void UpdateUserOfPay(User user );
 }
