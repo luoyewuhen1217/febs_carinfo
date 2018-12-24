@@ -137,6 +137,12 @@ public class CarInfo implements Serializable {
     @ExportConfig(value = "是否置顶")
     private String isTop;
 
+    // 是否下架
+    @Column(name = "ISSOLDOUT")
+    @ExportConfig(value = "是否下架")
+    private String isSoldOut;
+
+
     public Long getCarId() {
         return carId;
     }
@@ -313,8 +319,16 @@ public class CarInfo implements Serializable {
         this.isTop = isTop;
     }
 
+    public String getIsSoldOut() {
+        return isSoldOut;
+    }
+
+    public void setIsSoldOut(String isSoldOut) {
+        this.isSoldOut = isSoldOut;
+    }
+
     @Override
     public String toString() {
-        return "CarInfo{" + "carId=" + carId + ", vehicleType='" + vehicleType + '\'' + ", chassisTrademark='" + chassisTrademark + '\'' + ", engineType='" + engineType + '\'' + ", squareQuantity='" + squareQuantity + '\'' + ", number=" + number + ", emissionStandard='" + emissionStandard + '\'' + ", remark='" + remark + '\'' + ", manufacturer='" + manufacturer + '\'' + ", contacts='" + contacts + '\'' + ", tel='" + tel + '\'' + ", address='" + address + '\'' + ", price='" + price + '\'' + ", volume1='" + volume1 + '\'' + ", volume2='" + volume2 + '\'' + ", vehicleSize='" + vehicleSize + '\'' + ", dimension='" + dimension + '\'' + ", waterSide='" + waterSide + '\'' + ", dusts='" + dusts + '\'' + ", jobWidth='" + jobWidth + '\'' + ", pumpLength='" + pumpLength + '\'' + ", isTop='" + isTop + '\'' + '}';
+        return "CarInfo{" + "carId=" + carId + ", vehicleType='" + vehicleType + '\'' + ", chassisTrademark='" + chassisTrademark + '\'' + ", engineType='" + engineType + '\'' + ", squareQuantity='" + squareQuantity + '\'' + ", number=" + number + ", emissionStandard='" + emissionStandard + '\'' + ", remark='" + remark + '\'' + ", manufacturer='" + manufacturer + '\'' + ", contacts='" + contacts + '\'' + ", tel='" + tel + '\'' + ", address='" + address + '\'' + ", price='" + price + '\'' + ", volume1='" + volume1 + '\'' + ", volume2='" + volume2 + '\'' + ", vehicleSize='" + vehicleSize + '\'' + ", dimension='" + dimension + '\'' + ", waterSide='" + waterSide + '\'' + ", dusts='" + dusts + '\'' + ", jobWidth='" + jobWidth + '\'' + ", pumpLength='" + pumpLength + '\'' + ", isTop='" + isTop + '\'' + ", isSoldOut='" + isSoldOut + '\'' + '}';
     }
 }
