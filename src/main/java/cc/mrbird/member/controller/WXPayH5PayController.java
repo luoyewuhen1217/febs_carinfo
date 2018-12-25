@@ -61,7 +61,7 @@ public class WXPayH5PayController {
         reqData.put("scene_info", "{\"h5_info\": {\"type\":\"Wap\",\"wap_url\": \"http://3sbqi7.natappfree.cc\",\"wap_name\": \"腾讯充值\"}}");
 
         Map<String, String> responseMap = wxPay.unifiedOrder(reqData);
-        log.info(responseMap.toString());
+        //log.info(responseMap.toString());
         String returnCode = responseMap.get("return_code");
         String resultCode = responseMap.get("result_code");
         if (WXPayConstants.SUCCESS.equals(returnCode) && WXPayConstants.SUCCESS.equals(resultCode)) {

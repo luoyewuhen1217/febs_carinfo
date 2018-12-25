@@ -102,6 +102,41 @@ public class User implements Serializable {
 	@Transient
 	private String timeField2;
 
+	@Column(name = "VIPSTATUS")
+	private String vipStatus;
+
+	@Column(name = "VIPTYPE")
+	private String vipType;
+
+	public String getVipStatus() {
+		return vipStatus;
+	}
+
+	public void setVipStatus(String vipStatus) {
+		this.vipStatus = vipStatus;
+	}
+
+	public String getVipType() {
+		return vipType;
+	}
+
+	public void setVipType(String vipType) {
+		this.vipType = vipType;
+	}
+
+
+
+	@Column(name = "VIPTIME")
+	private Date vipTime;
+
+	public Date getVipTime() {
+		return vipTime;
+	}
+
+	public void setVipTime(Date vipTime) {
+		this.vipTime = vipTime;
+	}
+
 	/**
 	 * @return USER_ID
 	 */

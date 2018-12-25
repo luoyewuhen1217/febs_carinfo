@@ -268,17 +268,17 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     @Transactional
     public void  updateUserAndOrder(Order order, User user ){
         Date date=null;
-        if("1".equals(user.getVipstatus())){//如果用户之前已经到期就从当前日期开始计算到期时间
-            date=user.getViptime();
+        if("1".equals(user.getVipStatus())){//如果用户之前已经到期就从当前日期开始计算到期时间
+            date=user.getVipTime();
         }else{
             date=new Date();
-            user.setVipstatus("0");//未到期
+            user.setVipStatus("0");//未到期
         }
         Date vipdate=getExpiryTimeByPayTime(date,order);
         //更新订单
         order.setExpiryTime(vipdate);
         //更新用户
-        user.setViptime(vipdate);
+        user.setVipTime(vipdate);
         userservice.UpdateUserOfPay(user);
 //        this.save(order);
         this.updateOrderProfile(order);
