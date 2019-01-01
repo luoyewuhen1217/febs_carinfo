@@ -1,10 +1,13 @@
 package cc.mrbird.member.controller;
 
 
+import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.member.config.WXPayClient;
 import cc.mrbird.member.domain.Order;
 import cc.mrbird.member.service.OrderService;
 import cc.mrbird.member.util.PayUtil;
+import cc.mrbird.system.domain.User;
+import cc.mrbird.system.service.UserService;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
@@ -36,10 +39,12 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/wxpay/precreate")
-public class WXPayPrecreateController {
+public class WXPayPrecreateController extends BaseController {
     @Autowired
     private WXPay wxPay;
 
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private OrderService orderService;
@@ -159,8 +164,39 @@ public class WXPayPrecreateController {
          * is_subscribe=N,
          * return_code=SUCCESS
          * }
+         *
+         *
+         *
+         *  s
          */
         //log.info(reqData.toString());
+        System.out.println(reqData.toString());
+        // 支付成功后操作
+        // 查询订单
+        Order order = new Order();
+        //order.setOrderCode(params.get("out_trade_no"));
+        List<Order> list = this.orderService.findAllOrder(order);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getOrderCode().equals(reqData.get("out_trade_no"))){
+                order=list.get(i);
+                break;
+            }
+        }
+//            order= this.orderService.findOrderProfile(order);
+        //order= orderService.queryOrderById(order);
+        //updateUserAndOrder(order,super.getCurrentUser(),true);
+        //更新支付日期 到期日期 支付状态
+        order.setPayTime(new Date());
+        order.setPayStatus("1");//已支付
+        //更新用户表 用户到期状态 和到期日期VIP状态 0：未过期 ，1：已过期
+        //user.setVipstatus("0");//未到期
+
+
+        User user = new User();
+                    user.setUserId(order.getUserId());
+                  userService.findUserProfile(user);
+
+        orderService.updateUserAndOrder(order,super.getCurrentUser() );
 
         // 特别提醒：商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失。
         boolean signatureValid = wxPay.isPayResultNotifySignatureValid(reqData);

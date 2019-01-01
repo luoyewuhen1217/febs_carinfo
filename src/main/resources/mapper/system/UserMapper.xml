@@ -19,6 +19,10 @@
     <result column="THEME" jdbcType="VARCHAR" property="theme" />
     <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+
+  	<result column="VIPSTATUS" jdbcType="VARCHAR" property="vipStatus"/>
+  	<result column="VIPTYPE" jdbcType="VARCHAR" property="vipType"/>
+  	<result column="VIPTIME" jdbcType="TIMESTAMP" property="vipTime" />
   </resultMap>
 
 	<select id="findUserWithDept" resultType="user" parameterType="user">
@@ -82,5 +86,12 @@
 		U .USER_ID,
 		U .dept_id
   </select>
+
+	<update id="updateUserVip" >
+
+		<![CDATA[UPDATE T_USER SET VIPTYPE='非vip'
+		 WHERE VIPTIME IS NOT NULL AND
+		VIPTIME < DATE_FORMAT(now(),"%Y-%m-%d %T")  ]]>
+	</update>
   
 </mapper>

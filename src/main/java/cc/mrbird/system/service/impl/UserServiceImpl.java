@@ -1,9 +1,6 @@
 package cc.mrbird.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -172,6 +169,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public User findUserProfile(User user) {
         return this.userMapper.findUserProfile(user);
+    }
+
+    @Override
+    public void updateUserVip(Map map){
+        this.userMapper.updateUserVip();
     }
 
     @Override

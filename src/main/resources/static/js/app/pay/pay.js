@@ -56,7 +56,9 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
             if (message > 0) {
                 alert("请求已提交！我们会尽快与您取得联系");
             }
-            window.open("http://localhost:8000/order/"+payment_method+"/"+message.msg);
+            //window.open("http://localhost:8000/order/"+payment_method+"/"+message.msg);
+            var urls="http://localhost:8000/order/"+payment_method+"/"+message.msg;
+            $("body").append('<div class="modal fade show" id="user-add" data-keyboard="false" data-backdrop="static" tabindex="-1" style="display: block;"><iframe  style="width:700px;height:500px;" src="'+urls+'"></iframe></div>');
         },
         error: function (message) {
             $("#request-process-patent").html("提交数据失败！");

@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
+import java.util.Map;
 
 //@CacheConfig(cacheNames = "UserService")
 public interface UserService extends IService<User> {
@@ -41,4 +42,6 @@ public interface UserService extends IService<User> {
     void updateUserProfile(User user);
 
     void UpdateUserOfPay(User user );
+
+    void updateUserVip(Map map);
 }

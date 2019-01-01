@@ -25,8 +25,11 @@
             <li><i class="zmdi zmdi-male-female"></i> [[${user.ssex}]]</li>
             <li><i class="zmdi zmdi-card-travel"></i> [[${#strings.defaultString(user.deptName,'无部门信息')}]]</li>
             <li><i class="zmdi zmdi-phone"></i> [[${#strings.defaultString(user.mobile,'无电话信息')}]]</li>
+
             <li id="profile__info_email"><i class="zmdi zmdi-email"></i><span> [[${#strings.defaultString(user.email,'无邮箱信息')}]]</span></li>
             <li><i class="zmdi zmdi-comment-text"></i> <span>[[${#strings.defaultString(user.description,'暂无个人介绍')}]]</span></li>
+
+            <li><i class="">vip到期时间:</i> [[${user.vipTime}]]</li>
         </ul>
     </div>
 </div>
