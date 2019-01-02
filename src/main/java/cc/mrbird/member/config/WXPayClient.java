@@ -1,10 +1,13 @@
 package cc.mrbird.member.config;
 
+import cc.mrbird.Application;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConfig;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 
 import javax.crypto.Cipher;
@@ -26,6 +29,7 @@ import java.util.Map;
  */
 @Slf4j
 public class WXPayClient extends WXPay {
+    private static Logger log = LoggerFactory.getLogger(Application.class);
 
     /** 密钥算法 */
     private static final String ALGORITHM = "AES";
