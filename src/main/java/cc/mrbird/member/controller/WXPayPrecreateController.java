@@ -55,7 +55,7 @@ public class WXPayPrecreateController extends BaseController {
     /**
      * 扫码支付 - 统一下单
      * 相当于支付不的电脑网站支付
-     *
+     * 微信支付二维码
      * <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1">扫码支付API</a>
      */
     @RequestMapping("/order")
@@ -194,9 +194,9 @@ public class WXPayPrecreateController extends BaseController {
 
         User user = new User();
                     user.setUserId(order.getUserId());
-                  userService.findUserProfile(user);
+        user=    userService.findUserProfile(user);
 
-        orderService.updateUserAndOrder(order,super.getCurrentUser() );
+        orderService.updateUserAndOrder(order,user );
 
         // 特别提醒：商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失。
         boolean signatureValid = wxPay.isPayResultNotifySignatureValid(reqData);

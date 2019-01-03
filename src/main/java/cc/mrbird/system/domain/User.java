@@ -127,13 +127,13 @@ public class User implements Serializable {
 
 
 	@Column(name = "VIPTIME")
-	private String vipTime;
+	private Date vipTime;
 
-	public String getVipTime() {
+	public Date getVipTime() {
 		return vipTime;
 	}
 
-	public void setVipTime(String vipTime) {
+	public void setVipTime(Date vipTime) {
 		this.vipTime = vipTime;
 	}
 
