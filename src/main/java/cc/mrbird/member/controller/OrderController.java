@@ -326,49 +326,56 @@ public class OrderController extends BaseController {
 //            // 生成订单
 //            OrderInfo orderInfo = orderInfoService.createOrder(subject, body, money, aliPayConfig.getSellerId());
 
-            // 1、设置请求参数
-            AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-            // 页面跳转同步通知页面路径
-            alipayRequest.setReturnUrl(aliPayConfig.return_url);
-            // 服务器异步通知页面路径
-            alipayRequest.setNotifyUrl(aliPayConfig.notify_url);
+            //支付宝生成订单，微信单独
+            if("alipay".equals(params.get("payment_method"))) {
+                // 1、设置请求参数
+                AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+                // 页面跳转同步通知页面路径
+                alipayRequest.setReturnUrl(aliPayConfig.return_url);
+                // 服务器异步通知页面路径
+                alipayRequest.setNotifyUrl(aliPayConfig.notify_url);
 
-            // 2、SDK已经封装掉了公共参数，这里只需要传入业务参数，请求参数查阅开头Wiki
-            Map<String, String> map = new HashMap<>(16);
-            map.put("out_trade_no", order.getOrderCode());
+                // 2、SDK已经封装掉了公共参数，这里只需要传入业务参数，请求参数查阅开头Wiki
+                Map<String, String> map = new HashMap<>(16);
+                map.put("out_trade_no", order.getOrderCode());
 
-            if (goods.getVipMoney() != null && !goods.getVipMoney().equals("")){
-                //普通VIP价格
-                map.put("total_amount", goods.getVipMoney());
-            }
+                if (goods.getVipMoney() != null && !goods.getVipMoney().equals("")) {
+                    //普通VIP价格
+                    map.put("total_amount", goods.getVipMoney());
+                }
 //            if (goods.getBusinessMoney() != null && !goods.getBusinessMoney().equals("")){
 //                //商户VIP价格
 //                map.put("total_amount", goods.getBusinessMoney());
 //            }
 
-            map.put("subject", goods.getGoodsCycle());
-            map.put("body", goods.getRemark());
-            // 销售产品码
-            map.put("product_code", "FAST_INSTANT_TRADE_PAY");
+                map.put("subject", goods.getGoodsCycle());
+                map.put("body", goods.getRemark());
+                // 销售产品码
+                map.put("product_code", "FAST_INSTANT_TRADE_PAY");
 
-            alipayRequest.setBizContent(JsonUtils.objectToJson(map));
+                alipayRequest.setBizContent(JsonUtils.objectToJson(map));
 
-            response.setContentType("text/html;charset=utf-8");
-            try {
-                // 3、生成支付表单
-                AlipayTradePagePayResponse alipayResponse = alipayClient.pageExecute(alipayRequest);
-                if (alipayResponse.isSuccess()) {
-                    String result = alipayResponse.getBody();
-                    RedisHelper.set(order.getOrderCode(), result, 0);
-                    return ResponseBo.ok(order.getOrderCode());
+                response.setContentType("text/html;charset=utf-8");
+                try {
+                    // 3、生成支付表单
+                    AlipayTradePagePayResponse alipayResponse = alipayClient.pageExecute(alipayRequest);
+                    if (alipayResponse.isSuccess()) {
+                        String result = alipayResponse.getBody();
+                        RedisHelper.set(order.getOrderCode(), result, 0);
+                        return ResponseBo.ok(order.getOrderCode());
 //                    response.getWriter().write(result);
-                } else {
-                    log.error("【支付表单生成】失败，错误信息：{}", alipayResponse.getSubMsg());
+                    } else {
+                        log.error("【支付表单生成】失败，错误信息：{}", alipayResponse.getSubMsg());
 //                    response.getWriter().write("error");
+                    }
+                } catch (Exception e) {
+                    log.error("【支付表单生成】异常，异常信息：{}", e.getMessage());
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                log.error("【支付表单生成】异常，异常信息：{}", e.getMessage());
-                e.printStackTrace();
+
+            }else{
+                response.setContentType("text/html;charset=utf-8");
+                return ResponseBo.ok(order.getOrderCode());
             }
             //////
 //            return ResponseBo.ok("新增订单成功！");
