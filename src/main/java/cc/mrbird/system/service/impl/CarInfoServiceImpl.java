@@ -1,5 +1,6 @@
 package cc.mrbird.system.service.impl;
 
+import cc.mrbird.system.domain.User;
 import org.apache.commons.lang3.StringUtils;
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.system.domain.CarInfo;
@@ -24,7 +25,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
 //    private CarInfoMapper carInfoMapper;
 
     @Override
-    public List<CarInfo> findAllCarInfos(CarInfo carinfo) {
+    public List<CarInfo> findAllCarInfos(CarInfo carinfo, User user) {
         try {
             Example example = new Example(CarInfo.class);
             Example.Criteria criteria = example.createCriteria();
@@ -57,6 +58,13 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
 //            if (StringUtils.isNotBlank(carinfo.getEmissionStandard())) {
 //                criteria.andCondition("emissionStandard=", Long.valueOf(carinfo.getEmissionStandard()));
 //            }
+            if ("2".equals(user.getVipType())) { // 商户
+                if ("1".equals(user.getVipStatus())) {// VIP状态 0：未过期 ，1：已过期
+                    criteria.andCondition("remark <>",user.getUsername());
+                }
+            }
+
+
             example.setOrderByClause("ISTOP desc,CAR_ID desc");
             //example.setOrderByClause("CAR_ID");
             System.out.println("example3:::"+example.getCountColumn());

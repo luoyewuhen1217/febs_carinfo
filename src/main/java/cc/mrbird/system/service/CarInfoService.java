@@ -10,6 +10,6 @@ import java.util.List;
 
 @CacheConfig(cacheNames = "CarInfoService")
 public interface CarInfoService extends IService<CarInfo> {
-    List<CarInfo> findAllCarInfos(CarInfo carinfo);
+    List<CarInfo> findAllCarInfos(CarInfo carinfo,User user);
 
 }

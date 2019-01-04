@@ -50,38 +50,27 @@ public class CarInfoController extends BaseController {
         try {
             PageHelper.startPage(request.getPageNum(), request.getPageSize());
             User user = super.getCurrentUser();
-            String vipTime = user.getVipTime();// 到期时间
-            SimpleDateFormat sdf =   new SimpleDateFormat( "yyyy-MM-dd" );
-            String nowTimeString = sdf.format(new Date());//获取当前时间
-            if (sdf.parse(nowTimeString).getTime() > sdf.parse(vipTime).getTime()) {
-                System.out.println("当前时间大于到期时间");
-                // 按照当期时间累加
-                Calendar calendar =Calendar.getInstance();
-                calendar.setTime(sdf.parse(nowTimeString));
 
-                // 判断是选择的1天/1个月/3个月/6个月/1年/3年/5年  ------怎么获取？？？？？？？？？？？ ,获取到了以后根据当前时间来累加
+            List<CarInfo> list = this.carInfoService.findAllCarInfos(carInfo,user);
+            if ("1".equals(user.getVipType())) { //用户类型 1:普通用户，2:商户
+                if ("1".equals(user.getVipStatus())) {// VIP状态 0：未过期 ，1：已过期
+                    for (int i = 0; i < list.size(); i++) {
+                        CarInfo carInfo1 = list.get(i);
+                        carInfo1.setContacts("*");
+                        carInfo1.setTel("*");
+                        carInfo1.setAddress("*");
+                        carInfo1.setPrice("*");
+                    }
 
-
-                //calendar.add(calendar.DAY_OF_YEAR, 1);//增加一天,负数为减少一天
-                //calendar.add(calendar.DAY_OF_MONTH, 1);//增加一天
-                //calendar.add(calendar.DATE,1);//增加一天
-                //calendar.add(calendar.WEEK_OF_MONTH, 1);//增加一个礼拜
-                //calendar.add(calendar.WEEK_OF_YEAR,1);//增加一个礼拜
-                calendar.add(calendar.MONTH,1);//增加一个月
-                //calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
-                nowTimeString = calendar.getTime().toString();
-
-                System.out.println(nowTimeString);
-
-
-            } else {
-                System.out.println("当前时间小于到期时间");
-                // 按照到期日期累加
-
-
+                }
             }
 
-            List<CarInfo> list = this.carInfoService.findAllCarInfos(carInfo);
+//            if(1){
+//                fort lit
+//                        cartinf get(i)
+//                        cating .setcnme (cat.get.sf.sub(0.6+*****))
+//            }
+
             pageInfo = new PageInfo<>(list);
         } catch (Exception e) {
             e.printStackTrace();
