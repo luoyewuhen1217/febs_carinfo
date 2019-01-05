@@ -60,7 +60,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
 //            }
             if ("2".equals(user.getVipType())) { // 商户
                 if ("1".equals(user.getVipStatus())) {// VIP状态 0：未过期 ，1：已过期
-                    criteria.andCondition("remark <>",user.getUsername());
+                    criteria.andCondition("tel <>",user.getUsername());
                 }
             }
 
