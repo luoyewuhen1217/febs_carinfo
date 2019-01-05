@@ -23,13 +23,13 @@
         <ul class="icon-list">
             <li><i class="zmdi zmdi-account"></i> [[${user.username}]] -- [[${user.roleName}]]</li>
             <li><i class="zmdi zmdi-male-female"></i> [[${user.ssex}]]</li>
-            <li><i class="zmdi zmdi-card-travel"></i> [[${#strings.defaultString(user.deptName,'无部门信息')}]]</li>
+            <!--<li><i class="zmdi zmdi-card-travel"></i> [[${#strings.defaultString(user.deptName,'无部门信息')}]]</li>-->
             <li><i class="zmdi zmdi-phone"></i> [[${#strings.defaultString(user.mobile,'无电话信息')}]]</li>
 
             <li id="profile__info_email"><i class="zmdi zmdi-email"></i><span> [[${#strings.defaultString(user.email,'无邮箱信息')}]]</span></li>
             <li><i class="zmdi zmdi-comment-text"></i> <span>[[${#strings.defaultString(user.description,'暂无个人介绍')}]]</span></li>
 
-            <li><i class="">vip到期时间:</i> [[${user.vipTime}]]</li>
+            <li><i class="zmdi zmdi-comment-text">vip到期时间:</i> [[${user.vipTime}]]</li>
         </ul>
     </div>
 </div>
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon" style="justify-content: flex-start;margin-top: .5rem;">
@@ -117,7 +117,7 @@
                                 <input type="hidden" name="deptId">
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <div class="col-sm-11">
                             <div class="input-group">
@@ -126,6 +126,18 @@
                                 </span>
                                 <div class="form-group">
                                     <input type="text" name="description" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    	 VIP到期时间：
+                                </span>
+                                <div class="form-group">
+                                    <input type="text" name="vipTime" class="form-control">
                                 </div>
                             </div>
                         </div>

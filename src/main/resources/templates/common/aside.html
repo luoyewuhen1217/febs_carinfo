@@ -14,7 +14,7 @@
                 <img class="user__img">
                 <div>
                     <div class="user__name" data-th-utext="${user.username}"></div>
-                    <div class="user__name" data-th-utext="${user.vipType}"></div>
+                    <div class="user__name" data-th-utext="${user.vipType}" id="vipTypeId"></div>
                     <div class="user__email" data-th-utext="${user.email}"></div>
                 </div>
             </div>
@@ -25,4 +25,17 @@
         </div>
         <div id="navigation" class="navigation"></div>
     </div>
+
+    <script>
+        // 方式2
+        $(document).ready(function(){
+            var vipType = $("#vipTypeId").html();//
+            if(vipType==1){
+                $("#vipTypeId").html("普通用户");
+            }
+            if(vipType==2){
+                $("#vipTypeId").html("商户");
+            }
+        });
+    </script>
 </aside>
