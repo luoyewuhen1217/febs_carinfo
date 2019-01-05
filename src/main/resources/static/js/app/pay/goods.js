@@ -9,7 +9,7 @@ $(function () {
                 pageNum: params.offset / params.limit + 1,
                 goodsCycle: $goodsTableForm.find("select[name='goodsCycle']").val(),
                 vipMoney: $goodsTableForm.find("input[name='vipMoney']").val().trim(),
-                businessMoney: $goodsTableForm.find("input[name='businessMoney']").val().trim(),
+                // businessMoney: $goodsTableForm.find("input[name='businessMoney']").val().trim(),
                 remark: $goodsTableForm.find("input[name='remark']").val()
             };
         },
@@ -36,13 +36,15 @@ $(function () {
 
         }, {
             field: 'vipMoney',
-            title: '普通会员价格',
+            title: '会员价格',
             width:100
-        }, {
-            field: 'businessMoney',
-            title: '商户会员价格',
-            width:100
-        }, {
+        },
+        //     {
+        //     field: 'businessMoney',
+        //     title: '商户会员价格',
+        //     width:100
+        // },
+            {
             field: 'remark',
             title: '备注说明',
             width:120

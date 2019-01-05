@@ -19,7 +19,7 @@ function updateGoods() {
             $("#goods-add-modal-title").html('修改商品');
             $form.find("input[name='goodsCycle']").val(goods.goodsCycle).attr("readonly", true);
             $form.find("input[name='vipMoney']").val(goods.vipMoney);
-            $form.find("input[name='businessMoney']").val(goods.businessMoney);
+            // $form.find("input[name='businessMoney']").val(goods.businessMoney);
             $form.find("input[name='remark']").val(goods.remark);
             $form.find("input[name='createTime']").val(goods.createTime).attr("readonly", true);;
             $("#goods-add-button").attr("name", "update");

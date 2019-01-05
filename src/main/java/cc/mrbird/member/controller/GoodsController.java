@@ -10,6 +10,7 @@ import cc.mrbird.common.util.HttpUtils;
 import cc.mrbird.common.util.MD5Utils;
 import cc.mrbird.member.domain.Goods;
 import cc.mrbird.member.service.GoodsService;
+import cc.mrbird.system.domain.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +49,8 @@ public class GoodsController extends BaseController {
     @ResponseBody
     public Map<String, Object> goodsList(QueryRequest request, Goods goods) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<Goods> list = this.goodsService.findAllGoods(goods);
+        User user = super.getCurrentUser();
+        List<Goods> list = this.goodsService.findAllGoods(goods,user);
         PageInfo<Goods> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
     }
@@ -57,7 +59,8 @@ public class GoodsController extends BaseController {
     @RequestMapping("goods/listall")
     @ResponseBody
     public List<Goods> goodsListAll(QueryRequest request, Goods goods) {
-        List<Goods> list = this.goodsService.findAllGoods(goods);
+        User user = super.getCurrentUser();
+        List<Goods> list = this.goodsService.findAllGoods(goods,user);
         return list;
     }
 

@@ -16,22 +16,24 @@ public class Goods implements Serializable {
 	@Column(name = "GOODS_ID")
 	private Long goodsId;
 
+	@Column(name = "VIPTYPE")
+	@ExportConfig(value = "VIP类型 1:普通用户，2:商户")
+	private String vipType;
+
 	@Column(name = "VIP_MONEY")
-	@ExportConfig(value = "普通会员价格")
+	@ExportConfig(value = "普通用户价格")
 	private String vipMoney;
 
 	@Column(name = "BUSINESS_MONEY")
-	@ExportConfig(value = "商户会员价格")
+	@ExportConfig(value = "商户价格")
 	private String businessMoney;
 
-
 	@Column(name = "GOODS_CYCLE")
+	@ExportConfig(value = "套餐周期（1天/1个月/3个月/6个月/1年/3年/5年）")
 	private String goodsCycle;
 
 	@Column(name = "REMARK")
 	private String remark;
-
-
 
 	@Column(name = "CREATE_TIME")
 	@ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
@@ -121,8 +123,16 @@ public class Goods implements Serializable {
 		this.timeField2 = timeField2;
 	}
 
+	public String getVipType() {
+		return vipType;
+	}
+
+	public void setVipType(String vipType) {
+		this.vipType = vipType;
+	}
+
 	@Override
 	public String toString() {
-		return "Goods{" + "goodsId=" + goodsId + ", vipMoney='" + vipMoney + '\'' + ", businessMoney='" + businessMoney + '\'' + ", goodsCycle='" + goodsCycle + '\'' + ", remark='" + remark + '\'' + ", createTime=" + createTime + ", timeField='" + timeField + '\'' + ", timeField1='" + timeField1 + '\'' + ", timeField2='" + timeField2 + '\'' + '}';
+		return "Goods{" + "goodsId=" + goodsId + ", vipType='" + vipType + '\'' + ", vipMoney='" + vipMoney + '\'' + ", businessMoney='" + businessMoney + '\'' + ", goodsCycle='" + goodsCycle + '\'' + ", remark='" + remark + '\'' + ", createTime=" + createTime + ", timeField='" + timeField + '\'' + ", timeField1='" + timeField1 + '\'' + ", timeField2='" + timeField2 + '\'' + '}';
 	}
 }

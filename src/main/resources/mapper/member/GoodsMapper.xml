@@ -8,7 +8,7 @@
         <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
         <result column="GOODS_CYCLE" jdbcType="VARCHAR" property="goodsCycle" />
         <result column="VIP_MONEY" jdbcType="VARCHAR" property="vipMoney" />
-        <result column="BUSINESS_MONEY" jdbcType="VARCHAR" property="businessMoney" />
+        <!--<result column="BUSINESS_MONEY" jdbcType="VARCHAR" property="businessMoney" />-->
         <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     </resultMap>
 
@@ -16,7 +16,7 @@
         SELECT
         g.goods_id goodsId,
         g.vip_money vipMoney,
-        g.business_money businessMoney,
+--         g.business_money businessMoney,
         g.goods_cycle goodsCycle,
         g.remark remark,
         g.create_time createTime
@@ -29,13 +29,14 @@
         <if test="vipMoney != null and vipMoney != ''">
             AND g.VIP_MONEY  = #{vipMoney}
         </if>
-        <if test="businessMoney != null and businessMoney != ''">
-            AND g.BUSINESS_MONEY  = #{businessMoney}
-        </if>
+        <!--<if test="businessMoney != null and businessMoney != ''">-->
+            <!--AND g.BUSINESS_MONEY  = #{businessMoney}-->
+        <!--</if>-->
 
         <if test="remark != null and remark != ''">
             AND g.REMARK  = #{remark}
         </if>
+        AND g.VIPTYPE = #{vipType}
         order by g.create_time desc
     </select>
 </mapper>

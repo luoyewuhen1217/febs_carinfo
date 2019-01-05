@@ -2,6 +2,7 @@ package cc.mrbird.member.service;
 
 import cc.mrbird.common.service.IService;
 import cc.mrbird.member.domain.Goods;
+import cc.mrbird.system.domain.User;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface GoodsService extends IService<Goods> {
 
     Goods findById(Long goodsId);
 
-    public List<Goods> findAllGoods(Goods goods);
+    public List<Goods> findAllGoods(Goods goods, User user);
 
     Goods findByName(String goodsName);
 

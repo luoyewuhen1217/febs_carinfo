@@ -6,6 +6,7 @@ import cc.mrbird.common.util.MD5Utils;
 import cc.mrbird.member.dao.GoodsMapper;
 import cc.mrbird.member.domain.Goods;
 import cc.mrbird.member.service.GoodsService;
+import cc.mrbird.system.domain.User;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
     //private GoodsRoleService goodsRoleService;//
 
     @Override
-    public List<Goods> findAllGoods(Goods goods) {
+    public List<Goods> findAllGoods(Goods goods, User user) {
 
         try {
 //            Example example = new Example(Goods.class);
@@ -46,6 +47,9 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
 ////            }
 //            example.setOrderByClause("create_time");
 //            return this.selectByExample(example);
+            Example example = new Example(Goods.class);
+            Example.Criteria criteria = example.createCriteria();
+            goods.setVipType(user.getVipType());
             return this.goodsMapper.findAllGoods(goods);
         } catch (Exception e) {
             log.error("获取角色信息失败", e);
