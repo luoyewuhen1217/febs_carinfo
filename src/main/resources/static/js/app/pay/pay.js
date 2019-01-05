@@ -33,6 +33,20 @@ $(function() {
 
 });
 
+
+function divShow(srcUrl){
+    $("#payIframe").attr("src",srcUrl);
+    //div 支付存
+    $("#payindex").show();
+}
+
+//关闭支付层
+$("#linkClose").click(function() {
+    $("#payIframe").attr("src","");
+    //div 支付存
+    $("#payindex").hide();
+});
+
 $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
     $("#request-process-patent").html("正在提交数据，请勿关闭当前窗口...");
     //$("#request-process-patent").html("<img id=\"imgs\" src=\"http://qiwebdd.shangyixx.com//wxpay/precreate/order\">");
@@ -83,7 +97,8 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
             * */
             //window.open("http://localhost:8000/order/"+payment_method+"/"+message.msg);
             var urls="http://localhost:8000/order/"+payment_method+"/"+message.msg;
-            $("body").append('<div class="modal fade show" id="user-add" data-keyboard="false" data-backdrop="static" tabindex="-1" style="display: block;"><iframe  style="width: 100%;    height: 100%;    position: fixed;    left: 0;    top: 38px;" src="'+urls+'"></iframe></div>');
+            divShow(urls);
+            //$("body").append('<div class="modal fade show" id="user-add" data-keyboard="false" data-backdrop="static" tabindex="-1" style="display: block;"><iframe  style="width: 100%;    height: 100%;    position: fixed;    left: 0;    top: 38px;" src="'+urls+'"></iframe></div>');
         },
         error: function (message) {
             $("#request-process-patent").html("提交数据失败！");

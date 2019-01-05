@@ -154,7 +154,7 @@ public class OrderController extends BaseController {
                     "                                            订单将在30分钟后关闭，请及时付款\n" +
                     "                                    </div>\n" +
                     "                <div class=\"qrcode-img\">\n" +
-                    "                    <div id=\"T_qrImg\">\n" +
+                    "                    <div id=\"T_qrImg\"     style=\"margin: -27px;\"   >\n" +
                     "                    \t<img src=\"%s\"/>\n" +
                     "                        <div id=\"T_qrImgLoading\"></div>\n" +
                     "                    </div>\n" +
