@@ -13,6 +13,8 @@ import cc.mrbird.member.domain.Order;
 import cc.mrbird.member.service.GoodsService;
 import cc.mrbird.member.service.OrderService;
 import cc.mrbird.system.domain.User;
+import cc.mrbird.system.service.UserService;
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
@@ -35,6 +37,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.alibaba.druid.sql.dialect.mysql.ast.clause.MySqlFormatName.JSON;
+
 @Controller
 public class OrderController extends BaseController {
 
@@ -47,6 +51,10 @@ public class OrderController extends BaseController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private UserService userService;
+
 
     @Autowired
     private GoodsService goodsservice;
@@ -350,13 +358,15 @@ public class OrderController extends BaseController {
 
                 map.put("subject", goods.getGoodsCycle());
                 map.put("body", goods.getRemark());
-                // 销售产品码
+                // 销售产品码  这个值不能改 必须是这个值
                 map.put("product_code", "FAST_INSTANT_TRADE_PAY");
 
                 alipayRequest.setBizContent(JsonUtils.objectToJson(map));
 
                 response.setContentType("text/html;charset=utf-8");
                 try {
+                    // 把对象转换成JSONObject类型
+                    System.out.println("支付宝下单参数:"+JSONObject.toJSONString(alipayRequest));
                     // 3、生成支付表单
                     AlipayTradePagePayResponse alipayResponse = alipayClient.pageExecute(alipayRequest);
                     if (alipayResponse.isSuccess()) {
@@ -685,7 +695,11 @@ public class OrderController extends BaseController {
             }
 //            order= this.orderService.findOrderProfile(order);
             //order= orderService.queryOrderById(order);
-            updateUserAndOrder(order,super.getCurrentUser(),true);
+            //支付宝或者微信回调时不用登录所以需要手动查询用户
+            User user =new User();
+            user.setUserId(order.getUserId());
+            user=userService.findUserProfile(user);
+            updateUserAndOrder(order,user,true);
 
             return "member/pay/order";
         } else {

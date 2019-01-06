@@ -16,7 +16,7 @@ $(function() {
 
                     numb=2;
             });
-            $("[class='xh-vip clearfix']").html(tt)
+            $("[class='xh-vip clearfix']").html(tt);
             $('.wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580').click(function(){
                 $('.wshop-membership-63cc6c9f10d6d97511b9768b1c3ca2580.active').removeClass('active');
                 $(this).addClass('active');
