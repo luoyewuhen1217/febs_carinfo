@@ -100,7 +100,7 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 //        //金额
 //        order.setRechargeMoney(goods.getGoodsMoney());
         //支付状态
-        order.setPayStatus("未支付");
+        order.setPayStatus("2");// 未支付
 //        order.setTheme(Order.DEFAULT_THEME);
 //        order.setAvatar(Order.DEFAULT_AVATAR);
 //        order.setPassword(MD5Utils.encrypt(order.getOrdername(), order.getPassword()));
