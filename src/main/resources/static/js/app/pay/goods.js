@@ -22,17 +22,7 @@ $(function () {
         },{
             field: 'goodsCycle',
             title: '套餐周期',
-            width:100,
-            formatter: function (value, row, index) {
-                if (value === '0') return '1天';
-                else if (value === '1') return '1个月';
-                else if (value === '2') return '3个月';
-                else if (value === '3') return '6个月';
-                else if (value === '4') return '1年';
-                else if (value === '5') return '3年';
-                else if (value === '6') return '5年';
-                else return '无';
-            }
+            width:100
 
         }, {
             field: 'vipMoney',
