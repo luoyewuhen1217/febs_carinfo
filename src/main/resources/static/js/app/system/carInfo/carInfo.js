@@ -137,7 +137,7 @@ $(function () {
         }, {
             field: 'dimension',
             title: '箱体尺寸',
-            width:100,
+            width:170,
         }
         ]
     };
