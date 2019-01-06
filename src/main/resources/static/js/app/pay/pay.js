@@ -34,18 +34,62 @@ $(function() {
 });
 
 
-function divShow(srcUrl){
+//当前订单号
+var orderCode=100
+var timer = null;
+//支付后轮询订单
+function getOrders(){
+    // http://127.0.0.1:8000/order/getOrderByCode?orderCode=2018111070999
+    var orderstate=0;
+    $.getJSON(
+        "order/getOrderByCode?orderCode="+orderCode,
+        function (data) {
+            //循环获取数据
+
+            $.each(data, function (k, v) {
+                    console.log(data);
+                orderstate=v["payStatus"];
+                if(orderstate=="1"){
+                    closeDiv();
+                    alert("恭喜你充值会员支付成功！");
+                    $("#request-process-patent").html("订单号："+orderCode+"<br>订单状态：已支付");
+                    //停止查订单状态
+                    clearInterval(timer);
+                }
+            });
+
+
+        }
+    );
+
+
+
+}
+
+
+//打开支付层
+function divShow(srcUrl,orderCodeNow){
+    orderCode=orderCodeNow;//轮询当前订单号
+
     $("#payIframe").attr("src",srcUrl);
     //div 支付存
     $("#payindex").show();
+    //轮询查看订单状态
+    timer= setInterval(getOrders,2000);// 注意函数名没有引号和括弧！
 }
 
 //关闭支付层
 $("#linkClose").click(function() {
-    $("#payIframe").attr("src","");
-    //div 支付存
-    $("#payindex").hide();
+    closeDiv();
 });
+
+//关闭层
+function closeDiv(){
+    $("#payIframe").attr("src","");
+//div 支付存
+    $("#payindex").hide();
+}
+
 
 $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
     $("#request-process-patent").html("正在提交数据，请勿关闭当前窗口...");
@@ -64,7 +108,7 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
         contentType : 'application/json;charset=utf-8',   //中文需要加上charset=utf-8才正确
         dataType: "json",
         success: function (message) {
-            alert("aaaa");
+
             console.debug(message);
             $("#request-process-patent").html(message.msg);
             if (message > 0) {
@@ -97,7 +141,7 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function() {
             * */
             //window.open("http://localhost:8000/order/"+payment_method+"/"+message.msg);
             var urls="http://localhost:8000/order/"+payment_method+"/"+message.msg;
-            divShow(urls);
+            divShow(urls,message.msg);
             //$("body").append('<div class="modal fade show" id="user-add" data-keyboard="false" data-backdrop="static" tabindex="-1" style="display: block;"><iframe  style="width: 100%;    height: 100%;    position: fixed;    left: 0;    top: 38px;" src="'+urls+'"></iframe></div>');
         },
         error: function (message) {

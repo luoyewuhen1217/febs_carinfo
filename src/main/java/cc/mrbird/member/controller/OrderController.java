@@ -693,18 +693,20 @@ public class OrderController extends BaseController {
                     break;
                 }
             }
+            //如果已经支付了
+            if("1".equals(order.getPayStatus())) {
 //            order= this.orderService.findOrderProfile(order);
-            //order= orderService.queryOrderById(order);
-            //支付宝或者微信回调时不用登录所以需要手动查询用户
-            User user =new User();
-            user.setUserId(order.getUserId());
-            user=userService.findUserProfile(user);
-            updateUserAndOrder(order,user,true);
-
-            return "member/pay/order";
+                //order= orderService.queryOrderById(order);
+                //支付宝或者微信回调时不用登录所以需要手动查询用户
+                User user = new User();
+                user.setUserId(order.getUserId());
+                user = userService.findUserProfile(user);
+                updateUserAndOrder(order, user, true);
+            }
+            return "<div>支付成功</div>";
         } else {
             System.out.println("前往支付失败页面");
-            return "member/pay/order";
+            return "<div>支付失败请重新提交</div>";
         }
     }
 
@@ -716,6 +718,7 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/aliPay/notifyUrl")
     public void notifyUrl(HttpServletRequest request) throws Exception {
+        System.out.println("支付宝回调通知/aliPay/notifyUrl");
         // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = request.getParameterMap();
@@ -760,6 +763,7 @@ public class OrderController extends BaseController {
 
     /**
      *  根据订单号查询订单
+     *  支付完成后轮询使用
      * @param orderCode
      * @return
      */
