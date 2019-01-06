@@ -51,6 +51,7 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 //                example.createCriteria().andCondition("role_name=", role.getRoleName());
 //            }
             example.setOrderByClause("create_time");
+            example.setOrderByClause("ORDER_ID desc");
             return this.selectByExample(example);
         } catch (Exception e) {
             log.error("获取角色信息失败", e);

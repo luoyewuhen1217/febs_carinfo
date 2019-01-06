@@ -71,6 +71,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         user.setSsex(User.SEX_UNKNOW);
         user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 //        user.setUseType("0");// 非VIP
+        user.setVipStatus(User.VIPSTATUS);// vip状态
         this.save(user);
         UserRole ur = new UserRole();
         ur.setUserId(user.getUserId());

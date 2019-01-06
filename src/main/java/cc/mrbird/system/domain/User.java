@@ -26,6 +26,10 @@ public class User implements Serializable {
 
 	public static final String DEFAULT_AVATAR = "default.jpg";
 
+	public static final String VIPSTATUS = "1"; // VIP状态 0：未过期 ，1：已过期
+
+
+
 	/**
 	 * 性别
 	 */

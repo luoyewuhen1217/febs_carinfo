@@ -37,7 +37,13 @@ $(function () {
         }, {
             field: 'payStatus',
             title: '支付状态',
-            width: 60
+            width: 60,
+            formatter: function (value, row, index) {
+                if (value === '1') return '已支付';
+                else if (value === '2') return '未支付';
+                else if (value === '3') return '支付失败';
+                else return '无';
+            }
 
         }, {
             field: 'rechargeMoney',

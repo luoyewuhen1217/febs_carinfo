@@ -17,7 +17,7 @@ public class Goods implements Serializable {
 	private Long goodsId;
 
 	@Column(name = "VIPTYPE")
-	@ExportConfig(value = "VIP类型 1:普通用户，2:商户")
+	@ExportConfig(value = "VIP类型 1:个人用户，2:商户")
 	private String vipType;
 
 	@Column(name = "VIP_MONEY")

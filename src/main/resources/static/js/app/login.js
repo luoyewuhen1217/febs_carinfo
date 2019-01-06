@@ -113,7 +113,7 @@ function regist() {
     var username = $(".two input[name='username']").val().trim();
     var password = $(".two input[name='password']").val().trim();
     var cpassword = $(".two input[name='cpassword']").val().trim();
-
+    var vipType = $('#vipTypeDiv input[name="vipType"]:checked ').val();
     if(!(/^1\d{10}$/.test(username))){
         $MB.n_warning("用户名必须为手机号！");
         return ;
@@ -146,6 +146,7 @@ function regist() {
         data: {
             "username": username,
             "password": password,
+            "vipType": vipType,
         },
         dataType: "json",
         success: function (r) {
