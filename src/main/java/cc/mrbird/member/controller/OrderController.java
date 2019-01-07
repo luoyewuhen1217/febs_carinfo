@@ -74,7 +74,8 @@ public class OrderController extends BaseController {
     @ResponseBody
     public Map<String, Object> orderList(QueryRequest request, Order order) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<Order> list = this.orderService.findAllOrder(order);
+        User user = super.getCurrentUser();
+        List<Order> list = this.orderService.findOrderByUser(order,user);
         PageInfo<Order> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
     }
@@ -617,7 +618,7 @@ public class OrderController extends BaseController {
      * @param request
      * @throws Exception
      */
-    @RequestMapping("/aliPay/returnUrl")
+    @RequestMapping("aliPay/returnUrl")
     public String returnUrl(HttpServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
 
@@ -694,7 +695,7 @@ public class OrderController extends BaseController {
                 }
             }
             //如果已经支付了
-            if("1".equals(order.getPayStatus())) {
+            if(!"1".equals(order.getPayStatus())) {
 //            order= this.orderService.findOrderProfile(order);
                 //order= orderService.queryOrderById(order);
                 //支付宝或者微信回调时不用登录所以需要手动查询用户
@@ -703,10 +704,10 @@ public class OrderController extends BaseController {
                 user = userService.findUserProfile(user);
                 updateUserAndOrder(order, user, true);
             }
-            return "<div>支付成功</div>";
+            return "member/pay/success";
         } else {
             System.out.println("前往支付失败页面");
-            return "<div>支付失败请重新提交</div>";
+            return "member/pay/error";
         }
     }
 
@@ -716,7 +717,7 @@ public class OrderController extends BaseController {
      * @param request
      * @throws Exception
      */
-    @RequestMapping("/aliPay/notifyUrl")
+    @RequestMapping("aliPay/notifyUrl")
     public void notifyUrl(HttpServletRequest request) throws Exception {
         System.out.println("支付宝回调通知/aliPay/notifyUrl");
         // 获取支付宝GET过来反馈信息

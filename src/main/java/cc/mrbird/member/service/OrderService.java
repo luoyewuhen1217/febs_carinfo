@@ -13,6 +13,9 @@ public interface OrderService extends IService<Order> {
 
     public List<Order> findAllOrder(Order order);
 
+    public List<Order> findOrderByUser(Order order,User user);
+
+
     void addOrder(Order order);
 
     Order findByName(String orderName);

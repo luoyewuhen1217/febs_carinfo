@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="textml; charset=utf-8" />
+<title>跳转提示</title>
+<style type="text/css">
+*{ padding: 0; margin: 0; }
+body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 16px; }
+.system-message{ padding: 24px 48px; text-align: center;margin-top: 100px;}
+.system-message .jump{ padding-top: 10px}
+.system-message .jump a{ color: #333;}
+.system-message .success,.system-message .error{ line-height: 1.8em; font-size: 18px }
+</style>
+
+<script>
+    //定义函数myClose关闭当前窗口
+    function myClose(){
+        //将id为time的元素的内容转为整数，保存在变量n中
+        var n=parseInt(time.innerHTML);
+        n--;//将n-1
+        //如果n==0,关闭页面
+        //否则, 将n+秒钟后自动关闭，再保存回time的内容中
+        if(n>0){
+            time.innerHTML=n+"秒钟后自动关闭";
+            timer=setTimeout(myClose,1000);
+        }else{
+            close();
+        }
+    }
+    var timer=null;
+    //当页面加载后，启动周期性定时器，每个1秒执行myClose
+    window.onload=function(){
+        timer=setTimeout(myClose,1000);
+    }
+</script>
+</head>
+<body>
+	<div class="system-message">
+		<p class="success">
+			<span style="color:#F00"> 支付宝支付成功！！！</span></br>
+			<span id="time" style="color:#F00">10秒钟后自动关闭</span></br>
+		</p>
+		<p >
+			<a href="http://wwv.shangyixx.com">跳转到系统</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:clearTimeout(timer)">留在本页</a></br>
+		</p>
+	</div>
+
+</html>

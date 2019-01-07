@@ -59,6 +59,21 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
         }
     }
 
+    @Override
+    public List<Order> findOrderByUser(Order order, User user) {
+        try {
+            Example example = new Example(Order.class);
+            Example.Criteria criteria = example.createCriteria();
+            example.setOrderByClause("create_time");
+            criteria.andCondition("userName =",user.getUsername());
+            example.setOrderByClause("ORDER_ID desc");
+            return this.selectByExample(example);
+        } catch (Exception e) {
+            log.error("获取角色信息失败", e);
+            return new ArrayList<>();
+        }
+    }
+
     //产生订单号 时间+随机数
     public static String getOrderIdByTime() {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");

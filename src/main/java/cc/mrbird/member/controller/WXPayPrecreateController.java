@@ -144,7 +144,7 @@ public class WXPayPrecreateController extends BaseController {
     @RequestMapping("/notify")
     public void precreateNotify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> reqData = wxPayClient.getNotifyParameter(request);
-            System.out.println("微信通知支付成功回调了。。。"+reqData.toString());
+        System.out.println("微信通知支付成功回调了。。。" + reqData.toString());
         /**
          * {
          * transaction_id=4200000138201806180751222945,
@@ -176,46 +176,50 @@ public class WXPayPrecreateController extends BaseController {
         Order order = new Order();
         //order.setOrderCode(params.get("out_trade_no"));
         List<Order> list = this.orderService.findAllOrder(order);
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).getOrderCode().equals(reqData.get("out_trade_no"))){
-                order=list.get(i);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getOrderCode().equals(reqData.get("out_trade_no"))) {
+                order = list.get(i);
                 break;
             }
         }
+
+        if (!"1".equals(order.getPayStatus())) {
+
 //            order= this.orderService.findOrderProfile(order);
-        //order= orderService.queryOrderById(order);
-        //updateUserAndOrder(order,super.getCurrentUser(),true);
-        //更新支付日期 到期日期 支付状态
-        order.setPayTime(new Date());
-        order.setPayStatus("1");//已支付
-        //更新用户表 用户到期状态 和到期日期VIP状态 0：未过期 ，1：已过期
-        //user.setVipstatus("0");//未到期
+            //order= orderService.queryOrderById(order);
+            //updateUserAndOrder(order,super.getCurrentUser(),true);
+            //更新支付日期 到期日期 支付状态
+            order.setPayTime(new Date());
+            order.setPayStatus("1");//已支付
+            //更新用户表 用户到期状态 和到期日期VIP状态 0：未过期 ，1：已过期
+            //user.setVipstatus("0");//未到期
 
 
-        User user = new User();
-                    user.setUserId(order.getUserId());
-        user=    userService.findUserProfile(user);
+            User user = new User();
+            user.setUserId(order.getUserId());
+            user = userService.findUserProfile(user);
 
-        orderService.updateUserAndOrder(order,user );
+            orderService.updateUserAndOrder(order, user);
 
-        // 特别提醒：商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失。
-        boolean signatureValid = wxPay.isPayResultNotifySignatureValid(reqData);
-        if (signatureValid) {
-            /**
-             * 注意：同样的通知可能会多次发送给商户系统。商户系统必须能够正确处理重复的通知。
-             * 推荐的做法是，当收到通知进行处理时，首先检查对应业务数据的状态，
-             * 判断该通知是否已经处理过，如果没有处理过再进行处理，如果处理过直接返回结果成功。
-             * 在对业务数据进行状态检查和处理之前，要采用数据锁进行并发控制，以避免函数重入造成的数据混乱。
-             */
+            // 特别提醒：商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失。
+            boolean signatureValid = wxPay.isPayResultNotifySignatureValid(reqData);
+            if (signatureValid) {
+                /**
+                 * 注意：同样的通知可能会多次发送给商户系统。商户系统必须能够正确处理重复的通知。
+                 * 推荐的做法是，当收到通知进行处理时，首先检查对应业务数据的状态，
+                 * 判断该通知是否已经处理过，如果没有处理过再进行处理，如果处理过直接返回结果成功。
+                 * 在对业务数据进行状态检查和处理之前，要采用数据锁进行并发控制，以避免函数重入造成的数据混乱。
+                 */
 
-            Map<String, String> responseMap = new HashMap<>(2);
-            responseMap.put("return_code", "SUCCESS");
-            responseMap.put("return_msg", "OK");
-            String responseXml = WXPayUtil.mapToXml(responseMap);
+                Map<String, String> responseMap = new HashMap<>(2);
+                responseMap.put("return_code", "SUCCESS");
+                responseMap.put("return_msg", "OK");
+                String responseXml = WXPayUtil.mapToXml(responseMap);
 
-            response.setContentType("text/xml");
-            response.getWriter().write(responseXml);
-            response.flushBuffer();
+                response.setContentType("text/xml");
+                response.getWriter().write(responseXml);
+                response.flushBuffer();
+            }
         }
     }
 }
