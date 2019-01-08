@@ -1,9 +1,7 @@
 package cc.mrbird.member.service.impl;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.member.dao.GoodsMapper;
 import cc.mrbird.member.dao.OrderMapper;
-import cc.mrbird.member.domain.Goods;
 import cc.mrbird.member.domain.Order;
 import cc.mrbird.member.service.GoodsService;
 import cc.mrbird.member.service.OrderService;
@@ -18,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -284,19 +281,26 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     @Transactional
     public void  updateUserAndOrder(Order order, User user ){
         Date date=null;
-        if("1".equals(user.getVipStatus())){//如果用户之前已经到期就从当前日期开始计算到期时间
-            date=user.getVipTime();
-        }else{
-            date=new Date();
-            user.setVipStatus("0");//未到期
+//        if("1".equals(user.getVipStatus())){ //如果用户之前已经到期就从当前日期开始计算到期时间
+//            date=user.getVipTime();
+//        }else{
+//            date=new Date();
+//            user.setVipStatus("0");//未到期
+//        }
+        String userName = order.getUserName();
+        user = userservice.findByName(userName);
+        if ("1".equals(user.getVipStatus()) || user.getVipTime() == null) { // 已过期
+            date = new Date();
+        } else if ("0".equals(user.getVipStatus())) { // 未过期
+            date = user.getVipTime();
         }
-        Date vipdate=getExpiryTimeByPayTime(date,order);
+        user.setVipStatus("0");//未到期
+        Date vipdate = getExpiryTimeByPayTime(date, order);
         //更新订单
         order.setExpiryTime(vipdate);
         //更新用户
         user.setVipTime(vipdate);
         userservice.UpdateUserOfPay(user);
-//        this.save(order);
         this.updateOrderProfile(order);
     }
 
@@ -323,7 +327,7 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
         order.setRechargeMoney("");
         order.setRechargeCycle("");
         Date date = new Date();
-        this.getExpiryTimeByPayTime(date,order);
+//        this.getExpiryTimeByPayTime(date,order);
         order.setPayTime(new Date());
 
 
@@ -335,17 +339,17 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     }
 
     private Date getExpiryTimeByPayTime(Date date,Order order) {
-
+        System.out.println("-------------进入getExpiryTimeByPayTime方法--------------");
         // Calendar calendar = new GregorianCalendar();
         Calendar calendar =Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(calendar.DAY_OF_YEAR, 1);//增加一天,负数为减少一天
-        //calendar.add(calendar.DAY_OF_MONTH, 1);//增加一天
-        //calendar.add(calendar.DATE,1);//增加一天
-        //calendar.add(calendar.WEEK_OF_MONTH, 1);//增加一个礼拜
-        //calendar.add(calendar.WEEK_OF_YEAR,1);//增加一个礼拜
-        //calendar.add(calendar.MARCH,1);// 增加一个月
-        //calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
+//        calendar.add(calendar.DAY_OF_YEAR, 1);//增加一天,负数为减少一天
+//        calendar.add(calendar.DAY_OF_MONTH, 1);//增加一天
+//        calendar.add(calendar.DATE,1);//增加一天
+//        calendar.add(calendar.WEEK_OF_MONTH, 1);//增加一个礼拜
+//        calendar.add(calendar.WEEK_OF_YEAR,1);//增加一个礼拜
+//        calendar.add(calendar.MARCH,1);// 增加一个月
+//        calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
         if (order.getRechargeCycle().equals("1天")) {
             calendar.add(calendar.DAY_OF_MONTH, 1);
         }

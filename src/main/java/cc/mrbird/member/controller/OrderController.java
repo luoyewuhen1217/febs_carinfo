@@ -37,8 +37,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.alibaba.druid.sql.dialect.mysql.ast.clause.MySqlFormatName.JSON;
-
 @Controller
 public class OrderController extends BaseController {
 
@@ -747,9 +745,6 @@ public class OrderController extends BaseController {
      * 支付成功状态
      */
     public void updateUserAndOrder(Order order,User user ,boolean payState){
-        //查询订单
-
-
         //支付成功
         if(payState){
             //更新支付日期 到期日期 支付状态
@@ -759,7 +754,7 @@ public class OrderController extends BaseController {
             //user.setVipstatus("0");//未到期
         }
 
-        orderService.updateUserAndOrder(order,user );
+        orderService.updateUserAndOrder(order,user);
     }
 
     /**

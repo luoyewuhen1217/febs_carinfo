@@ -50,7 +50,7 @@ function getOrders() {
             $.each(data, function (k, v) {
                 console.log(data);
                 orderstate = v["payStatus"];
-                alert("orderstate:" + orderstate);
+                // alert("orderstate:" + orderstate);
                 if (orderstate == "1") {
                     //停止查订单状态
                     clearInterval(timer);
