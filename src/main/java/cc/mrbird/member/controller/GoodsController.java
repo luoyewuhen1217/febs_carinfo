@@ -178,7 +178,8 @@ public class GoodsController extends BaseController {
 //                goods.setStatus(Goods.STATUS_VALID);
 //            else
 //                goods.setStatus(Goods.STATUS_LOCK);
-            this.goodsService.updateGoods(goods, rolesSelect);
+
+            //this.goodsService.updateGoods(goods, rolesSelect);
             return ResponseBo.ok("修改商品成功！");
         } catch (Exception e) {
             log.error("修改商品失败", e);

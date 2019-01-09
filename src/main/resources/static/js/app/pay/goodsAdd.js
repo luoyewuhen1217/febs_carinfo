@@ -15,7 +15,6 @@ $(function () {
         var flag = validator.form();
         if (flag) {
             if (name === "save") {
-                alert("save");
                 $.post(ctx + "goods/add", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
@@ -25,7 +24,6 @@ $(function () {
                 });
             }
             if (name === "update") {
-                alert("update");
                 $.post(ctx + "goods/update", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
