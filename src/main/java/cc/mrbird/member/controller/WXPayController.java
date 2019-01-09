@@ -79,7 +79,7 @@ public class WXPayController {
         //退款金额
         reqData.put("refund_fee", "2");
         // 退款异步通知地址
-        reqData.put("notify_url", wxPayConfig.getNotifyUrl());
+//        reqData.put("notify_url", wxPayConfig.getNotifyUrl());
         reqData.put("refund_fee_type", "CNY");
         reqData.put("op_user_id", wxPayConfig.getMchID());
 
