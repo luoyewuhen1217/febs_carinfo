@@ -94,8 +94,7 @@ function closeDiv() {
 
 $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function () {
     $("#request-process-patent").html("正在提交数据，请勿关闭当前窗口...");
-    //$("#request-process-patent").html("<img id=\"imgs\" src=\"http://qiwebdd.shangyixx.com//wxpay/precreate/order\">");
-    //return;
+
 
     var payment_method = $("input[name='payment_method-63cc6c9f10d6d97511b9768b1c3ca2580']:checked").val()
     var json_data = {
@@ -141,8 +140,12 @@ $("#btn-pay-button-63cc6c9f10d6d97511b9768b1c3ca2580").click(function () {
             *
             * */
             if (payment_method == "alipay") { // 支付宝支付
-                window.open("http://localhost:8000/order/" + payment_method + "/" + message.msg);
-                orderCode = orderCodeNow;//轮询当前订单号
+                //如果浏览器拦截这个可以用a来除非
+                //$('#aopen').attr('href','http://keleyi.com');
+                //$("#aopen")[0].click();
+                //http://localhost:8000 不写这个也可以正常跳转
+                window.open("/order/" + payment_method + "/" + message.msg);
+                orderCode = message.msg;//轮询当前订单号
                 //轮询查看订单状态
                 timer = setInterval(getOrders, 2000);// 注意函数名没有引号和括弧！ 两秒轮询一次
             } else if (payment_method == "wechat") { // 微信支付
