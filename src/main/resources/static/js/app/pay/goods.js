@@ -8,9 +8,11 @@ $(function () {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
                 goodsCycle: $goodsTableForm.find("select[name='goodsCycle']").val(),
+                vipType: $goodsTableForm.find("select[name='vipType']").val(),
                 vipMoney: $goodsTableForm.find("input[name='vipMoney']").val().trim(),
                 // businessMoney: $goodsTableForm.find("input[name='businessMoney']").val().trim(),
-                remark: $goodsTableForm.find("input[name='remark']").val()
+                remark: $goodsTableForm.find("input[name='remark']").val(),
+                createTime: $goodsTableForm.find("input[name='createTime']").val()
             };
         },
         columns: [{

@@ -136,8 +136,8 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
         this.updateNotNull(goods);
         Example example = new Example(Goods.class);
         example.createCriteria().andCondition("goods_id=", goods.getGoodsId());
-        this.goodsMapper.deleteByExample(example);
-        setGoodsRoles(goods, roles);
+        this.goodsMapper.updateByExample(goods,example);
+//        setGoodsRoles(goods, roles);
     }
 
     @Override

@@ -1,5 +1,4 @@
 function updateGoods() {
-    alert("aaa");
     var selected = $("#goodsTable").bootstrapTable('getSelections');
     var selected_length = selected.length;
     if (!selected_length) {
@@ -17,11 +16,11 @@ function updateGoods() {
             $form.modal();
             var goods = r.msg;
             $("#goods-add-modal-title").html('修改商品');
+            $form.find("input[name='goodsId']").val(goods.goodsId);
             $form.find("input[name='goodsCycle']").val(goods.goodsCycle).attr("readonly", true);
             $form.find("input[name='vipMoney']").val(goods.vipMoney);
             // $form.find("input[name='businessMoney']").val(goods.businessMoney);
             $form.find("input[name='remark']").val(goods.remark);
-            $form.find("input[name='createTime']").val(goods.createTime).attr("readonly", true);;
             $("#goods-add-button").attr("name", "update");
         } else {
             $MB.n_danger(r.msg);

@@ -4,24 +4,18 @@ var $goodsAddForm = $("#goods-add-form");
 // var $roles = $goodsAddForm.find("input[name='roles']");
 
 $(function () {
-    // validateRule();
+    validateRule();
     // initRole();
     // createDeptTree();
 
-    // $("input[name='status']").change(function () {
-    //     var checked = $(this).is(":checked");
-    //     var $status_label = $("#status");
-    //     if (checked) $status_label.html('可用');
-    //     else $status_label.html('禁用');
-    // });
-
     $("#goods-add .btn-save").click(function () {
         var name = $(this).attr("name");
-        getDept();
+        // getDept();
         var validator = $goodsAddForm.validate();
         var flag = validator.form();
         if (flag) {
             if (name === "save") {
+                alert("save");
                 $.post(ctx + "goods/add", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
@@ -31,6 +25,7 @@ $(function () {
                 });
             }
             if (name === "update") {
+                alert("update");
                 $.post(ctx + "goods/update", $goodsAddForm.serialize(), function (r) {
                     if (r.code === 0) {
                         closeModal();
@@ -50,71 +45,57 @@ $(function () {
 
 function closeModal() {
     $("#goods-add-button").attr("name", "save");
-    validator.resetForm();
-    $rolesSelect.multipleSelect('setSelects', []);
-    $rolesSelect.multipleSelect("refresh");
-    $goodsAddForm.find("input[name='goodsname']").removeAttr("readonly");
-    $goodsAddForm.find(".goods_password").show();
-    $goodsAddForm.find("input[name='status']").prop("checked", true);
-    $("#goods-add-modal-title").html('新增用户');
+    // validator.resetForm();
+    // $rolesSelect.multipleSelect('setSelects', []);
+    // $rolesSelect.multipleSelect("refresh");
+    $goodsAddForm.find("input[name='goodsId']").removeAttr("readonly");
+    $goodsAddForm.find("input[name='goodsCycle']").removeAttr("readonly");
+    $goodsAddForm.find("input[name='vipMoney']").show();
+    $goodsAddForm.find("input[name='remark']").prop("checked", true);
+    $("#goods-add-modal-title").html('新增商品');
     $MB.closeAndRestModal("goods-add");
 
 }
 
-// function validateRule() {
-//     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
-//     validator = $goodsAddForm.validate({
-//         rules: {
-//             goodsname: {
-//                 required: true,
-//                 minlength: 3,
-//                 maxlength: 10,
-//                 remote: {
-//                     url: "goods/checkgoodsName",
-//                     type: "get",
-//                     dataType: "json",
-//                     data: {
-//                         goodsname: function () {
-//                             return $("input[name='goodsname']").val().trim();
-//                         },
-//                         oldgoodsname: function () {
-//                             return $("input[name='oldgoodsname']").val().trim();
-//                         }
-//                     }
-//                 }
-//             },
-//             email: {
-//                 email: true
-//             },
-//             roles: {
-//                 required: true
-//             },
-//             mobile: {
-//                 checkPhone: true
-//             },
-//             ssex: {
-//                 required: true
-//             }
-//         },
-//         errorPlacement: function (error, element) {
-//             if (element.is(":checkbox") || element.is(":radio")) {
-//                 error.appendTo(element.parent().parent());
-//             } else {
-//                 error.insertAfter(element);
-//             }
-//         },
-//         messages: {
-//             goodsname: {
-//                 required: icon + "请输入用户名",
-//                 minlength: icon + "用户名长度3到10个字符",
-//                 remote: icon + "用户名已经存在"
-//             },
-//             roles: icon + "请选择用户角色",
-//             email: icon + "邮箱格式不正确",
-//             ssex: icon + "请选择性别"
-//         }
-//     });
-// }
+function validateRule() {
+    // var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
+    // validator = $goodsAddForm.validate({
+    //     rules: {
+    //         goodsCycle: {
+    //             required: true,
+    //             minlength: 1,
+    //             maxlength: 20,
+    //             remote: {
+    //                 url: "goods/checkGoodsName",
+    //                 type: "get",
+    //                 dataType: "json",
+    //                 data: {
+    //                     goodsCycle: function () {
+    //                         return $("input[name='goodsCycle']").val().trim();
+    //                     },
+    //                     oldGoodsCycle: function () {
+    //                         return $("input[name='oldGoodsCycle']").val().trim();
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     // errorPlacement: function (error, element) {
+    //     //     if (element.is(":checkbox") || element.is(":radio")) {
+    //     //         error.appendTo(element.parent().parent());
+    //     //     } else {
+    //     //         error.insertAfter(element);
+    //     //     }
+    //     // },
+    //     messages: {
+    //         goodsCycle: {
+    //             required: icon + "请输入套餐周期",
+    //             minlength: icon + "套餐周期格式：1天/1个月/3个月/6个月/1年/3年/5年",
+    //             remote: icon + "套餐已经存在"
+    //         }
+    //     }
+    // });
+}
 
 // function initRole() {
 //     $.post(ctx + "role/list", {}, function (r) {
