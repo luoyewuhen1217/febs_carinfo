@@ -28,8 +28,7 @@
 
             <li id="profile__info_email"><i class="zmdi zmdi-email"></i><span> [[${#strings.defaultString(user.email,'无邮箱信息')}]]</span></li>
             <li><i class="zmdi zmdi-comment-text"></i> <span>[[${#strings.defaultString(user.description,'暂无个人介绍')}]]</span></li>
-
-            <li><i class="zmdi zmdi-comment-text">vip到期时间:</i> [[${user.vipTime}]]</li>
+            <li><i class="zmdi zmdi-comment-text"></i> <span>VIP到期日：[[${#dates.format(user.vipTime,'yyyy-MM-dd HH:mm:ss')}]]   </span></li>
         </ul>
     </div>
 </div>
@@ -130,18 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    	 VIP到期时间：
-                                </span>
-                                <div class="form-group">
-                                    <input type="text" name="vipTime" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
