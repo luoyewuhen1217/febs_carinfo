@@ -43,5 +43,7 @@ public interface UserService extends IService<User> {
 
     void UpdateUserOfPay(User user );
 
-    void updateUserVip(Map map);
+    void updateUserVip(List userNameBuilder);
+
+    List<User> findUserWithUserName();
 }

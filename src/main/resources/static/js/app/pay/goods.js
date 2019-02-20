@@ -108,13 +108,14 @@ function paramsMatter2(value, row, index) {
 function deleteGoods() {
     var ids = $("#goodsTable").bootstrapTable('getSelections');
     alert("ids:"+ids);
+    // consoledebug(ids);
     var ids_arr = "";
     if (!ids.length) {
         $MB.n_warning("请勾选需要删除的商品！");
         return;
     }
     for (var i = 0; i < ids.length; i++) {
-        ids_arr += ids[i].id;
+        ids_arr += ids[i].goodsId;
         if (i !== (ids.length - 1)) ids_arr += ",";
     }
     $MB.confirm({

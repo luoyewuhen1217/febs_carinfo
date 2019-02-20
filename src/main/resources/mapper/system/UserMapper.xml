@@ -90,11 +90,44 @@
 		U .dept_id
   </select>
 
-	<update id="updateUserVip" >
+	<update id="updateUserVip" parameterType="java.util.List">
+	<![CDATA[
+		UPDATE T_USER U
+		SET u.vipstatus = '1'
+		WHERE
+			-- u.username in ('15826754862','18872990011','15072998005','15272892201','15172779642','13908661867','13986433835','15335792221')
+				<foreach item="item" index="index" collection="list"
+                         open="(" separator="," close=")">
+                        #{userNameList}
+                </foreach>
 
-		<![CDATA[UPDATE T_USER SET VIPTYPE='非vip'
-		 WHERE VIPTIME IS NOT NULL AND
-		VIPTIME < DATE_FORMAT(now(),"%Y-%m-%d %T")  ]]>
+			AND (
+				u.viptime IS NULL
+				OR
+				str_to_date(u.viptime, '%Y-%m-%d %T') < DATE_FORMAT(now(), '%Y-%m-%d %T')
+			)
+		]]>
 	</update>
-  
+
+	<!-- 查询t_user表username-单表 -->
+	<select id="findUserWithUserName" resultType="user">
+		<![CDATA[
+
+		SELECT
+			u.username
+		FROM
+			t_user u
+		WHERE
+			(
+				u.viptime IS NULL
+				OR
+				str_to_date(u.viptime, '%Y-%m-%d %T') < DATE_FORMAT(now(), '%Y-%m-%d %T')
+			)
+		AND u.vipstatus <> '1'
+
+		]]>
+	</select>
+
+
+
 </mapper>

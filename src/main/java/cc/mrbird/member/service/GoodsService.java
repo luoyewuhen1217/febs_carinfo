@@ -26,7 +26,7 @@ public interface GoodsService extends IService<Goods> {
     void addGoods(Goods goods, Long[] roles);
 
 //    @CacheEvict(key = "#p0", allEntries = true)
-    void updateGoods(Goods goods, Long[] roles);
+    void updateGoods(Goods goods);
 
 //    @CacheEvict(key = "#p0", allEntries = true)
     void deleteGoodss(String goodsIds);

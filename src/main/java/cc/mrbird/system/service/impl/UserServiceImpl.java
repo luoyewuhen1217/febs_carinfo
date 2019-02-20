@@ -63,6 +63,17 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    public List<User> findUserWithUserName() {
+        try {
+            return this.userMapper.findUserWithUserName();
+        } catch (Exception e) {
+            log.error("error", e);
+            return new ArrayList<>();
+        }
+    }
+
+
+    @Override
     @Transactional
     public void registUser(User user) {
         user.setCrateTime(new Date());
@@ -173,8 +184,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public void updateUserVip(Map map){
-        this.userMapper.updateUserVip();
+    public void updateUserVip(List userNameList){
+        this.userMapper.updateUserVip(userNameList);
     }
 
     @Override

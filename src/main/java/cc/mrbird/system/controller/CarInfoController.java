@@ -53,15 +53,15 @@ public class CarInfoController extends BaseController {
 
             List<CarInfo> list = this.carInfoService.findAllCarInfos(carInfo,user);
             if ("1".equals(user.getVipType()) || "2".equals(user.getVipType())) { //用户类型 1:个人用户，2:商户
-                if ("1".equals(user.getVipStatus()) || user.getVipStatus() == null) {// VIP状态 0：未过期 ，1：已过期
+                if (!"0".equals(user.getVipStatus())) {// VIP状态 0：未过期 ，1：已过期
                     for (int i = 0; i < list.size(); i++) {
                         CarInfo carInfo1 = list.get(i);
+                        carInfo1.setManufacturer("*");
                         carInfo1.setContacts("*");
                         carInfo1.setTel("*");
                         carInfo1.setAddress("*");
                         carInfo1.setPrice("*");
                     }
-
                 }
             }
 

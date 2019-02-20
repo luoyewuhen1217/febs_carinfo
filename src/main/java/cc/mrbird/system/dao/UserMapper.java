@@ -15,5 +15,7 @@ public interface UserMapper extends MyMapper<User> {
 	
 	User findUserProfile(User user);
 
-	void updateUserVip();
+	void updateUserVip(List userNameList);
+
+	List<User> findUserWithUserName();
 }

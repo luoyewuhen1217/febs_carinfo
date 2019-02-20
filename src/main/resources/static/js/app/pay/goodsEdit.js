@@ -21,7 +21,7 @@ function updateGoods() {
             $form.find("input[name='vipMoney']").val(goods.vipMoney);
             // $form.find("input[name='businessMoney']").val(goods.businessMoney);
             $form.find("input[name='remark']").val(goods.remark);
-            // $form.find("input[name='vipType']").val(goods.vipType);
+
             $("#goods-add-button").attr("name", "update");
         } else {
             $MB.n_danger(r.msg);

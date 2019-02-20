@@ -156,10 +156,8 @@ public class GoodsController extends BaseController {
     @ResponseBody
     public ResponseBo addGoods(Goods goods, Long[] roles) {
         try {
-//            if (ON.equalsIgnoreCase(goods.getStatus()))
-//                goods.setStatus(Goods.STATUS_VALID);
-//            else
-//                goods.setStatus(Goods.STATUS_LOCK);
+            User user = super.getCurrentUser();
+            goods.setVipType(user.getVipType());
             this.goodsService.addGoods(goods, roles);
             return ResponseBo.ok("新增商品成功！");
         } catch (Exception e) {
@@ -172,14 +170,13 @@ public class GoodsController extends BaseController {
     @RequiresPermissions("goods:update")
     @RequestMapping("goods/update")
     @ResponseBody
-    public ResponseBo updateGoods(Goods goods, Long[] rolesSelect) {
+    public ResponseBo updateGoods(Goods goods) {
         try {
-//            if (ON.equalsIgnoreCase(goods.getStatus()))
-//                goods.setStatus(Goods.STATUS_VALID);
-//            else
-//                goods.setStatus(Goods.STATUS_LOCK);
 
-            //this.goodsService.updateGoods(goods, rolesSelect);
+            Goods g = this.goodsService.findById(goods.getGoodsId());
+            g.setVipMoney(goods.getVipMoney());
+            g.setRemark(goods.getRemark());
+            this.goodsService.updateGoods(g);
             return ResponseBo.ok("修改商品成功！");
         } catch (Exception e) {
             log.error("修改商品失败", e);

@@ -59,7 +59,7 @@ public class CarInfoServiceImpl extends BaseService<CarInfo> implements CarInfoS
 //                criteria.andCondition("emissionStandard=", Long.valueOf(carinfo.getEmissionStandard()));
 //            }
             if ("2".equals(user.getVipType())) { // 商户
-                if ("1".equals(user.getVipStatus()) || user.getVipStatus() == null ) {// VIP状态 0：未过期 ，1：已过期
+                if (!"0".equals(user.getVipStatus())) {// VIP状态 0：未过期 ，1：已过期
                     criteria.andCondition("tel <>",user.getUsername());
                 }
             }

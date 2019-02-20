@@ -129,7 +129,7 @@ public class GoodsServiceImpl extends BaseService<Goods> implements GoodsService
 
     @Override
     @Transactional
-    public void updateGoods(Goods goods, Long[] roles) {
+    public void updateGoods(Goods goods) {
 //        goods.setPassword(null);
 //        goods.setGoodsname(null);
 //        goods.setModifyTime(new Date());
