@@ -63,7 +63,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public List<User> findUserWithUserName() {
+    public List<String> findUserWithUserName() {
         try {
             return this.userMapper.findUserWithUserName();
         } catch (Exception e) {
@@ -184,7 +184,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public void updateUserVip(List userNameList){
+    public void updateUserVip(List<String> userNameList){
+        log.info(userNameList.toString());
         this.userMapper.updateUserVip(userNameList);
     }
 

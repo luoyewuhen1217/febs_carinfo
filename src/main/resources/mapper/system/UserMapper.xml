@@ -90,27 +90,28 @@
 		U .dept_id
   </select>
 
-	<update id="updateUserVip" parameterType="java.util.List">
-	<![CDATA[
+	<!--  u.username in ('15826754862','18872990011','15072998005','15272892201','15172779642','13908661867','13986433835','15335792221') -->
+	<update id="updateUserVip" parameterType="String">
+
 		UPDATE T_USER U
 		SET u.vipstatus = '1'
 		WHERE
-			-- u.username in ('15826754862','18872990011','15072998005','15272892201','15172779642','13908661867','13986433835','15335792221')
-				<foreach item="item" index="index" collection="list"
-                         open="(" separator="," close=")">
-                        #{userNameList}
-                </foreach>
-
+			u.username in
+				<foreach collection="list" item="userNameList" index="index"
+					open="(" close=")" separator=",">
+					#{userNameList}
+				</foreach>
+		<![CDATA[
 			AND (
 				u.viptime IS NULL
-				OR
-				str_to_date(u.viptime, '%Y-%m-%d %T') < DATE_FORMAT(now(), '%Y-%m-%d %T')
+				OR u.viptime = ''
+				OR str_to_date(u.viptime, '%Y-%m-%d %T') < DATE_FORMAT(now(), '%Y-%m-%d %T')
 			)
 		]]>
 	</update>
 
 	<!-- 查询t_user表username-单表 -->
-	<select id="findUserWithUserName" resultType="user">
+	<select id="findUserWithUserName" resultType="String">
 		<![CDATA[
 
 		SELECT

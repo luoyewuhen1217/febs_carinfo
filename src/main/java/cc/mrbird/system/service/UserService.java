@@ -43,7 +43,7 @@ public interface UserService extends IService<User> {
 
     void UpdateUserOfPay(User user );
 
-    void updateUserVip(List userNameBuilder);
+    void updateUserVip(List<String> userNameList);
 
-    List<User> findUserWithUserName();
+    List<String> findUserWithUserName();
 }

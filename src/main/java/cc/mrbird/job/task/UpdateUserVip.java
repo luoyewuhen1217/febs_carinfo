@@ -27,8 +27,8 @@ public class UpdateUserVip {
     public void vipUser() {
 //        Map map = new HashMap();
 //        map.put("userName","18612345678");
-        List<User> userNameList = userService.findUserWithUserName();
-        StringBuilder userNameBuilder = new StringBuilder();
+        List<String> userNameList = userService.findUserWithUserName();
+//        StringBuilder userNameBuilder = new StringBuilder();
         if (userNameList.size() > 0) {
 //            userNameBuilder.append("(");
 //            for (int i = 0; i < userNameList.size(); i++) {
